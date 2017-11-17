@@ -1,0 +1,246 @@
+  body{
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  }
+
+  a {
+    color: #00B7FF;
+  }
+  .panel{
+    margin-left: 5%;
+    width:90%;
+    height:auto;
+    background-color: #f0f0f0;
+    margin-top: 20px;
+    border-radius: 8px;
+    margin-bottom: 80px;
+    box-shadow: 0px 0px 10px #444444
+  }
+  .panel-title{
+    height:44px;
+    width: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    line-height: 44px;
+    font-size: 20px;
+    background-color: #0088CC;
+    overflow: hidden;
+  }
+  .panel-title span{
+    margin-left: 10px;
+    color:#ffffff;
+    width:50%;
+    float: left;
+  }
+  .panel-title input{
+    font-size: 14px;
+    float: left;
+    margin-left: 20%;
+    height:30px;
+    margin-top: 7px;
+    margin-right: 5px;
+    padding: 2px;
+    border-radius: 4px;
+  }
+  .panel-title select{
+    font-size: 14px;
+    float: left;
+    margin-left: 30%;
+    height:30px;
+    margin-top: 7px;
+    margin-right: 5px;
+    padding: 2px;
+    border-radius: 4px;
+  }
+  .panel-title button{
+    float: left;
+    background-color: #114a81;
+    border: 1px solid #114a81;
+    border-radius: 8px;
+    color: #fff;
+    cursor:pointer;
+    height: 30px;
+    font-size: 14px;
+    line-height: 27px;
+    margin-top: 7px;
+
+  }
+  .panel-title label{
+    float: left;
+    margin-left: 35%;
+    margin-right: 5px;
+    padding: 2px;
+    color: #ffffff;
+  }
+  .panel-body-all{
+    height: auto;
+    margin-bottom:10px;
+    padding: 10px;
+  }
+  .panel-body-all p select{
+    width:30%;
+    padding: 10px;
+  }
+  .panel-body{
+    margin:10px;
+    padding: 10px;
+    border:1px solid rgb(185,185,185);
+    border-radius: 4px;
+    overflow:hidden;
+  }
+  .panel-body-t{
+    color: #000000;
+    font-size: 22px;
+    font-weight: bold;
+    border-bottom: 1px solid #444444; 
+    padding-bottom:10px;
+  }
+  .panel-body-t-score{
+    color: #000000;
+    font-size: 20px;
+  }
+  .panel-body-b{
+    padding-top: 20px;
+    margin-left: 10px;
+    font-size: 18px;
+  }
+  .panel-body-f{
+    margin-top:20px;
+    float: right;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 12px;
+  }
+  th,td{
+    margin: 0;
+    text-align: center;
+    border-collapse: collapse;
+    outline: 1px solid #e3e3e3;
+    color: black;
+  }
+
+  td{
+      padding: 5px 10px;
+  }
+
+  th{
+      background: white;
+      color: black;
+      padding: 5px 10px;
+  }
+
+  td:hover{
+      cursor: pointer;
+      background: #4a86e8;
+      color: white;
+  }
+  .btn
+  {
+    background-color: #4a86e8;
+    border: 1px solid #4a86e8;
+    border-radius: 8px;
+    margin-top: 10px;
+    color: #fff;
+    cursor:pointer;
+  }
+  .btn-block{
+    background-color: #4a86e8;
+    border: 1px solid #4a86e8;
+    border-radius: 8px;
+    margin-top: 10px;
+    color: #fff;
+    cursor:pointer;
+    width: 50%;
+    height:44px;
+    font-size: 20px;
+  }
+  .nav-item a{
+    color: #ffffff;
+  }
+  .nav-pills .nav-link.active, .show>.nav-pills .nav-link{
+    background-color: #444444;
+  }
+  .project-name{
+    font-size: 18px; 
+    margin-top: 30px;
+   
+  }
+  .project-name a{
+     color:#ffffff;
+     text-decoration-style:none; 
+  }
+  .welcome{
+    position: fixed;
+    color: #ffffff;
+    line-height: 40px;    
+    right: 40px;
+  }
+  .welcome span{
+    margin-right:20px;
+
+  }
+  .center {
+    text-align: center;
+  }
+  .fix-s-height{
+    height: 300px;
+  }
+  .overflow-s{
+    height:256px;
+    overflow-y: scroll;
+  }
+  .fix-l-height{
+    height: 1920px;
+  }
+  .overflow-l{
+    height:1876px;
+    overflow-y: scroll;
+  }
+  .panel-table{
+    text-align: center;
+    padding: 20px;
+    height: 500px;
+    overflow-y: scroll;
+  }
+  .link{
+    color:#114a81;
+    cursor: pointer;
+  }
+  .input_row{
+    width: 60%;
+    font-size: 16px;
+    padding: 10px;
+    overflow: hidden;
+  }
+  .input_row label{
+    width: 40%;
+  }
+  .input_row input{
+    width: 58%;
+    border-radius: 4px;
+    padding: 5px;
+    border:1px solid #114a81;
+  }
+  .input_row select{
+    width: 58%;
+    border-radius: 4px;
+    padding: 5px;
+    border:1px solid #114a81;
+  }
+  .input_row textarea{
+    float: right;
+    border: 1px solid #114a81;
+  }
+  .input_row button{
+    float: right;
+  }
+  .btn-red{
+    background-color: red;
+    border:1px solid red;
+  }
+  .marks{
+    width:80px;
+  }
+  .margin-bottom{
+    margin-bottom: 50px;
+  }

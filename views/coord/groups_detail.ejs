@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+  <!--  <link rel="icon" href="../../../../favicon.ico">-->
+
+    <title>Dashboard for students</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="../stylesheets/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #114a81;">
+      <a class="navbar-brand" href="#">UPMS</a>
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+       
+          <div class="project-name">
+            <a href="../">University Project Management System</a>
+          </div>
+          <div class="welcome"> 
+            Welcome:
+            <span> Hang</span>
+            <span class="btn">sign out</span>
+          </div>
+      </div>
+    </nav>
+    
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block sidebar" style="background-color: #666666;">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item" >
+              <a class="nav-link " href="/coord">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/coord/project">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/coord/groups">Groups  <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/coord/assessments">Assessments</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/coord/meeting">Manage meeting Time</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Manage presentation Time</a>
+            </li>
+          </ul>
+          <hr>
+
+          <ul class="nav nav-pills flex-column">
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/coord/profile">Profile</a>
+            </li>
+          </ul>
+
+        </nav>
+
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+
+
+          <div class="panel" >
+              <div class="panel-title">
+                <span>Group 1</span>
+              </div>
+              <div class="panel-body-all" style="text-align: center; padding: 20px; "">
+                 <table width="80%" align="center">
+              <tr>
+                  <th>Student Number</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Major</th>
+                  <th>GPA</th>
+                  <th></th>
+
+              </tr>
+               <tr>
+                 <th>n9326448</th>
+                  <th>Hang</th>
+                  <th>Su</th>
+                  <th>CS</th>
+                  <th>5</th>
+                  <th><span class="btn">REMOVE</span></th>
+
+              </tr>
+              <tr>
+                  <th>n9326448</th>
+                  <th>James</th>
+                  <th>wang</th>
+                  <th>CS</th>
+                  <th>5</th>
+                  <th><span class="btn">REMOVE</span></th>
+
+              </tr>
+              <tr>
+                  <th>n9326448</th>
+                  <th>Richard</th>
+                  <th>Guo</th>
+                  <th>CS</th>
+                  <th>5</th>
+                  <th><span class="btn">REMOVE</span></th>
+
+              </tr>
+
+            </table>
+              </div>
+          </div>
+
+
+
+
+          <div class="panel">
+              <div class="panel-title">
+                <span>Available Student:</span>
+                <input type="text" placeholder="search student number">
+                <button>search</button>
+              </div>
+              <div class="panel-body-all" style="text-align: center;">
+                  <table width="80%" align="center">
+              <tr>
+                  <th>Student Number</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Major</th>
+                  <th>GPA</th>
+                  <th></th>
+
+              </tr>
+               <tr>
+                 <th>n9326448</th>
+                  <th>Hang</th>
+                  <th>Su</th>
+                  <th>CS</th>
+                  <th>5</th>
+                  <th><span class="btn">ADD TO GROUP</span></th>
+
+              </tr>
+              <tr>
+                  <th>n9326448</th>
+                  <th>James</th>
+                  <th>wang</th>
+                  <th>CS</th>
+                  <th>5</th>
+                  <th><span class="btn">ADD TO GROUP</span></th>
+
+              </tr>
+              <tr>
+                  <th>n9326448</th>
+                  <th>Richard</th>
+                  <th>Guo</th>
+                  <th>CS</th>
+                  <th>5</th>
+                  <th><span class="btn">ADD TO GROUP</span></th>
+
+              </tr>
+
+            </table>
+                 
+              </div>
+          </div>
+
+
+
+           <div class="panel">
+              <div class="panel-title">
+                <span>Applied Projects:</span>
+              </div>
+              <div class="panel-body-all" style="text-align: center;">
+                  <table width="90%" align="center">
+              <tr>
+                  <th>Project Name</th>
+                  <th>Remaining Slots</th>
+                  <th>Difficulty Level</th>
+                  <th>Application</th>
+                  <th>Student Preference</th>
+                  <th>Supervesor Preference</th>
+                  <th></th>
+
+              </tr>
+               <tr>
+                 <th class="link">Public trasport system intergreation</th>
+                  <th>C</th>
+                  <th>3</th>
+                  <th class="link">link</th>
+                  <th>1</th>
+                  <th>1</th>
+                  <th><span class="btn">Assign</span></th>
+
+              </tr>
+             <tr>
+                 <th class="link">Public trasport system intergreation</th>
+                  <th>C</th>
+                  <th>2</th>
+                  <th  class="link" >link</th>
+                  <th>2</th>
+                  <th>1</th>
+                  <th><span class="btn">Assign</span></th>
+
+              </tr>
+              <tr>
+                 <th class="link">Public trasport system intergreation</th>
+                 <th>4</th>
+                  <th>C</th>
+                  <th  class="link">link</th>
+                  <th>3</th>
+                  <th>2</th>
+                  <th><span class="btn">Assign</span></th>
+
+              </tr>
+
+            </table>
+                 
+              </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+
+    
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../stylesheets/popper.min.js"></script>
+    <script src="../stylesheets/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
+
+

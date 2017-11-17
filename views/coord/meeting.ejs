@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+  <!--  <link rel="icon" href="../../../../favicon.ico">-->
+
+    <title>Dashboard for students</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="../stylesheets/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #114a81;">
+      <a class="navbar-brand" href="#">UPMS</a>
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+       
+          <div class="project-name">
+            <a href="../">University Project Management System</a>
+          </div>
+          <div class="welcome"> 
+            Welcome:
+            <span> Hang</span>
+            <span class="btn">sign out</span>
+          </div>
+      </div>
+    </nav>
+    
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block sidebar" style="background-color: #666666;">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item" >
+              <a class="nav-link " href="/coord">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/coord/project">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/coord/groups">Groups</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/coord/assessments">Assessments</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="/coord/meeting">Manage meeting Time</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/coord/meeting">Manage presentation Time</a>
+            </li>
+          </ul>
+          <hr>
+
+          <ul class="nav nav-pills flex-column">
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/coord/profile">Profile</a>
+            </li>
+          </ul>
+
+        </nav>
+
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+
+
+         <div class="panel">
+              <div class="panel-title">
+                <span>Time Table</span>
+              </div>
+              <div class="panel-body-all" >
+                <table width="80%" align="center" style="margin-top: 20px;">
+
+
+              <tr>
+                  <th></th>
+                  <th>Monday</th>
+                  <th>Tuesday</th>
+                  <th>Wednesday</th>
+                  <th>Thrusday</th>
+                  <th>Friday</th>
+
+              </tr>
+
+
+              <tr>
+                  <th>8:00 - 9:00</th>
+
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+
+
+              </tr>
+
+              <tr>
+                  <th>9:00 - 10:00</td>
+
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+
+
+              </tr>
+
+              <tr>
+                  <th>10:00 - 11:00</td>
+
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Group 3</td>
+                      <td></td>
+
+
+
+              </tr>
+
+              <tr>
+                  <th>11:00 - 12:00</td>
+
+                      <td>Group11</td>
+                      <td>Group1</td>
+                      <td></td>
+                      <td>Group4</td>
+                      <td></td>
+
+
+
+              </tr>
+
+              <tr>
+                  <th>12:00 - 13:00</td>
+
+                      <td></td>
+                      <td></td>
+                      <td>Group6</td>
+                      <td></td>
+                      <td></td>
+
+
+              </tr>
+              <tr>
+                  <th>13:00 - 14:00</td>
+
+                      <td>Status Free</td>
+                      <td>Status Free</td>
+                      <td></td>
+                      <td>Group 5</td>
+                      <td></td>
+
+
+              </tr>
+
+              <tr>
+                  <th>14:00 - 15:00</td>
+
+                      <td></td>
+                      <td></td>
+                      <td>Group 7</td>
+                      <td></td>
+                      <td></td>
+
+
+              </tr>
+
+              <tr>
+                  <th>15:00 - 16:00</td>
+
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+
+
+              </tr>
+
+              <tr>
+                  <th>16:00 - 17:00</td>
+
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+
+
+              </tr>
+              <tr>
+                  <th>17:00 - 18:00</td>
+
+                      <td>Status Free</td>
+                      <td>Status Free</td>
+                      <td></td>
+                      <td>Status Free</td>
+                      <td></td>
+
+
+              </tr>
+          </table>
+
+              </div>
+          </div>
+
+
+
+          <div class="panel">
+              <div class="panel-title">
+                <span>Add Meeting Time</span>
+              </div>
+              <div class="panel-body-all">
+                  <div class="input_row">
+                    <label>Date:</label>
+                    <input type="date">
+                  </div>
+                  <div class="input_row">
+                    <label>Time:</label>
+                    <input type="time">
+                  </div>
+                  <div class="input_row">
+                    <label>Duration(min):</label>
+                    <input type="number">
+                  </div>
+                  <div class="input_row">
+                    <label>Assign To:</label>
+                    <select>
+                      <option value="">Hang</option>
+                      <option value="">Jerry</option>
+                    </select>
+                  </div>
+                  <div class="input_row">
+                    <button class="btn">ADD</button>
+                  </div>
+                 
+              </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+
+    
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../stylesheets/popper.min.js"></script>
+    <script src="../stylesheets/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
+
+
