@@ -27,24 +27,4 @@ router.get('/', function(req, res, next) {
 
 
 
-
-
-
-
-
-
-
-
-router.post('/test', function (req, res) {
-  var ip = req.connection.remoteAddress;
-  var time = Date();
-  var sql = "INSERT INTO connection (connectionIp, connectionTime) VALUES ('"+ip+"', '"+time+"')";
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    res.send("1 record inserted");
-  });
-  
-})
-
-
 module.exports = router;
