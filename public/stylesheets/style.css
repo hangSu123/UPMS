@@ -221,6 +221,12 @@
     padding: 5px;
     border:1px solid #114a81;
   }
+  .input_row span{
+    float: right;
+    padding: 5px;
+    color: red;
+    display: none;
+  }
   .input_row select{
     width: 58%;
     border-radius: 4px;

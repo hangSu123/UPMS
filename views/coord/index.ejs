@@ -80,8 +80,8 @@
               <div class="panel-title">
                 <span>Announcement</span>
               </div>
-              <div class="panel-body-all overflow-s">
-                <div class="panel-body">
+              <div id = "announcement" class="panel-body-all overflow-s">
+                <!-- <div class="panel-body">
                   <div class="panel-body-t">
                     Presation time registration
                   </div>
@@ -105,7 +105,7 @@
                   <div class="panel-body-f">
                     <span>Time:10/05/2018<span>
                   </div>
-                </div>
+                </div> -->
               </div>
           </div>
 
@@ -116,15 +116,26 @@
                 <span>Set events</span>
               </div>
               <div class="panel-body-all center">
-                  <div>
-                    <p><input type="text" placeholder="event title">
-                    <input type="date"></p>
-                    <p><textarea placeholder="Enter Detail" rows="4" cols="48">
-                      
-                    </textarea></p>
-                    <button class="btn">Make an annoucement</button>
-                    <button class="btn">Set event on calandar</button>
+                  <div class="input_row">
+                    <label><b>Event Title:</b></label>
+                    <input type="text" placeholder="Please enter a simple description">
+                    <span class="error">Event description is needed</span>
                   </div>
+                  <div class="input_row">
+                    <label><b>Date:</b></label>
+                    <input type="date">
+                    <span  class="error">Time is required</span>
+                  </div>
+                  <div class="input_row">
+                    <textarea name="" id="" cols="35" rows="10"></textarea>
+                    <span  class="error">Content cannot be empty</span>
+                  </div>
+                  <div class="input_row" >
+                     <button class="btn" >Make an announcement</button>
+                     <button class="btn" style="margin-right: 10px">Set event on calandar</button>
+                  </div>
+                   
+                    
                  
               </div>
           </div>
@@ -295,7 +306,109 @@
     <script src="../stylesheets/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>
+    <script src="../javascripts/hangsuper.js"></script>
   </body>
+
+
+  <script>
+    var input = hs.getTagName('input');
+     var btn = hs.getTagName('button');
+     var error = hs.getClassName('error');
+     var textarea = hs.getTagName('textarea');
+     var announcement = hs.getId('announcement');
+
+
+
+     getAnnouncement();
+
+    
+
+
+    function getAnnouncement(){
+      announcement.innerHTML="";
+      hs.getAjax({
+        url:'/coord/getAnnouncement',
+        data:{
+          userId:'1'
+        },
+        succFn:function(data){
+          var temp = "";
+          console.log(data.length);
+
+            if (data === 0 || data == 1){
+             temp = "Please Check your database";
+            }else if(data.length=="0" ){
+              temp = "Welcome to IFB398/IFB399 Capstone";
+            }else{
+              temp = data;
+            }
+           announcement.innerHTML = temp;
+          
+        }
+      })
+    };
+
+     function checkValidation(){
+        var title = input[0].value;
+        var time = input[1].value;
+        var content = textarea[0].value;
+          if(title == "" || title == undefined || title == null ){
+            error[0].style.display="block";
+            return;
+          } 
+          if(time == "" || time == undefined || time == null ){
+            error[0].style.display="";
+            error[1].style.display="block";
+
+            return;
+          }
+          if(content == "" || content == undefined || content == null ){
+            error[1].style.display="";
+            error[2].style.display="block";
+            return;
+          }
+           error[0].style.display="";
+           error[1].style.display="";
+           error[2].style.display="";
+     }
+
+
+      btn[0].addEventListener('click',function(){
+        checkValidation();
+
+        hs.getAjax({
+          url:'/coord/createAnnouncement',
+          data:{
+            userId:001,
+            title:input[0].value,
+            content:textarea[0].value,
+            time:input[1].value
+          },
+          succFn:function(data){
+            if (data == 2) {
+              alert("Annnouncement has been added");
+              getAnnouncement();
+
+              input[0].value = "";
+              input[1].value = "";
+              textarea[0].value = "";
+            }else{
+              alert("Please check your internet");
+            }
+           
+          }
+        })
+      
+      //
+     });
+
+
+
+
+  </script>
+
+
+
 </html>
 
 
