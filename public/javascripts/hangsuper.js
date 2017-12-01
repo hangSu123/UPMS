@@ -88,13 +88,13 @@ window.hangsper = window.hs = {
 		}
 		switch(json.type.toLowerCase()){
 			case 'get':
-				oAjax.open('GET',json.url+json2url(json.data),true);
+				oAjax.open('GET',json.url+getjson2url(json.data),true);
 				oAjax.send();
 				break;
 			case 'post':
 				oAjax.open('POST',json.url,true);
 				oAjax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-				oAjax.send(json2url(json.data));
+				oAjax.send(postjson2url(json.data));
 				break;
 		}	
 		oAjax.onreadystatechange=function(){
@@ -113,13 +113,24 @@ window.hangsper = window.hs = {
 			oAjax.onreadystatechange=null;
 		},json.time*1000);	
 		
-		function json2url(json){
+		function getjson2url(json){
 			//json.t = Math.random();
 			var arr=[];
 			for(var name in json){
 				arr.push('/'+json[name]);
 			}
 			return arr.join('');
+		}
+
+
+		function postjson2url(json){
+			json.t = Math.random();
+			json.package_name_data = gPackage;
+			var arr=[];
+			for(var name in json){
+				arr.push(name+'='+json[name]);
+			}
+			return arr.join('&');
 		}	
 	},
 	/**

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var connect = require('./con');
+var connect = require('./conn');
 
 
 router.get('/', function(req, res, next) {
