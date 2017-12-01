@@ -17,6 +17,7 @@
     <!-- Custom styles for this template -->
     <link href="../stylesheets/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="../stylesheets/style.css">
+    <link rel="stylesheet" href="../stylesheets/theme2.css">
   </head>
 
   <body>
@@ -146,150 +147,30 @@
            <div class="panel">
               <div class="panel-title">
                 <span>Time Table</span>
-                <select>
+                <!-- <select>
                   <option>Week 1</option>
                   <option>Week 2</option>
                   <option>Week 3</option>
                   <option>Week 4</option>
-                </select>
-                <button>search</button>
+                </select> -->
               </div>
-              <div class="panel-body-all" >
-                <table width="80%" align="center" style="margin-top: 20px;">
-
-
-              <tr>
-                  <th></th>
-                  <th>Monday</th>
-                  <th>Tuesday</th>
-                  <th>Wednesday</th>
-                  <th>Thrusday</th>
-                  <th>Friday</th>
-
-              </tr>
-
-
-              <tr>
-                  <th>8:00 - 9:00</th>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-
-
-              </tr>
-
-              <tr>
-                  <th>9:00 - 10:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-
-
-              </tr>
-
-              <tr>
-                  <th>10:00 - 11:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>Group 3</td>
-                      <td></td>
-
-
-
-              </tr>
-
-              <tr>
-                  <th>11:00 - 12:00</td>
-
-                      <td>Group11</td>
-                      <td>Group1</td>
-                      <td></td>
-                      <td>Group4</td>
-                      <td></td>
-
-
-
-              </tr>
-
-              <tr>
-                  <th>12:00 - 13:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td>Group6</td>
-                      <td></td>
-                      <td></td>
-
-
-              </tr>
-              <tr>
-                  <th>13:00 - 14:00</td>
-
-                      <td>Status Free</td>
-                      <td>Status Free</td>
-                      <td></td>
-                      <td>Group 5</td>
-                      <td></td>
-
-
-              </tr>
-
-              <tr>
-                  <th>14:00 - 15:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td>Group 7</td>
-                      <td></td>
-                      <td></td>
-
-
-              </tr>
-
-              <tr>
-                  <th>15:00 - 16:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-
-
-              </tr>
-
-              <tr>
-                  <th>16:00 - 17:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-
-
-              </tr>
-              <tr>
-                  <th>17:00 - 18:00</td>
-
-                      <td>Status Free</td>
-                      <td>Status Free</td>
-                      <td></td>
-                      <td>Status Free</td>
-                      <td></td>
-
-
-              </tr>
-          </table>
-
+              <div class="panel-body-all" style="overflow: hidden;">
+                <div class="panel-body" style="width: 48%; float: left;">
+                  <div id="calandar">
+                    
+                  </div>
+                </div>
+                <div class="panel-body" style="width: 47%; float: left; min-height: 320px;">
+                  <div class="panel-body-t">
+                   December 7, 2017
+                  </div>
+                  <div class="panel-body-b" style="font-size: 15px; font-weight: lighter;">
+                    Presentation time register is available in week 8
+                  </div>
+                  <div class="panel-body-f" style="font-size: 15px; font-weight: lighter;">
+                    <span class="link">@ Hang Su<span>
+                  </div>
+                </div>
               </div>
           </div>
 
@@ -302,15 +183,13 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../stylesheets/popper.min.js"></script>
-    <script src="../stylesheets/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>
     <script src="../javascripts/hangsuper.js"></script>
+    <script src="../javascripts/caleandar.js"></script>
   </body>
 
 
   <script>
+    console.log(new Date(2017,11,7));
     var input = hs.getTagName('input');
      var btn = hs.getTagName('button');
      var error = hs.getClassName('error');
@@ -403,6 +282,21 @@
      });
 
 
+
+      var events = [
+        {'Date': new Date(2017,11,7), 'Title': 'Doctor appointment at 3:25pm.','Link':'1'},
+        {'Date': new Date(2017,11,8), 'Title': 'Doctor appointment at 3:25pm.','Link':'2'},
+      ];
+      var settings = {};
+      var element = document.getElementById('calandar');
+      caleandar(element, events, settings);
+
+      
+
+
+      function showdetail(self){
+        alert(self.getAttribute("id"));
+      }
 
 
   </script>
