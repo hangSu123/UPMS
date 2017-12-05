@@ -18,6 +18,7 @@
     <link href="../stylesheets/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="../stylesheets/style.css">
     <link rel="stylesheet" href="../stylesheets/theme2.css">
+    <link rel="stylesheet" href="../stylesheets/hangsuper.css">
   </head>
 
   <body>
@@ -77,11 +78,11 @@
 
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
 
-          <div class="panel fix-s-height">
+          <div class="panel" style="height:500px;">
               <div class="panel-title">
-                <span>Announcement</span>
+                <span>Announcements</span>
               </div>
-              <div id = "announcement" class="panel-body-all overflow-s">
+              <div id = "announcement" class="panel-body-all" style="height:456px; overflow-y:scroll">
                 <!-- <div class="panel-body">
                   <div class="panel-body-t">
                     Presation time registration
@@ -160,16 +161,16 @@
                     
                   </div>
                 </div>
-                <div class="panel-body" style="width: 47%; float: left; min-height: 320px;">
-                  <div class="panel-body-t">
+                <div id = "calandarDeatil" class="panel-body" style="width: 47%; float: left; min-height: 320px;">
+                  <!-- <div class="panel-body-t">
                    December 7, 2017
                   </div>
                   <div class="panel-body-b" style="font-size: 15px; font-weight: lighter;">
                     Presentation time register is available in week 8
                   </div>
                   <div class="panel-body-f" style="font-size: 15px; font-weight: lighter;">
-                    <span class="link">@ Hang Su<span>
-                  </div>
+                    <span class="link">@ Hang Su</span>
+                  </div> -->
                 </div>
               </div>
           </div>
@@ -189,16 +190,16 @@
 
 
   <script>
-    console.log(new Date(2017,11,7));
     var input = hs.getTagName('input');
-     var btn = hs.getTagName('button');
-     var error = hs.getClassName('error');
-     var textarea = hs.getTagName('textarea');
-     var announcement = hs.getId('announcement');
+    var btn = hs.getTagName('button');
+    var error = hs.getClassName('error');
+    var textarea = hs.getTagName('textarea');
+    var announcement = hs.getId('announcement');
 
 
 
-     getAnnouncement();
+    getAnnouncement();
+    getCalandar();
 
     
 
@@ -212,7 +213,6 @@
         },
         succFn:function(data){
           var temp = "";
-          console.log(data.length);
 
             if (data === 0 || data == 1){
              temp = "Please Check your database";
@@ -221,40 +221,71 @@
             }else{
               temp = data;
             }
-           announcement.innerHTML = temp;
+           hs.text(announcement,temp);
           
         }
       })
     };
 
+
+
+    function getCalandar(){
+      hs.getAjax({
+        url:'/coord/getCalandar',
+        data:{
+          userId:'1'
+        },
+        succFn:function(data){
+          var temp = "";
+
+            if (data === 0 || data == 1){
+             temp = "Please Check your database";
+            }else if(data.length=="0" ){
+              temp = "Welcome to IFB398/IFB399 Capstone";
+            }else{
+              temp = JSON.parse(data);
+            }
+            dispalyCalandar(temp.events);
+        }
+      })
+    };
+
+   
+
      function checkValidation(){
+        var pass = true; 
         var title = input[0].value;
         var time = input[1].value;
         var content = textarea[0].value;
           if(title == "" || title == undefined || title == null ){
             error[0].style.display="block";
-            return;
+            pass = false;
+            return pass;
           } 
           if(time == "" || time == undefined || time == null ){
             error[0].style.display="";
             error[1].style.display="block";
-
-            return;
+            pass = false;
+            return pass;
           }
           if(content == "" || content == undefined || content == null ){
             error[1].style.display="";
             error[2].style.display="block";
-            return;
+            pass = false;
+            
           }
-           error[0].style.display="";
-           error[1].style.display="";
-           error[2].style.display="";
+       error[0].style.display="";
+       error[1].style.display="";
+       error[2].style.display="";
+       return pass;
      }
 
 
-      btn[0].addEventListener('click',function(){
-        checkValidation();
 
+      hs.click(btn[0],function(){
+        if(!checkValidation()){
+          return;
+        }
         hs.getAjax({
           url:'/coord/createAnnouncement',
           data:{
@@ -265,14 +296,14 @@
           },
           succFn:function(data){
             if (data == 2) {
-              alert("Annnouncement has been added");
+              hs.toast("green",2,"Success");
               getAnnouncement();
-
+              getCalandar();
               input[0].value = "";
               input[1].value = "";
               textarea[0].value = "";
             }else{
-              alert("Please check your internet");
+              hs.toast("red",2,"Please Check your internet");
             }
            
           }
@@ -283,26 +314,43 @@
 
 
 
-      var events = [
-        {'Date': new Date(2017,11,7), 'Title': 'Doctor appointment at 3:25pm.','Link':'1'},
-        {'Date': new Date(2017,11,8), 'Title': 'Doctor appointment at 3:25pm.','Link':'2'},
-      ];
-      var settings = {};
-      var element = document.getElementById('calandar');
-      caleandar(element, events, settings);
-
       
 
-
-      function showdetail(self){
-        alert(self.getAttribute("id"));
+      function dispalyCalandar(events){
+        var settings = {};
+        var element = hs.getId('calandar');
+        element.innerHTML = "";
+        caleandar(element, events, settings);
       }
 
+
+      function showDetail(self){
+         hs.getAjax({
+          url:'/coord/getCalandar',
+          data:{
+            userId:001,
+            Id:self.getAttribute("id")
+          },
+          succFn:function(data){
+            if (data == 0 || data == 1) {
+              alert("Please check your internet");
+            }else{
+              hs.text(hs.getId("calandarDeatil"),data);
+            }
+           
+          }
+        })
+      }
+  
 
   </script>
 
 
 
 </html>
+
+
+
+
 
 

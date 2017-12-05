@@ -205,7 +205,7 @@ function createCalendar(calendar, element, adjuster){
       var number = DayNumber(i+1);
       // Check Date against Event Dates
       for(var n = 0; n < calendar.Model.length; n++){
-        var evDate = calendar.Model[n].Date;
+        var evDate = sqlToJsDate(calendar.Model[n].Date);
         var toDate = new Date(calendar.Selected.Year, calendar.Selected.Month, (i+1));
         if(evDate.getTime() == toDate.getTime()){
           number.className += " eventday";
@@ -297,3 +297,16 @@ function caleandar(el, data, settings){
   var obj = new Calendar(data, settings);
   createCalendar(obj, el);
 }
+
+ function sqlToJsDate(sqlDate){
+    //sqlDate in SQL DATETIME format ("yyyy-mm-dd hh:mm:ss.ms")
+      var sqlDateArr1 = sqlDate.split("-");
+      //format of sqlDateArr1[] = ['yyyy','mm','dd hh:mm:ms']
+      var sYear = sqlDateArr1[0];
+      var sMonth = (Number(sqlDateArr1[1]) - 1).toString();
+      var sqlDateArr2 = sqlDateArr1[2].split("T");
+      //format of sqlDateArr2[] = ['dd', 'hh:mm:ss.ms']
+      var sDay = (Number(sqlDateArr2[0]) + 1).toString();
+      
+      return new Date(sYear,sMonth,sDay);
+    }

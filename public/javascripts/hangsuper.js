@@ -15,10 +15,6 @@ window.hangsper = window.hs = {
 
 	init:function(){
 
-		var btn = hs.getClassName("btn_search");
-	  	btn[0].addEventListener('click', function(){
-	  		hs.search();
-	  	});
 
 	},
 
@@ -160,9 +156,55 @@ window.hangsper = window.hs = {
 	*/
 	redirect:function(url){
 		return window.location.href = url;
+	},
+
+
+	text:function(el,text){
+		el.innerHTML = text;
+	},
+
+
+	click:function(el,succfn){
+		el.addEventListener('click',function(){
+			succfn(this);
+		});
+	},
+
+	toast:function(color,time,text){
+		var colorCode = {
+			green:"#00cc33",
+			red:"#ff0000"
+		}
+		var div = document.createElement('div');
+		hs.text(div,text);
+		div.setAttribute('id', 'toast');
+		document.body.appendChild(div);
+		if (color == "green"){
+			div.style.background = colorCode.green;
+		}else if (color == "red"){
+			div.style.background =colorCode.red;
+		}
+	    // Add the "show" class to DIV
+	    div.className = "show";
+
+	    // After 3 seconds, remove the show class from DIV
+	    setTimeout(function(){ 
+	    	div.className = div.className.replace("show", "");
+	    	hs.removeEle(div);
+	     }, time*1000);
+	},
+
+	removeEle:function (el) {
+	    return el.parentNode.removeChild(el);
+	},
+	randomColor:function(){
+		return '#' + ('00000'+(Math.random() * 0x1000000 << 0).toString(16)).slice(-6);
+	},
+	randomNum:function(min,max){
+		return Math.floor(min + Math.random() * (max-min));
 	}
 
- 
+
 }
 
 })();
