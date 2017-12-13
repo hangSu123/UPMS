@@ -17,7 +17,6 @@
     <!-- Custom styles for this template -->
     <link href="../stylesheets/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="../stylesheets/style.css">
-    <link rel="stylesheet" href="../stylesheets/theme2.css">
     <link rel="stylesheet" href="../stylesheets/hangsuper.css">
   </head>
 
@@ -129,7 +128,7 @@
                     <span  class="error">Time is required</span>
                   </div>
                   <div class="input_row">
-                    <textarea name="" id="" cols="35" rows="10"></textarea>
+                    <textarea name="" id="" cols="35" rows="10" onkeypress="hs.keyPress(event,enterCallback);"></textarea>
                     <span  class="error">Content cannot be empty</span>
                   </div>
                   <div class="input_row" >
@@ -185,7 +184,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="../javascripts/hangsuper.js"></script>
-    <script src="../javascripts/caleandar.js"></script>
+   
   </body>
 
 
@@ -286,6 +285,12 @@
         if(!checkValidation()){
           return;
         }
+        sendAnnouncement();
+      //
+     });
+
+
+      function sendAnnouncement(){
         hs.getAjax({
           url:'/coord/createAnnouncement',
           data:{
@@ -308,9 +313,7 @@
            
           }
         })
-      
-      //
-     });
+      }
 
 
 
@@ -320,7 +323,7 @@
         var settings = {};
         var element = hs.getId('calandar');
         element.innerHTML = "";
-        caleandar(element, events, settings);
+        hs.calandar(element, events, settings);
       }
 
 
@@ -333,13 +336,20 @@
           },
           succFn:function(data){
             if (data == 0 || data == 1) {
-              alert("Please check your internet");
+              hs.toast("red",2,"Please check your internet");
             }else{
               hs.text(hs.getId("calandarDeatil"),data);
             }
            
           }
         })
+      }
+
+      function enterCallback(){
+         if(!checkValidation()){
+          return;
+        }
+        sendAnnouncement();
       }
   
 

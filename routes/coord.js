@@ -2,40 +2,46 @@ var express = require('express');
 var router = express.Router();
 var connect = require('./conn');
 
-
+// start home page 
 router.get('/', function(req, res, next) {
 	  res.render('coord/index');  
 });
 
 
 router.get('/getAnnouncement/:userId', function(req, res, next) {
-	connect().connect(function(err) {
-	  if (err) res.send('0');
-	  var sql = "SELECT * FROM announcements ORDER BY Id ASC";
-	  connect().query(sql,function(err,result){
-	  	if (err) res.send('1');
-	  	var temp="";
-	  	for (var i = result.length - 1; i >= 0; i--) {
-	  		temp += announcementTemp(result[i].title,result[i].content,JSON.stringify(result[i].date));
+  if (req.xhr){
+    connect().connect(function(err) {
+      if (err) res.send('0');
+      var sql = "SELECT * FROM announcements ORDER BY Id ASC";
+      connect().query(sql,function(err,result){
+        if (err) res.send('1');
+        var temp="";
+        for (var i = result.length - 1; i >= 0; i--) {
+          temp += announcementTemp(result[i].title,result[i].content,JSON.stringify(result[i].date));
 
-	  	}
-	  	 res.send(temp);
-	  })
-	});
+        }
+         res.send(temp);
+       })
+    });
+  } else {
+   res.send("Page not avalible");
+  }
+	
   
 });
 
 router.get('/getCalandar/:userId', function(req, res, next) {
-  connect().connect(function(err) {
+  if (req.xhr){
+    connect().connect(function(err) {
     if (err) res.send('0');
     var sql = "SELECT * FROM announcements ORDER BY Id ASC";
     connect().query(sql,function(err,result){
       if (err) res.send('1');
-      var temp={};
-      var key = "events";
-      temp[key]=[];
-      for (var i = result.length - 1; i >= 0; i--) {
-        var data = {
+        var temp={};
+        var key = "events";
+        temp[key]=[];
+        for (var i = result.length - 1; i >= 0; i--) {
+          var data = {
           Date:result[i].date,
           Title:result[i].title,
           Link:result[i].Id
@@ -43,39 +49,55 @@ router.get('/getCalandar/:userId', function(req, res, next) {
         temp[key].push(data);
       }
 
-       res.json(temp);
-    })
-  });
-  
+      res.json(temp);
+      })
+   });
+  } else {
+   res.send("Page not avalible");
+  }
 });
 
 router.get('/getCalandar/:userId/:Id', function(req, res, next) {
-  connect().connect(function(err) {
+  if (req.xhr){
+    connect().connect(function(err) {
     if (err) res.send('0');
-    var sql = "SELECT * FROM announcements WHERE Id = '"+req.params.Id+"'";
-    connect().query(sql,function(err,result){
-      if (err) res.send('1');
-      var temp ="";
-      temp = calandarTemp(JSON.stringify(result[0].date),result[0].content,result[0].userId)
-      res.send(temp);
-    })
-  });
+      var sql = "SELECT * FROM announcements WHERE Id = '"+req.params.Id+"'";
+      connect().query(sql,function(err,result){
+        if (err) res.send('1');
+        var temp ="";
+        temp = calandarTemp(JSON.stringify(result[0].date),result[0].content,result[0].userId)
+        res.send(temp);
+      })
+    });
+  } else {
+   res.send("Page not avalible");
+  }
+  
   
 });
 
 
 
 router.get('/createAnnouncement/:userId/:title/:content/:time', function(req, res, next) {
-	connect().connect(function(err) {
-	  if (err) res.send("0");
-	  var sql = "INSERT INTO announcements (userId,title,content,date) VALUES ('"+req.params.userId+"','"+req.params.title+"','"+req.params.content+"','"+req.params.time+"'	)";
-	  connect().query(sql,function(err,result){
-	  	if (err) res.send("1");
-	  	 res.send("2");
-	  })
-	});
+  if (req.xhr){
+    connect().connect(function(err) {
+    if (err) res.send("0");
+      var sql = "INSERT INTO announcements (userId,title,content,date) VALUES ('"+req.params.userId+"','"+req.params.title+"','"+req.params.content+"','"+req.params.time+"'  )";
+      connect().query(sql,function(err,result){
+        if (err) res.send("1");
+         res.send("2");
+      })
+    });
+  } else {
+   res.send("Page not avalible");
+  }
+	
   
 });
+
+
+
+/// Ends home page
 
 
 router.get('/groups', function(req, res, next) {
@@ -84,9 +106,18 @@ router.get('/groups', function(req, res, next) {
 router.get('/groups_detail', function(req, res, next) {
   res.render('coord/groups_detail');
 });
+
+
+
+/////start project page
 router.get('/project', function(req, res, next) {
   res.render('coord/project');
 });
+
+
+
+
+////Ends project page
 router.get('/meeting', function(req, res, next) {
   res.render('coord/meeting');
 });
@@ -96,9 +127,18 @@ router.get('/profile', function(req, res, next) {
 router.get('/project_detail', function(req, res, next) {
   res.render('coord/project_detail');
 });
+
+
+////start upload project page
 router.get('/upload_project', function(req, res, next) {
   res.render('coord/upload_project');
 });
+
+
+
+
+
+////end  upload project page
 router.get('/assessments', function(req, res, next) {
   res.render('coord/assessments');
 });

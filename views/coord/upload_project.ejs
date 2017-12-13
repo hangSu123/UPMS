@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/hangsuper.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../javascripts/hangsuper.js"></script>
@@ -86,32 +87,39 @@
               		<div class="input_row">
               			<label>Project Name:</label>
               			<input type="text" placeholder="Please enter project name">
+                    <span class="error">Please provide a name</span>
               		</div>
               		<div class="input_row">
               			<label>Difficulty Level:</label>
-              			<input type="text" placeholder="Please enter project name">
+              			<input type="text" placeholder="Please enter a difficulty level">
+                    <span class="error">Difficulty level cannot be empty</span>
               		</div>
               		<div class="input_row">
               			<label>Places Available:</label>
-              			<input type="text" placeholder="Please enter project name">
+              			<input type="text" placeholder="Please enter the number of places available">
+                    <span class="error">Filed is required</span>
               		</div>
               		<div class="input_row">
               			<label>Superviser Name:</label>
-              			<input type="text" placeholder="Please enter project name">
+              			<input type="text" placeholder="Please enter superviser's name">
+                    <span class="error">Please enter superviser's name</span>
               		</div>
               		<div class="input_row">
               			<label>Superviser Email:</label>
-              			<input type="text" placeholder="Please enter project name">
+              			<input type="text" placeholder="Please enter superviser's email">
+                    <span class="error">Please enter superviser's name</span>
               		</div>
               		<div class="input_row">
               			<label>Description:</label>
               		</div>
               		<div class="input_row">
               			<textarea name="" id="" cols="35" rows="10"></textarea>
+                    <span class="error">Description cannot be empty</span>
               		</div>
               		<div class="input_row">
               			<label>Outline:</label>
               			<input type="file">
+                    <span class="error">Please select a file </span>
               		</div>
               		<div class="input_row">
               			<button class="btn">Upload Project</button>
@@ -132,9 +140,19 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script>
-    	
+      var inputs = hs.getTagName('input');
+      var description = hs.getTagName('textarea');
+      var btn = hs.getTagName('button');
 
 
+      hs.click(btn[0],function(){
+        hs.toast('green',2,'clicked me');
+        setTimeout(function(){
+          hs.redirect('/coord/project');
+        }, 2000);
+        
+        
+      })
     </script>
   </body>
 </html>
