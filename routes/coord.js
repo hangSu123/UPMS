@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 var connect = require('./conn');
 
+const upload = require('multer')({ dest: 'projectUploads/' });
+const path = require('path');
+const fs = require('fs');
+
 // start home page 
 router.get('/', function(req, res, next) {
 	  res.render('coord/index');  
@@ -134,6 +138,25 @@ router.get('/upload_project', function(req, res, next) {
   res.render('coord/upload_project');
 });
 
+router.post('/upload_project/uploadfile',upload.single('file'), function(req, res, next) {
+  if (!req.file) {
+    res.send('0');
+    return;
+  }
+
+  let oldPath = path.join(__dirname,'../', req.file.path);
+  let newPath = path.join(__dirname, '../','projectUploads/' + req.file.originalname);
+  fs.rename(oldPath, newPath, (err) => {
+    if (err) {
+      res.send('1');
+      console.log(err);
+    } else {
+      res.send('2');
+    }
+  });
+
+
+});
 
 
 

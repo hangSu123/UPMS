@@ -143,16 +143,25 @@
       var inputs = hs.getTagName('input');
       var description = hs.getTagName('textarea');
       var btn = hs.getTagName('button');
+       
 
 
       hs.click(btn[0],function(){
-        hs.toast('green',2,'clicked me');
-        setTimeout(function(){
-          hs.redirect('/coord/project');
-        }, 2000);
-        
-        
-      })
+        var url = '/coord/upload_project/uploadfile';
+        hs.uploadFile(inputs[5].files[0],url,function(data){
+          if (data == 2){
+            hs.toast('green',2,'Upload Complete');
+          }else if(data == 0){
+
+          }else if(data == 1){
+
+          }
+          
+          // setTimeout(function(){
+          //   hs.redirect('/coord/project');
+          // }, 2000);
+        });        
+      });
     </script>
   </body>
 </html>

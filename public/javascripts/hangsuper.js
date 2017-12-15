@@ -121,8 +121,7 @@ window.hangsper = window.hs = {
 
 
 		function postjson2url(json){
-			json.t = Math.random();
-			json.package_name_data = gPackage;
+			// json.t = Math.random();
 			var arr=[];
 			for(var name in json){
 				arr.push(name+'='+json[name]);
@@ -220,6 +219,24 @@ window.hangsper = window.hs = {
       	var sDay = (Number(sqlDateArr2[0]) + 1).toString();
       
       	return new Date(sYear,sMonth,sDay);
+	},
+
+
+	uploadFile:function(file,url,succFn){
+		var xhr = new XMLHttpRequest();
+		var formData = new FormData();
+	    formData.append('file', file);
+	    xhr.onload = function(){
+	    	if(xhr.readyState==4){
+				if(xhr.status>=200 && xhr.status<300 || xhr.status==304){
+					succFn(xhr.responseText);	
+				}else{
+					hs.toast('red',2,'error code: '+xhr.status);
+				}
+			}	
+	    };
+	    xhr.open('post', url, true);
+	    xhr.send(formData);
 	}
 
 
