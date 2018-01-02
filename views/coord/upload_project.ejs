@@ -78,7 +78,9 @@
 
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
 
-
+          <content>
+            
+          
               <div class="panel">
                  <div class="panel-title">
                 <span>New Project</span>
@@ -129,7 +131,7 @@
               		
               	</div>
             </div>
-
+          </content>
         </main>
       </div>
     </div>
@@ -143,23 +145,80 @@
       var inputs = hs.getTagName('input');
       var description = hs.getTagName('textarea');
       var btn = hs.getTagName('button');
+      var error = hs.getClassName('error');
+      hs.pageLoader('content');
        
 
 
       hs.click(btn[0],function(){
-        var url = '/coord/upload_project/uploadfile';
+        error[0].style.display="none";
+        error[1].style.display="none";
+        error[2].style.display="none";
+        error[3].style.display="none";
+        error[4].style.display="none";
+        error[5].style.display="none";
+        error[6].style.display="none";
+
+
+        if (hs.isEmpty(inputs[0].value)){
+          error[0].style.display="block";
+          return;
+        }
+        if (hs.isEmpty(inputs[1].value)){
+          error[1].style.display="block";
+          return;
+        }
+        if (hs.isEmpty(inputs[2].value)){
+          error[2].style.display="block";
+          return;
+        }
+        if (hs.isEmpty(inputs[3].value)){
+          error[3].style.display="block";
+          return;
+        }
+        if (hs.isEmpty(inputs[4].value)){
+          error[4].style.display="block";
+          return;
+        }
+        if (hs.isEmpty(description[0].value)){
+          error[5].style.display="block";
+          return;
+        }
+        if (hs.isEmpty(inputs[5].value)){
+          error[6].style.display="block";
+          return;
+        }
+        hs.loading();
+        var url = '/coord/upload_project/uploadFile';
         hs.uploadFile(inputs[5].files[0],url,function(data){
-          if (data == 2){
-            hs.toast('green',2,'Upload Complete');
+          if (data !=0 || data != 1){
+            hs.postAjax({
+              url:'/coord/upload_project/uploadProject',
+              data:{
+                projectName:inputs[0].value,
+                level:inputs[1].value,
+                space:inputs[2].value,
+                superName:inputs[3].value,
+                superEmail:inputs[4].value,
+                description:description[0].value,
+                filePath:data
+              },
+              succFn:function(res){
+                console.log(res);
+                // hs.toast('green',2,'Upload Complete');
+                // setTimeout(function(){
+                //   hs.redirect('/coord/project');
+                // }, 1500);
+              }
+            })
+            
           }else if(data == 0){
 
           }else if(data == 1){
 
           }
           
-          // setTimeout(function(){
-          //   hs.redirect('/coord/project');
-          // }, 2000);
+          
         });        
       });
     </script>

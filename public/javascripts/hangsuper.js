@@ -62,6 +62,17 @@ window.hangsper = window.hs = {
 		aDate.push(oDate.getTime());
 		return aDate;
 	},
+
+	isEmpty:function(value){
+		var empty=true;
+		if (value=="" || value == undefined || value == null){
+			empty = true;
+		}else{
+			empty = false;
+		}
+		return empty;
+
+	},
 	/**
 	 * Ajax connect
 	 * 
@@ -91,6 +102,7 @@ window.hangsper = window.hs = {
 			case 'post':
 				oAjax.open('POST',json.url,true);
 				oAjax.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+				oAjax.setRequestHeader('X-Requested-With','XMLHttpRequest');
 				oAjax.send(postjson2url(json.data));
 				break;
 		}	
@@ -207,6 +219,29 @@ window.hangsper = window.hs = {
 	calandar:function(el, data, settings){
 	    var obj = new Calendar(data, settings);
 	 	createCalendar(obj, el);
+	},
+
+	pageLoader:function(toLoadTag){
+		var loader = document.createElement('div');
+		loader.setAttribute('id', 'loader');
+		document.body.appendChild(loader);
+
+		var element = hs.getTagName(toLoadTag)[0];
+		var parent = element.parentNode;
+		var wrapper = document.createElement('div');
+		wrapper.setAttribute('id','respones');
+		wrapper.setAttribute('class','animate-bottom');
+		parent.replaceChild(wrapper, element);
+		wrapper.appendChild(element);
+	},
+
+	loading:function(){
+		hs.getId("loader").style.display = "block";
+		hs.getId("respones").style.display = "none";
+		var load = setTimeout(function(){
+		  hs.getId("loader").style.display = "none";
+		  hs.getId("respones").style.display = "block";
+		},500);
 	},
 
     sqlToJsDate:function(sqlDate){

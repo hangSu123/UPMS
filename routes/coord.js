@@ -138,26 +138,40 @@ router.get('/upload_project', function(req, res, next) {
   res.render('coord/upload_project');
 });
 
-router.post('/upload_project/uploadfile',upload.single('file'), function(req, res, next) {
-  if (!req.file) {
-    res.send('0');
-    return;
-  }
-
-  let oldPath = path.join(__dirname,'../', req.file.path);
-  let newPath = path.join(__dirname, '../','projectUploads/' + req.file.originalname);
-  fs.rename(oldPath, newPath, (err) => {
-    if (err) {
-      res.send('1');
-      console.log(err);
-    } else {
-      res.send('2');
+router.post('/upload_project/uploadFile',upload.single('file'), function(req, res, next) {
+    if (!req.file) {
+      res.send('0');
+      return;
     }
-  });
+
+    let oldPath = path.join(__dirname,'../', req.file.path);
+    let newPath = path.join(__dirname, '../','projectUploads/' + req.file.originalname);
+    fs.rename(oldPath, newPath, (err) => {
+      if (err) {
+        res.send('1');
+        console.log(err);
+      } else {
+        res.send(newPath);
+      }
+    });
+});
+
+
+
+router.post('/upload_project/uploadProject', function(req, res, next) {
+  if (req.xhr){
+
+    fs.readFile(req.body.filePath, function(err, data) {  
+        if (err) throw err;
+        // res.setHeader('Content-Type': 'application/pdf');
+        res.send(data);
+    });
+  } else {
+   res.send("Page not avalible");
+  }
 
 
 });
-
 
 
 

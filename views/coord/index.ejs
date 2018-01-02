@@ -10,6 +10,8 @@
     <title>Dashboard for students</title>
 
     <!-- Bootstrap core CSS -->
+
+    <div id = "loader"></div>
     <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -76,7 +78,7 @@
         </nav>
 
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-
+          <content>          
           <div class="panel" style="height:500px;">
               <div class="panel-title">
                 <span>Announcements</span>
@@ -173,7 +175,7 @@
                 </div>
               </div>
           </div>
-
+        </content>
         </main>
       </div>
     </div>
@@ -194,6 +196,7 @@
     var error = hs.getClassName('error');
     var textarea = hs.getTagName('textarea');
     var announcement = hs.getId('announcement');
+    hs.pageLoader('content');
 
 
 
@@ -291,6 +294,8 @@
 
 
       function sendAnnouncement(){
+        hs.loading();
+
         hs.getAjax({
           url:'/coord/createAnnouncement',
           data:{
