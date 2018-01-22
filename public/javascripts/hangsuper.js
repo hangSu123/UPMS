@@ -174,6 +174,10 @@ window.hangsper = window.hs = {
 	text:function(el,text){
 		el.innerHTML = text;
 	},
+	
+	addText:function(el,text){
+		el.innerHTML += text;
+	},
 
 
 	click:function(el,succfn){

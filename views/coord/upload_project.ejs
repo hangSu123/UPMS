@@ -93,7 +93,11 @@
               		</div>
               		<div class="input_row">
               			<label>Difficulty Level:</label>
-              			<input type="text" placeholder="Please enter a difficulty level">
+                    <select name="" id="">
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                    </select>
                     <span class="error">Difficulty level cannot be empty</span>
               		</div>
               		<div class="input_row">
@@ -143,6 +147,7 @@
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script>
       var inputs = hs.getTagName('input');
+      var select = hs.getTagName('select');
       var description = hs.getTagName('textarea');
       var btn = hs.getTagName('button');
       var error = hs.getClassName('error');
@@ -164,19 +169,19 @@
           error[0].style.display="block";
           return;
         }
-        if (hs.isEmpty(inputs[1].value)){
+        if (hs.isEmpty(select[0].value)){
           error[1].style.display="block";
           return;
         }
-        if (hs.isEmpty(inputs[2].value)){
+        if (hs.isEmpty(inputs[1].value)){
           error[2].style.display="block";
           return;
         }
-        if (hs.isEmpty(inputs[3].value)){
+        if (hs.isEmpty(inputs[2].value)){
           error[3].style.display="block";
           return;
         }
-        if (hs.isEmpty(inputs[4].value)){
+        if (hs.isEmpty(inputs[3].value)){
           error[4].style.display="block";
           return;
         }
@@ -184,41 +189,42 @@
           error[5].style.display="block";
           return;
         }
-        if (hs.isEmpty(inputs[5].value)){
+        if (hs.isEmpty(inputs[4].value)){
           error[6].style.display="block";
           return;
         }
         hs.loading();
         var url = '/coord/upload_project/uploadFile';
-        hs.uploadFile(inputs[5].files[0],url,function(data){
-          if (data !=0 || data != 1){
+        hs.uploadFile(inputs[4].files[0],url,function(data){
+          if (data === "not pdf"){
+            hs.toast("red",2,"Please select a PDF file");
+          }else if (data === "name error"){
+            hs.toast("red",2,"Upload file fail");
+          }else{
             hs.postAjax({
               url:'/coord/upload_project/uploadProject',
               data:{
                 projectName:inputs[0].value,
-                level:inputs[1].value,
-                space:inputs[2].value,
-                superName:inputs[3].value,
-                superEmail:inputs[4].value,
+                level:select[0].value,
+                space:inputs[1].value,
+                superName:inputs[2].value,
+                superEmail:inputs[3].value,
                 description:description[0].value,
-                filePath:data
+                fileName:data
               },
               succFn:function(res){
-                console.log(res);
-                // hs.toast('green',2,'Upload Complete');
-                // setTimeout(function(){
-                //   hs.redirect('/coord/project');
-                // }, 1500);
+                if (res == 2 ){
+                  hs.toast('green',2,'Upload Complete');
+                  setTimeout(function(){
+                    hs.redirect('/coord/project');
+                  }, 1500);
+                }else{
+                  hs.toast("red",2,"upload project error");
+                }
+                
               }
             })
-            
-          }else if(data == 0){
-
-          }else if(data == 1){
-
-          }
-          
-          
+          }         
         });        
       });
     </script>

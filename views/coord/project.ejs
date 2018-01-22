@@ -84,25 +84,9 @@
                 <button>search</button>
               </div>
               <div class="panel-body-all overflow-l">
-                <div class="panel-body">
-                  <div class="panel-body-t link">
-                    <a href="project_detail">Public trasport system intergreation</a>
-                  </div>
-                  <div class="panel-body-t-score"><br>
-                    <p>Difficulty level: C</p>
-                    Supervisor: Jame Wang
-                  </div>
-                  <div class="panel-body-b">
-                    Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget.
-                  </div>
-                  <div class="panel-body-f">
-                    <span>Time:10/05/2018<span>
-                  </div>
-                </div>
-              
 
 
-               <div class="panel-body">
+                <!-- <div class="panel-body">
                   <div class="panel-body-t link">
                     Public trasport system intergreation
                   </div>
@@ -116,60 +100,10 @@
                   <div class="panel-body-f">
                     <span>Time:10/05/2018<span>
                   </div>
-                </div>
-
-
-                <div class="panel-body">
-                  <div class="panel-body-t link">
-                    Public trasport system intergreation
-                  </div>
-                  <div class="panel-body-t-score"><br>
-                    <p>Difficulty level: C</p>
-                    Supervisor: Jame Wang
-                  </div>
-                  <div class="panel-body-b">
-                    Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget.
-                  </div>
-                  <div class="panel-body-f">
-                    <span>Time:10/05/2018<span>
-                  </div>
-                </div>
+                </div> -->
 
 
 
-                <div class="panel-body">
-                  <div class="panel-body-t link">
-                    Public trasport system intergreation
-                  </div>
-                  <div class="panel-body-t-score"><br>
-                    <p>Difficulty level: C</p>
-                    Supervisor: Jame Wang
-                  </div>
-                  <div class="panel-body-b">
-                    Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget.
-                  </div>
-                  <div class="panel-body-f">
-                    <span>Time:10/05/2018<span>
-                  </div>
-                </div>
-
-
-
-                <div class="panel-body">
-                  <div class="panel-body-t link">
-                    Public trasport system intergreation
-                  </div>
-                  <div class="panel-body-t-score"><br>
-                    <p>Difficulty level: C</p>
-                    Supervisor: Jame Wang
-                  </div>
-                  <div class="panel-body-b">
-                    Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget.
-                  </div>
-                  <div class="panel-body-f">
-                    <span>Time:10/05/2018<span>
-                  </div>
-                </div>
               </div>
           </div>
 
@@ -190,13 +124,33 @@
 
     <script>
       
+      getProjects();
 
       var btn = hs.getClassName("btn");
 
 
       btn[1].addEventListener('click',function(){
         hs.redirect('upload_project');
-      })
+      });
+
+
+
+      function getProjects(){
+        hs.getAjax({
+          url:'/coord/project/getProjects',
+          data:{
+            userId:'001'
+          },
+          succFn:function(res){
+            if (res === ""){
+              content = "Projects are currently not available"
+            }else{
+              content = res;
+            }
+            hs.text(hs.getClassName("panel-body-all")[0],content);
+          }
+        })
+      }
 
       
     </script>
