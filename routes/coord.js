@@ -107,9 +107,130 @@ router.get('/createAnnouncement/:userId/:title/:content/:time', function(req, re
 router.get('/groups', function(req, res, next) {
   res.render('coord/groups');
 });
-router.get('/groups_detail', function(req, res, next) {
-  res.render('coord/groups_detail');
+
+router.get('/groups/createGroups/:num_groups/:amount/:tutor', function(req, res, next) {
+  if (req.xhr){
+    var values = []
+    for (var i =0; i<req.params.num_groups; i++){
+      var value = [];
+      value.push(req.params.amount);
+      value.push(req.params.tutor);
+      values.push(value);
+    }
+    var sql = "INSERT INTO `group` (available_place,tutor_email) VALUES ?";
+    connect().connect(function(err) {
+      if (err) res.send('0');
+        console.log(sql)
+        connect().query(sql,[values],function(err,results){
+          if (err) res.send('1');
+          res.send('inserted');
+        })
+      });
+    
+  }
+  else {
+  res.send("Page not avalible");
+ }
 });
+
+router.get('/groups/getGroups/:user', function(req, res, next) {
+  if (req.xhr){
+    connect().connect(function(err) {
+      if (err) res.send('0');
+        var sql = "SELECT * FROM `group` ORDER BY group_id DESC"
+        connect().query(sql,function(err,results){
+          if (err) res.send('1');
+          var temp ="";
+          for (var i = results.length - 1; i >= 0; i--) {
+            temp += groupTemp(results[i].group_id,results[i].available_place,results[i].tutor_email);
+          }
+          res.send(temp);
+        })
+      });
+    
+  }
+  else {
+  res.send("Page not avalible");
+ }
+});
+
+router.get('/groups/groups_detail/:id', function(req, res, next) {
+  connect().connect(function(err) {
+    if (err) onsole.log(err);
+      var sql = "SELECT * FROM `group` WHERE group_id= '"+req.params.id+"'";
+      connect().query(sql,function(err,results){
+        if (err) console.log(err);
+        var places = "";
+        for (var i = results.length - 1; i >= 0; i--) {
+          places = results[i].available_place
+        }
+        res.render('coord/groups_detail',{id:req.params.id,places:places});
+        })
+    });
+  
+});
+
+router.get('/groups/groups_detail/groupMember/:id',function(req,res,next){
+  connect().connect(function(err) {
+
+    if (err) res.send('0');
+      var sql = "SELECT * FROM student WHERE group_id= '"+req.params.id+"'";
+      connect().query(sql,function(err,results){
+        if (err) res.send('1');
+        var temp ="";
+        for (var i = results.length - 1; i >= 0; i--) {
+          temp += memberTemp(results[i].email_address,results[i].first_name,results[i].last_name,results[i].major,results[i].GPA)}
+        res.send(temp);
+      })
+    });
+})
+
+router.get('/groups/groups_detail/avaStudents/:user',function(req,res,next){
+  connect().connect(function(err) {
+
+    if (err) res.send('0');
+      var sql = "SELECT * FROM student WHERE group_id is null";
+      connect().query(sql,function(err,results){
+        if (err) res.send('1');
+        var temp ="";
+        for (var i = results.length - 1; i >= 0; i--) {
+          temp += avaTemp(results[i].email_address,results[i].first_name,results[i].last_name,results[i].major,results[i].GPA)}
+        res.send(temp);
+      })
+    });
+})
+
+
+router.get('/groups/groups_detail/addToGroup/:email/:groupId/:places',function(req,res,next){
+  connect().connect(function(err) {
+    var places = req.params.places - 1;
+      var sql = "UPDATE student SET group_id = '"+req.params.groupId+"' WHERE email_address = '"+req.params.email+"'";
+      connect().query(sql,function(err,results){
+        if (err) console.log(err);
+        var sql = "UPDATE `group` SET available_place = '"+places+"' WHERE group_id = '"+req.params.groupId+"'";
+        connect().query(sql,function(err,results){
+          if (err) console.log(err);
+          res.send('succ');
+        })
+      })
+    });
+})
+
+router.get('/groups/groups_detail/deleteFromGroup/:email/:groupId/:places',function(req,res,next){
+  connect().connect(function(err) {
+    var places = parseInt(req.params.places)+1;
+    console.log(places)
+      var sql = "UPDATE student SET group_id = null WHERE email_address = '"+req.params.email+"'";
+      connect().query(sql,function(err,results){
+        if (err) console.log(err);
+        var sql = "UPDATE `group` SET available_place = '"+places+"' WHERE group_id = '"+req.params.groupId+"'";
+        connect().query(sql,function(err,results){
+          if (err) console.log(err);
+          res.send('succ');
+       })
+      })
+    });
+})
 
 
 
@@ -284,6 +405,49 @@ function projectTemp(projectId,projectName,level,superName,description){
                           </div>\
                         </div>';
         return projectTemp;  
+    }
+
+
+
+    function groupTemp(id,available_place,tutor){
+
+      var groupTemp = "";
+      groupTemp = '<tr>\
+                   <th><a href="/coord/groups/groups_detail/'+id+'">'+id+'</a></th>\
+                    <th>'+available_place+'</th>\
+                    <th>'+tutor+'</th>\
+                    <th>delete</th>\
+                  </tr>';
+      return groupTemp;  
+
+    }
+
+    function memberTemp(email,fname,lname,major,gpa){
+
+      var memberTemp = "";
+      memberTemp = '<tr>\
+                      <th>'+email+'</th>\
+                      <th>'+fname+'</th>\
+                      <th>'+lname+'</th>\
+                      <th>'+major+'</th>\
+                      <th>'+gpa+'</th>\
+                      <th><button class = "btn btn-red" recordId ="'+email+'" onClick="remove(this)">Remove</button></th>\
+                  </tr>';
+      return memberTemp;
+    }
+
+    function avaTemp(email,fname,lname,major,gpa){
+
+      var avaTemp = "";
+      avaTemp = '<tr>\
+                    <th>'+email+'</th>\
+                    <th>'+fname+'</th>\
+                    <th>'+lname+'</th>\
+                    <th>'+major+'</th>\
+                    <th>'+gpa+'</th>\
+                    <th><button class = "btn" recordId ="'+email+'" onClick = "add(this)">Add To Group</button></th>\
+                </tr>'
+      return avaTemp;
     }
 
 

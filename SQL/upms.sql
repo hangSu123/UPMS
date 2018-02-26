@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2018 at 01:43 PM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.20
+-- Generation Time: Feb 26, 2018 at 02:09 AM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 5.6.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -46,7 +48,8 @@ INSERT INTO `announcements` (`Id`, `userId`, `title`, `content`, `date`) VALUES
 (5, '1', 'test only', 'awdasd', '2017-12-19'),
 (6, '1', 'asdas', 'asdasdasda', '2017-11-23'),
 (7, '1', 'asdasda', 'ASDasd', '2017-11-07'),
-(8, '1', 'zxfcvbnm', 'asdftgtfrdes', '2018-01-17');
+(8, '1', 'zxfcvbnm', 'asdftgtfrdes', '2018-01-17'),
+(9, '1', 'presentation Starts date', 'hello everyone we are going to hold an event on 28-02-2018, welcome to join us', '2018-02-28');
 
 -- --------------------------------------------------------
 
@@ -97,10 +100,27 @@ CREATE TABLE `coordinator` (
 --
 
 CREATE TABLE `group` (
-  `group_id` varchar(50) NOT NULL,
+  `group_id` int(11) NOT NULL,
   `available_place` int(11) DEFAULT NULL,
+  `tutor_email` text,
   `project_id` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `group`
+--
+
+INSERT INTO `group` (`group_id`, `available_place`, `tutor_email`, `project_id`) VALUES
+(1, 1, 'suhangj@hotmail.com', NULL),
+(2, 3, 'suhangj@hotmail.com', NULL),
+(3, 2, 'suhangj@hotmail.com', NULL),
+(4, 2, 'suhangj@hotmail.com', NULL),
+(5, 4, 'laim@gmail.com', NULL),
+(6, 4, 'laim@gmail.com', NULL),
+(7, 4, 'laim@gmail.com', NULL),
+(8, 4, 'laim@gmail.com', NULL),
+(9, 4, 'laim@gmail.com', NULL),
+(10, 2, 'laim@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -139,7 +159,8 @@ CREATE TABLE `project` (
 
 INSERT INTO `project` (`project_id`, `project_name`, `simple_description`, `space_available`, `out_line_link`, `difficulty_level`, `super_name`, `supervisor_email`) VALUES
 (1, 'final test', 'thisis a test, test only ', 4, 'hello.pdf', 'C', 'Hang Su', 'suhangj123@gmail.com'),
-(2, 'test 2', 'i am your supervisor, i am Henry, handsome boy', 3, 'hello.pdf', 'B', 'Henry Chen', 'henry123@gmail.com');
+(2, 'test 2', 'i am your supervisor, i am Henry, handsome boy', 3, 'hello.pdf', 'B', 'Henry Chen', 'henry123@gmail.com'),
+(3, 'new', 'kjdldijfvldif ne ]dsfpsdlk beb ksjd wleif wlekflj elirfjewj oekfeo', 4, 'nihao.pdf', 'B', 'hangsu', 'hangSu@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -170,6 +191,14 @@ CREATE TABLE `student` (
   `major` enum('CS','IS','UNKONW') DEFAULT NULL,
   `group_id` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`student_id`, `email_address`, `first_name`, `last_name`, `GPA`, `major`, `group_id`) VALUES
+('1', 'suhangj@gmail.com', 'Hang', 'Su', '5.00', 'CS', '10'),
+('2', 'suhangj@hotmail.com', 'James', 'Zheng', '5.20', 'CS', '10');
 
 -- --------------------------------------------------------
 
@@ -281,12 +310,21 @@ ALTER TABLE `tutor`
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `group`
+--
+ALTER TABLE `group`
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
