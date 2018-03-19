@@ -195,8 +195,7 @@ router.get('/groups/groups_detail/avaStudents/:user',function(req,res,next){
         if (err) res.send('1');
         var temp ="";
         for (var i = results.length - 1; i >= 0; i--) {
-          temp += avaTemp(results[i].email_address,results[i].first_name,results[i].last_name,results[i].major,results[i].GPA)
-        }
+          temp += avaTemp(results[i].email_address,results[i].first_name,results[i].last_name,results[i].major,results[i].GPA)}
         res.send(temp);
       })
     });
@@ -221,6 +220,7 @@ router.get('/groups/groups_detail/addToGroup/:email/:groupId/:places',function(r
 router.get('/groups/groups_detail/deleteFromGroup/:email/:groupId/:places',function(req,res,next){
   connect().connect(function(err) {
     var places = parseInt(req.params.places)+1;
+    console.log(places)
       var sql = "UPDATE student SET group_id = null WHERE email_address = '"+req.params.email+"'";
       connect().query(sql,function(err,results){
         if (err) console.log(err);
@@ -292,8 +292,6 @@ router.get('/groups/groups_detail/cancelFromApplication/:projectId/:groupId/:app
   
   })
 })
-
-
 
 /////start project page
 router.get('/project', function(req, res, next) {
