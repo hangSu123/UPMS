@@ -10,6 +10,59 @@
   <link href="../stylesheets/dashboard.css" rel="stylesheet">
   <link rel="stylesheet" href="../stylesheets/style.css" />
   <script src="../javascripts/hangsuper.js"></script>
+  <style type="text/css">
+    body{
+      background-color: #f0f0f0;
+    }
+    .login-panel{
+      margin:50px auto;
+      width:40%;
+      height:auto;
+      padding:20px;
+      border-radius: 8px;
+    box-shadow: 5px 5px 5px #C8C8C8;
+    background-color: #fff;
+    }
+    .login-panel-title{
+      text-align: center;
+      background-color: #165E9C;
+      height:44px;
+      width:auto;
+      color:#fff;
+      line-height: 44px;
+      font-size: 18px;
+    }
+    .login-panel-t{
+      height: auto;
+      width:80%;
+      margin: 20px auto;
+
+    }
+    .login-panel-t input{
+      width:100%;
+      margin-bottom: 30px;
+      height: 30px;
+      font-size: 18px;
+      padding:5px;
+      border:2px solid #165E9C;
+    }
+    .login-panel-m{
+      margin:20px auto;
+      width: 80%;
+      height: auto;
+    }
+    .login-panel-m button{
+    text-align: center;
+    background-color: #165E9C;
+    line-height: 44px;
+    font-size: 18px;
+    width:100%;
+    color:#fff;
+    margin-bottom: 10px;
+    border:0;
+    }
+
+  </style>
 </head>
 <body>
    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #114a81;">
@@ -21,7 +74,25 @@
           </div>
       </div>
     </nav>
-    <div class="content" style="margin-top: 44px;">
+    <div class="content" style="margin-top: 100px;">
+       <div class="login-panel">
+    <div class="login-panel-title">
+      LOGIN TO UPMS
+    </div>
+    <div class="login-panel-t">
+      <input class= "textIput" type="text" name="username" placeholder="Username">
+      <input class= "textIput" type="password" name="username" placeholder="Password">
+  </div>
+    <div class="login-panel-m">
+      <button name="submit">LogIn</button>
+    </div>
+    <div class="login-panel-b">
+      <div class="login-panel-b-l">
+        <a>Forget Password?</a>
+      </div>
+      <div class="login-panel-b-r"></div>
+    </div>
+  </div>
       <button>student</button>
       <button>tutor</button>
       <button>coordinator</button>

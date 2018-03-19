@@ -15,8 +15,8 @@ var connect = require('./conn');
 router.get('/', function(req, res, next) {
 
   connect().connect(function(err) {
-	  if (err) res.render('login', { database: 'check your database connection' });
-	  res.render('login', { database: 'Database connected' });
+	  if (err) res.render('login1', { database: 'check your database connection' });
+	  res.render('login1', { database: 'Database connected' });
 	});
   
 
