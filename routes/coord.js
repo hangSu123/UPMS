@@ -3,6 +3,7 @@ var router = express.Router();
 var connect = require('./conn');
 
 const upload = require('multer')({ dest: 'projectUploads/' });
+const CRA = require('multer')({ dest: 'CRAUploads/' });
 const path = require('path');
 const fs = require('fs');
 
@@ -107,9 +108,190 @@ router.get('/createAnnouncement/:userId/:title/:content/:time', function(req, re
 router.get('/groups', function(req, res, next) {
   res.render('coord/groups');
 });
-router.get('/groups_detail', function(req, res, next) {
-  res.render('coord/groups_detail');
+
+router.get('/groups/createGroups/:num_groups/:amount/:tutor', function(req, res, next) {
+  if (req.xhr){
+    var values = []
+    for (var i =0; i<req.params.num_groups; i++){
+      var value = [];
+      value.push(req.params.amount);
+      value.push(req.params.tutor);
+      values.push(value);
+    }
+    var sql = "INSERT INTO `group` (available_place,tutor_email) VALUES ?";
+    connect().connect(function(err) {
+      if (err) res.send('0');
+        console.log(sql)
+        connect().query(sql,[values],function(err,results){
+          if (err) res.send('1');
+          res.send('inserted');
+        })
+      });
+    
+  }
+  else {
+  res.send("Page not avalible");
+ }
 });
+
+router.get('/groups/getGroups/:user', function(req, res, next) {
+  if (req.xhr){
+    connect().connect(function(err) {
+      if (err) res.send('0');
+        var sql = "SELECT * FROM `group` ORDER BY group_id DESC"
+        connect().query(sql,function(err,results){
+          if (err) res.send('1');
+          var temp ="";
+          for (var i = results.length - 1; i >= 0; i--) {
+            temp += groupTemp(results[i].group_id,results[i].available_place,results[i].tutor_email);
+          }
+          res.send(temp);
+        })
+      });
+    
+  }
+  else {
+  res.send("Page not avalible");
+ }
+});
+
+router.get('/groups/groups_detail/:id', function(req, res, next) {
+  connect().connect(function(err) {
+    if (err) onsole.log(err);
+      var sql = "SELECT * FROM `group` WHERE group_id= '"+req.params.id+"'";
+      connect().query(sql,function(err,results){
+        if (err) console.log(err);
+        var places = "";
+        for (var i = results.length - 1; i >= 0; i--) {
+          places = results[i].available_place
+        }
+        res.render('coord/groups_detail',{id:req.params.id,places:places});
+        })
+    });
+  
+});
+
+router.get('/groups/groups_detail/groupMember/:id',function(req,res,next){
+  connect().connect(function(err) {
+
+    if (err) res.send('0');
+      var sql = "SELECT * FROM student WHERE group_id= '"+req.params.id+"'";
+      connect().query(sql,function(err,results){
+        if (err) res.send('1');
+        var temp ="";
+        for (var i = results.length - 1; i >= 0; i--) {
+          temp += memberTemp(results[i].email_address,results[i].first_name,results[i].last_name,results[i].major,results[i].GPA)}
+        res.send(temp);
+      })
+    });
+})
+
+router.get('/groups/groups_detail/avaStudents/:user',function(req,res,next){
+  connect().connect(function(err) {
+
+    if (err) res.send('0');
+      var sql = "SELECT * FROM student WHERE group_id is null";
+      connect().query(sql,function(err,results){
+        if (err) res.send('1');
+        var temp ="";
+        for (var i = results.length - 1; i >= 0; i--) {
+          temp += avaTemp(results[i].email_address,results[i].first_name,results[i].last_name,results[i].major,results[i].GPA)
+        }
+        res.send(temp);
+      })
+    });
+})
+
+
+router.get('/groups/groups_detail/addToGroup/:email/:groupId/:places',function(req,res,next){
+  connect().connect(function(err) {
+    var places = req.params.places - 1;
+      var sql = "UPDATE student SET group_id = '"+req.params.groupId+"' WHERE email_address = '"+req.params.email+"'";
+      connect().query(sql,function(err,results){
+        if (err) console.log(err);
+        var sql = "UPDATE `group` SET available_place = '"+places+"' WHERE group_id = '"+req.params.groupId+"'";
+        connect().query(sql,function(err,results){
+          if (err) console.log(err);
+          res.send('succ');
+        })
+      })
+    });
+})
+
+router.get('/groups/groups_detail/deleteFromGroup/:email/:groupId/:places',function(req,res,next){
+  connect().connect(function(err) {
+    var places = parseInt(req.params.places)+1;
+      var sql = "UPDATE student SET group_id = null WHERE email_address = '"+req.params.email+"'";
+      connect().query(sql,function(err,results){
+        if (err) console.log(err);
+        var sql = "UPDATE `group` SET available_place = '"+places+"' WHERE group_id = '"+req.params.groupId+"'";
+        connect().query(sql,function(err,results){
+          if (err) console.log(err);
+          res.send('succ');
+       })
+      })
+    });
+})
+
+
+
+router.get('/groups/groups_detail/showAppliedProject/:groupId',function(req,res,next){
+  connect().connect(function(err) {
+    if (err) console.log(err);
+    var sql = "SELECT * FROM `application`,`project` WHERE group_id = '"+req.params.groupId+"' and application.project_id = project.project_id";
+    connect().query(sql,function(err,results){
+      if (err) console.log(err);
+      var temp ="";
+      for (var i = results.length - 1; i >= 0; i--) {
+        temp += showAppTemp(results[i].project_id,results[i].project_name,results[i].application_id,results[i].space_available,results[i].difficulty_level,results[i].application_link,results[i].group_preference,results[i].supervisor_preference,results[i].assigned)
+      }
+      res.send(temp);
+    })
+  })
+})
+
+
+router.get('/groups/groups_detail/assignToApplication/:projectId/:groupId/:applicationId',function(req,res,next){
+  connect().connect(function(err) {
+        if (err) console.log(err);
+        var sql = "SELECT * FROM `group` WHERE group_id = '"+req.params.groupId+"'";
+          connect().query(sql,function(err,results){
+            if (err) console.log(err);
+            console.log(results[0].group_id);
+            if (results[0].project_id === null){
+              var sql = "UPDATE `group` SET project_id = '"+req.params.projectId+"' WHERE group_id = '"+req.params.groupId+"'";
+              connect().query(sql,function(err,results){
+                if (err) console.log(err);
+                var sql = "UPDATE `application` SET assigned = 'yes' WHERE application_id = '"+req.params.applicationId+"'";
+                connect().query(sql,function(err,results){
+                  if (err) console.log(err);
+                  res.send("succ");
+                })
+              })
+            }else{
+              res.send("duplicate");
+              console.log("duplicate")
+            }
+          })
+      })
+    })
+
+
+router.get('/groups/groups_detail/cancelFromApplication/:projectId/:groupId/:applicationId',function(req,res,next){
+  connect().connect(function(err) {
+    if (err) console.log(err);
+      var sql = "UPDATE `group` SET project_id = null WHERE group_id = '"+req.params.groupId+"'";
+      connect().query(sql,function(err,results){
+        if (err) console.log(err);
+        var sql = "UPDATE `application` SET assigned = 'no' WHERE application_id = '"+req.params.applicationId+"'";
+        connect().query(sql,function(err,results){
+          if (err) console.log(err);
+          res.send("succ");
+        })
+      })
+  
+  })
+})
 
 
 
@@ -284,6 +466,70 @@ function projectTemp(projectId,projectName,level,superName,description){
                           </div>\
                         </div>';
         return projectTemp;  
+    }
+
+
+
+    function groupTemp(id,available_place,tutor){
+
+      var groupTemp = "";
+      groupTemp = '<tr>\
+                   <th><a href="/coord/groups/groups_detail/'+id+'">'+id+'</a></th>\
+                    <th>'+available_place+'</th>\
+                    <th>'+tutor+'</th>\
+                    <th>delete</th>\
+                  </tr>';
+      return groupTemp;  
+
+    }
+
+    function memberTemp(email,fname,lname,major,gpa){
+
+      var memberTemp = "";
+      memberTemp = '<tr>\
+                      <th>'+email+'</th>\
+                      <th>'+fname+'</th>\
+                      <th>'+lname+'</th>\
+                      <th>'+major+'</th>\
+                      <th>'+gpa+'</th>\
+                      <th><button class = "btn btn-red" recordId ="'+email+'" onClick="remove(this)">Remove</button></th>\
+                  </tr>';
+      return memberTemp;
+    }
+
+    function avaTemp(email,fname,lname,major,gpa){
+
+      var avaTemp = "";
+      avaTemp = '<tr>\
+                    <th>'+email+'</th>\
+                    <th>'+fname+'</th>\
+                    <th>'+lname+'</th>\
+                    <th>'+major+'</th>\
+                    <th>'+gpa+'</th>\
+                    <th><button class = "btn" recordId ="'+email+'" onClick = "add(this)">Add To Group</button></th>\
+                </tr>'
+      return avaTemp;
+    }
+
+
+    function showAppTemp(id,name,app_id,space,level,link,group_preference,supervisor_preference,assigned){
+      var avaTemp = "";
+      var btnType = "onClick = 'assign(this)'>Assign";
+      var btnClass = "btn";
+      if (assigned == "yes"){
+        btnType = "onClick = 'cancel(this)'>Remove";
+        btnClass = "btn btn-red"
+      }
+      avaTemp = '<tr>\
+                    <th> <a class = "link" href="/coord/project_detail/'+id+'" target="_blank">'+name+'</a></th>\
+                    <th>'+space+'</th>\
+                    <th>'+level+'</th>\
+                    <th>'+link+'</th>\
+                    <th>'+group_preference+'</th>\
+                    <th>'+supervisor_preference+'</th>\
+                    <th><button class = "'+btnClass+'" applicationId = "'+app_id+'" projectId ="'+id+'" '+btnType+'</button></th>\
+                </tr>'
+      return avaTemp;
     }
 
 

@@ -13,6 +13,7 @@
     <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../javascripts/hangsuper.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="../stylesheets/dashboard.css" rel="stylesheet">
@@ -75,6 +76,40 @@
         </nav>
 
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+
+
+
+            <div class="panel">
+                <div class="panel-title">
+                  <span>SetUp Assignment</span>
+                </div>
+                <div class="panel-body-all" style="padding: 20px; overflow: hidden;">
+                  <div class="input_row">
+                    <label>Assignment Name:</label>
+                    <input  type="text" placeholder="Assignment name" />
+                    <span class="error">Please enter a name </span>
+                  </div>                
+                    <div class="input_row">
+                     <label>Weight (100 points):</label>
+                     <input type="number">
+                     <span class="error">Please enter a number between 1-100 </span>
+                  </div>
+                  <div class="input_row">
+                    <label>Date Due:</label>
+                    <input type="date">
+                    <span class="error">Please select a date </span>
+                  </div>
+                  <div class="input_row">
+                      <label>Description & CRA:</label>
+                      <input type="file">
+                      <span class="error">Please select a file </span>
+                  </div>
+                  <div class="input_row">
+                      <button class="btn" id="btn_create">CREATE</button>
+                  </div>
+                  
+                </div>
+            </div>
 
           <div class="panel" style="height: 550px;">
               <div class="panel-title">
@@ -151,6 +186,60 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script>
+       var input = hs.getTagName('input');
+       var error = hs.getClassName('error');
+
+
+      function checkValidation(){
+        var pass = true; 
+        var name = input[0].value;
+        var value = input[1].value;
+        var date = input[2].value;
+        var file = input[3].value;
+          if(hs.isEmpty(name) ){
+            error[0].style.display="block";
+            pass = false;
+            return pass;
+          } 
+          if(hs.isEmpty(value)){
+            error[0].style.display="";
+            error[1].style.display="block";
+            pass = false;
+            return pass;
+          }
+          if(hs.isEmpty(date)){
+            error[1].style.display="";
+            error[2].style.display="block";
+            pass = false;
+            return pass;
+          }
+          if(hs.isEmpty(file) ){
+            error[2].style.display="";
+            error[3].style.display="block";
+            pass = false;
+            return pass;
+          }
+       error[0].style.display="";
+       error[1].style.display="";
+       error[2].style.display="";
+       error[3].style.display="";
+       return pass;
+     }
+
+
+      hs.click(hs.getId('btn_create'),function(){
+        if(!checkValidation()){
+          return;
+        }
+
+      });
+
+      function setUpAssignment(){
+        
+      }
+    
+    </script>
   </body>
 </html>
 
