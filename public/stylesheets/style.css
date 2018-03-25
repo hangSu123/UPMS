@@ -258,6 +258,12 @@
     width:100%;
     height: 1100px;
   }
+  .error{
+    float: right;
+    padding: 5px;
+    color: red;
+    display: none;
+  }
 
 /*
  *  STYLE 1

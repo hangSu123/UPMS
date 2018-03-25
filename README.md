@@ -7,3 +7,8 @@ connect to server: ssh -i "hangsu.pem" ubuntu@ec2-34-215-223-184.us-west-2.compu
 
 
 server SQL password: Ifb399!@
+
+
+
+
+Please update you sql database after you clone the code each time.

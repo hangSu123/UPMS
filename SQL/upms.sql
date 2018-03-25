@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2018 at 02:09 AM
+-- Generation Time: Mar 25, 2018 at 08:39 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -58,12 +58,22 @@ INSERT INTO `announcements` (`Id`, `userId`, `title`, `content`, `date`) VALUES
 --
 
 CREATE TABLE `application` (
-  `group_id` varchar(50) DEFAULT NULL,
-  `project_id` varchar(50) DEFAULT NULL,
+  `application_id` int(11) NOT NULL,
+  `group_id` varchar(50) NOT NULL,
+  `project_id` varchar(50) NOT NULL,
   `application_link` varchar(255) DEFAULT NULL,
   `group_preference` int(11) DEFAULT NULL,
-  `supervisor_preference` int(11) DEFAULT NULL
+  `supervisor_preference` int(11) DEFAULT NULL,
+  `assigned` enum('yes','no') DEFAULT 'no'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `application`
+--
+
+INSERT INTO `application` (`application_id`, `group_id`, `project_id`, `application_link`, `group_preference`, `supervisor_preference`, `assigned`) VALUES
+(1, '1', '1', 'aasd', 1, 2, 'no'),
+(2, '1', '2', 'sds', 1, 2, 'no');
 
 -- --------------------------------------------------------
 
@@ -72,12 +82,21 @@ CREATE TABLE `application` (
 --
 
 CREATE TABLE `assignment` (
-  `assignment_id` varchar(255) NOT NULL,
-  `assignment_name` varchar(255) DEFAULT NULL,
-  `assignment_weight` decimal(5,2) DEFAULT NULL,
-  `submission_date` datetime DEFAULT NULL,
-  `CRA_link` varchar(255) DEFAULT NULL
+  `assignment_id` int(10) NOT NULL,
+  `assignment_name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+  `assignment_weight` int(3) DEFAULT NULL,
+  `submission_date` date DEFAULT NULL,
+  `CRA_link` varchar(255) CHARACTER SET utf8 DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `assignment`
+--
+
+INSERT INTO `assignment` (`assignment_id`, `assignment_name`, `assignment_weight`, `submission_date`, `CRA_link`) VALUES
+(1, 'Application', 10, '2018-03-23', 'pdfs-17-calculate_visa_end_date.pdf'),
+(2, 'final report', 35, '2018-04-26', 'Receipt_2116475800.pdf'),
+(3, 'resume', 5, '2018-03-31', '30898328.pdf');
 
 -- --------------------------------------------------------
 
@@ -90,8 +109,17 @@ CREATE TABLE `coordinator` (
   `cordinator_email_address` varchar(50) DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
-  `phone_number` int(10) DEFAULT NULL
+  `phone_number` int(10) DEFAULT NULL,
+  `username` varchar(10) NOT NULL,
+  `password` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `coordinator`
+--
+
+INSERT INTO `coordinator` (`cordinator_id`, `cordinator_email_address`, `first_name`, `last_name`, `phone_number`, `username`, `password`) VALUES
+('1', 'suhangj123@gmail.com', 'Hang', 'Su', 481393516, 'c1234567', '2ac9cb7dc02b3c0083eb70898e549b63');
 
 -- --------------------------------------------------------
 
@@ -112,7 +140,7 @@ CREATE TABLE `group` (
 
 INSERT INTO `group` (`group_id`, `available_place`, `tutor_email`, `project_id`) VALUES
 (1, 1, 'suhangj@hotmail.com', NULL),
-(2, 3, 'suhangj@hotmail.com', NULL),
+(2, 2, 'suhangj@hotmail.com', NULL),
 (3, 2, 'suhangj@hotmail.com', NULL),
 (4, 2, 'suhangj@hotmail.com', NULL),
 (5, 4, 'laim@gmail.com', NULL),
@@ -120,7 +148,8 @@ INSERT INTO `group` (`group_id`, `available_place`, `tutor_email`, `project_id`)
 (7, 4, 'laim@gmail.com', NULL),
 (8, 4, 'laim@gmail.com', NULL),
 (9, 4, 'laim@gmail.com', NULL),
-(10, 2, 'laim@gmail.com', NULL);
+(10, 4, 'laim@gmail.com', NULL),
+(11, 3, 'laim@gmail.com', NULL);
 
 -- --------------------------------------------------------
 
@@ -189,16 +218,18 @@ CREATE TABLE `student` (
   `last_name` varchar(50) DEFAULT NULL,
   `GPA` decimal(3,2) DEFAULT NULL,
   `major` enum('CS','IS','UNKONW') DEFAULT NULL,
-  `group_id` varchar(50) DEFAULT NULL
+  `group_id` varchar(50) DEFAULT NULL,
+  `username` varchar(10) NOT NULL,
+  `password` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`student_id`, `email_address`, `first_name`, `last_name`, `GPA`, `major`, `group_id`) VALUES
-('1', 'suhangj@gmail.com', 'Hang', 'Su', '5.00', 'CS', '10'),
-('2', 'suhangj@hotmail.com', 'James', 'Zheng', '5.20', 'CS', '10');
+INSERT INTO `student` (`student_id`, `email_address`, `first_name`, `last_name`, `GPA`, `major`, `group_id`, `username`, `password`) VALUES
+('1', 'suhangj@hotmail.com', 'James', 'Zheng', '5.20', 'CS', '2', 'n9324665', '6f9dff5af05096ea9f23cc7bedd65683'),
+('2', 'suhangj@gmail.com', 'Hang', 'Su', '5.00', 'CS', '1', 'n9326448', '2ac9cb7dc02b3c0083eb70898e549b63');
 
 -- --------------------------------------------------------
 
@@ -211,7 +242,9 @@ CREATE TABLE `supervisor` (
   `email_address` varchar(50) DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
-  `phone_number` int(10) DEFAULT NULL
+  `phone_number` int(10) DEFAULT NULL,
+  `username` varchar(10) NOT NULL,
+  `password` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -225,7 +258,9 @@ CREATE TABLE `tutor` (
   `email_address` varchar(50) DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
-  `phone_number` int(10) DEFAULT NULL
+  `phone_number` int(10) DEFAULT NULL,
+  `username` varchar(10) NOT NULL,
+  `password` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -242,7 +277,7 @@ ALTER TABLE `announcements`
 -- Indexes for table `application`
 --
 ALTER TABLE `application`
-  ADD KEY `FK,PK` (`group_id`,`project_id`);
+  ADD PRIMARY KEY (`application_id`);
 
 --
 -- Indexes for table `assignment`
@@ -313,10 +348,22 @@ ALTER TABLE `announcements`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `application`
+--
+ALTER TABLE `application`
+  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `assignment`
+--
+ALTER TABLE `assignment`
+  MODIFY `assignment_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `group`
 --
 ALTER TABLE `group`
-  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `project`

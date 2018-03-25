@@ -410,9 +410,79 @@ router.post('/upload_project/uploadProject', function(req, res, next) {
 
 
 ////end  upload project page
+
+
+///start assessment page
 router.get('/assessments', function(req, res, next) {
   res.render('coord/assessments');
 });
+
+
+
+router.post('/setUpassignment/uploadFile',CRA.single('file'), function(req, res, next) {
+  if (!req.file.originalname.match(/\.(pdf)$/)) {
+      res.send("not pdf");
+  }else{
+    let oldPath = path.join(__dirname,'../', req.file.path);
+    let newPath = path.join(__dirname, '../','CRAUploads/' + req.file.originalname);
+    fs.rename(oldPath, newPath, (err) => {
+      if (err) {
+        res.send('name error');
+      } else {
+        res.send(req.file.originalname);
+      }
+    });
+  }
+  
+});
+
+
+
+router.post('/setUpassignment/setUpDetaill', function(req, res, next) {
+  var name = req.body.name;
+  var weight = req.body.weight;
+  var dateDue = req.body.dateDue;
+  var file = req.body.fileName;
+  
+  connect().connect(function(err) {
+  if (err) res.send("0");
+    var sql = "INSERT INTO `assignment` (assignment_name,assignment_weight,submission_date,CRA_link)\
+               VALUES ('"+name+"','"+weight+"','"+dateDue+"','"+file+"')";
+    connect().query(sql,function(err,result){
+      if (err) console.log(err);
+       res.send("2");
+    })
+  });
+
+});
+
+
+router.get('/getAssignment/:user', function(req, res, next) {  
+  connect().connect(function(err) {
+  if (err) res.send("0");
+    var sql = "SELECT * FROM `assignment` ORDER BY assignment_id ASC ";
+    connect().query(sql,function(err,results){
+      if (err) console.log(err);
+      var temp ="";
+      for (var i = results.length - 1; i >= 0; i--) {
+        temp += assignmentTemp(results[i].assignment_id,results[i].assignment_name,results[i].assignment_weight,JSON.stringify(results[i].submission_date),results[i].CRA_link);
+      }
+      res.send(temp);
+    })
+  });
+
+});
+
+
+router.get('/CRA/:name', function(req, res){
+  fs.readFile(__dirname + "/../CRAUploads/"+req.params.name+"", function (err,data){
+      res.contentType("application/pdf");
+      res.send(data);
+  });
+});
+
+
+
 
 
 
@@ -530,6 +600,24 @@ function projectTemp(projectId,projectName,level,superName,description){
       return avaTemp;
     }
 
+
+    function assignmentTemp(id,name,weight,date,cra){
+      var assignmentTemp = "";
+      assignmentTemp = '<div class="panel-body">\
+                          <div class="panel-body-t link">\
+                          '+name+'\
+                          </div>\
+                          <div class="panel-body-t-score"><br>\
+                          <p>Due Date: <span style ="color:#114a81;" >'+sqlToJsDate(date)+'</span></p>\
+                          <p>Weight: <span style ="color:#114a81;" >'+weight+'</span></p>\
+                            CRA & Description:\
+                          </div>\
+                          <div class="panel-body-b">\
+                          <div class = "link"><li><a href="/coord/CRA/'+cra+'">'+cra+'</a></li></div>\
+                          </div>\
+                        </div>';
+      return assignmentTemp;  
+    }
 
     function sqlToJsDate(sqlDate){
     //sqlDate in SQL DATETIME format ("yyyy-mm-dd hh:mm:ss.ms")
