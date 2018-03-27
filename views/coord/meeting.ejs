@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/hangsuper.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -78,148 +79,35 @@
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
 
 
-         <div class="panel">
-              <div class="panel-title">
-                <span>Time Table</span>
-              </div>
-              <div class="panel-body-all" >
-                <table width="80%" align="center" style="margin-top: 20px;">
-
-
-              <tr>
-                  <th></th>
-                  <th>Monday</th>
-                  <th>Tuesday</th>
-                  <th>Wednesday</th>
-                  <th>Thrusday</th>
-                  <th>Friday</th>
-
-              </tr>
-
-
-              <tr>
-                  <th>8:00 - 9:00</th>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-
-
-              </tr>
-
-              <tr>
-                  <th>9:00 - 10:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-
-
-              </tr>
-
-              <tr>
-                  <th>10:00 - 11:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>Group 3</td>
-                      <td></td>
-
-
-
-              </tr>
-
-              <tr>
-                  <th>11:00 - 12:00</td>
-
-                      <td>Group11</td>
-                      <td>Group1</td>
-                      <td></td>
-                      <td>Group4</td>
-                      <td></td>
-
-
-
-              </tr>
-
-              <tr>
-                  <th>12:00 - 13:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td>Group6</td>
-                      <td></td>
-                      <td></td>
-
-
-              </tr>
-              <tr>
-                  <th>13:00 - 14:00</td>
-
-                      <td>Status Free</td>
-                      <td>Status Free</td>
-                      <td></td>
-                      <td>Group 5</td>
-                      <td></td>
-
-
-              </tr>
-
-              <tr>
-                  <th>14:00 - 15:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td>Group 7</td>
-                      <td></td>
-                      <td></td>
-
-
-              </tr>
-
-              <tr>
-                  <th>15:00 - 16:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-
-
-              </tr>
-
-              <tr>
-                  <th>16:00 - 17:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-
-
-              </tr>
-              <tr>
-                  <th>17:00 - 18:00</td>
-
-                      <td>Status Free</td>
-                      <td>Status Free</td>
-                      <td></td>
-                      <td>Status Free</td>
-                      <td></td>
-
-
-              </tr>
-          </table>
-
-              </div>
-          </div>
+            <div class="panel">
+                <div class="panel-title">
+                  <span>Time Table</span>
+                  <!-- <select>
+                    <option>Week 1</option>
+                    <option>Week 2</option>
+                    <option>Week 3</option>
+                    <option>Week 4</option>
+                  </select> -->
+                </div>
+                <div class="panel-body-all" style="overflow: hidden;">
+                  <div class="panel-body" style="width: 48%; float: left;">
+                    <div id="calandar">
+                      
+                    </div>
+                  </div>
+                  <div id = "calandarDeatil" class="panel-body" style="width: 47%; float: left; min-height: 320px;">
+                    <!-- <div class="panel-body-t">
+                     December 7, 2017
+                    </div>
+                    <div class="panel-body-b" style="font-size: 15px; font-weight: lighter;">
+                      Presentation time register is available in week 8
+                    </div>
+                    <div class="panel-body-f" style="font-size: 15px; font-weight: lighter;">
+                      <span class="link">@ Hang Su</span>
+                    </div> -->
+                  </div>
+                </div>
+            </div>
 
 
 
@@ -267,6 +155,14 @@
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="../javascripts/hangsuper.js"></script>
     <script src="../javascripts/signin.js"></script>
+    <script>
+
+        var settings = {};
+        var events = "";
+        var element = hs.getId('calandar');
+        element.innerHTML = "";
+        hs.calandar(element, events, settings);
+    </script>
   </body>
 </html>
 

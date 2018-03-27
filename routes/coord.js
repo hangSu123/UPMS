@@ -6,6 +6,7 @@ const upload = require('multer')({ dest: 'projectUploads/' });
 const CRA = require('multer')({ dest: 'CRAUploads/' });
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
 
 // start home page 
 router.get('/', function(req, res, next) {
@@ -632,6 +633,23 @@ function projectTemp(projectId,projectName,level,superName,description){
     }
 
 
+    function makeid() {
+      var text = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    
+      for (var i = 0; i < 7; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    
+      return text;
+    }
+    
+    //console.log(makeid());
+
+    const secret = 'LoiMqxk';
+    const hash = crypto.createHmac('sha256', secret)
+                   .update('Password1')
+                   .digest('hex');
+    //console.log(hash);
 
 
 

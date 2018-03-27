@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var connect = require('./conn');
 var md5 = require('md5');
+var crypto = require('crypto');
 
 router.post('/', function(req, res, next) {
     var username= req.body.username;
@@ -28,15 +29,28 @@ router.post('/', function(req, res, next) {
 
   connect().connect(function(err) {
       if (err) console.log(err);
-      var sql = "SELECT * FROM `"+portal+"` WHERE username = '"+username+"' AND password = '"+md5(password)+"'";
+
+      var sql = "SELECT salt FROM `"+portal+"` WHERE username = '"+username+"'";
       connect().query(sql,function(err,results){
         if (err) console.log(err);
         if(results[0] == null || results[0] == undefined || results[0] == ""){
             res.send('fail');
         }else{
-            page.push(results[0].first_name);
-            page.push(results[0].last_name);        
-            res.send(page);
+            var secret = results[0].salt;
+            var hashPassword = crypto.createHmac('sha256', secret)
+                               .update(password)
+                               .digest('hex');
+            var sql = "SELECT * FROM `"+portal+"` WHERE username = '"+username+"' AND password = '"+hashPassword+"'";
+            connect().query(sql,function(err,results){
+                if (err) console.log(err);
+                if(results[0] == null || results[0] == undefined || results[0] == ""){
+                    res.send('fail');
+                }else{
+                    page.push(results[0].first_name);
+                    page.push(results[0].last_name);        
+                    res.send(page);
+                }
+            })
         }
      })
   })

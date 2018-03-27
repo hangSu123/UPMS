@@ -62,6 +62,7 @@
     margin-top:20px;
     margin-bottom: 10px;
     border:0;
+    cursor: pointer;
     }
 
   </style>
@@ -104,6 +105,8 @@
     </div>
 
   <script>
+
+    
     var btn = hs.getTagName("button");
     var page = ["student","tutor","coord","superviser"];
 
@@ -137,8 +140,12 @@
               userArr = JSON.parse(res);
 
               localStorage.setItem('userId',inputs[0].value);
-              localStorage.setItem('username', userArr[1]+' '+userArr[2])
-              hs.redirect(userArr[0]);
+              localStorage.setItem('username', userArr[1]+' '+userArr[2]);
+              hs.toast('green',2,'Logging in....');
+              setTimeout( () => {
+                hs.redirect(userArr[0]);
+              }, 2000);
+              
             }
           }
         })

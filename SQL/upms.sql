@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2018 at 08:39 AM
+-- Generation Time: Mar 27, 2018 at 09:12 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -111,15 +111,16 @@ CREATE TABLE `coordinator` (
   `last_name` varchar(50) DEFAULT NULL,
   `phone_number` int(10) DEFAULT NULL,
   `username` varchar(10) NOT NULL,
-  `password` varchar(32) NOT NULL
+  `password` varchar(64) NOT NULL,
+  `salt` varchar(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `coordinator`
 --
 
-INSERT INTO `coordinator` (`cordinator_id`, `cordinator_email_address`, `first_name`, `last_name`, `phone_number`, `username`, `password`) VALUES
-('1', 'suhangj123@gmail.com', 'Hang', 'Su', 481393516, 'c1234567', '2ac9cb7dc02b3c0083eb70898e549b63');
+INSERT INTO `coordinator` (`cordinator_id`, `cordinator_email_address`, `first_name`, `last_name`, `phone_number`, `username`, `password`, `salt`) VALUES
+('1', 'suhangj123@gmail.com', 'Hang', 'Su', 481393516, 'c1234567', 'd078aabd7822210b547f05d45411e1cfe8871b94b5b35841d35581e6471e4d1d', 'LoiMqxk');
 
 -- --------------------------------------------------------
 
@@ -140,7 +141,7 @@ CREATE TABLE `group` (
 
 INSERT INTO `group` (`group_id`, `available_place`, `tutor_email`, `project_id`) VALUES
 (1, 1, 'suhangj@hotmail.com', NULL),
-(2, 2, 'suhangj@hotmail.com', NULL),
+(2, 3, 'suhangj@hotmail.com', NULL),
 (3, 2, 'suhangj@hotmail.com', NULL),
 (4, 2, 'suhangj@hotmail.com', NULL),
 (5, 4, 'laim@gmail.com', NULL),
@@ -220,16 +221,17 @@ CREATE TABLE `student` (
   `major` enum('CS','IS','UNKONW') DEFAULT NULL,
   `group_id` varchar(50) DEFAULT NULL,
   `username` varchar(10) NOT NULL,
-  `password` varchar(32) NOT NULL
+  `password` varchar(64) NOT NULL,
+  `salt` varchar(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`student_id`, `email_address`, `first_name`, `last_name`, `GPA`, `major`, `group_id`, `username`, `password`) VALUES
-('1', 'suhangj@hotmail.com', 'James', 'Zheng', '5.20', 'CS', '2', 'n9324665', '6f9dff5af05096ea9f23cc7bedd65683'),
-('2', 'suhangj@gmail.com', 'Hang', 'Su', '5.00', 'CS', '1', 'n9326448', '2ac9cb7dc02b3c0083eb70898e549b63');
+INSERT INTO `student` (`student_id`, `email_address`, `first_name`, `last_name`, `GPA`, `major`, `group_id`, `username`, `password`, `salt`) VALUES
+('1', 'suhangj@hotmail.com', 'James', 'Zheng', '5.20', 'CS', NULL, 'n9324665', 'd078aabd7822210b547f05d45411e1cfe8871b94b5b35841d35581e6471e4d1d', 'LoiMqxk'),
+('2', 'suhangj@gmail.com', 'Hang', 'Su', '5.00', 'CS', '1', 'n9326448', 'd078aabd7822210b547f05d45411e1cfe8871b94b5b35841d35581e6471e4d1d', 'LoiMqxk');
 
 -- --------------------------------------------------------
 
@@ -244,8 +246,16 @@ CREATE TABLE `supervisor` (
   `last_name` varchar(50) DEFAULT NULL,
   `phone_number` int(10) DEFAULT NULL,
   `username` varchar(10) NOT NULL,
-  `password` varchar(32) NOT NULL
+  `password` varchar(64) NOT NULL,
+  `salt` varchar(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `supervisor`
+--
+
+INSERT INTO `supervisor` (`supervisor_id`, `email_address`, `first_name`, `last_name`, `phone_number`, `username`, `password`, `salt`) VALUES
+('1', 'abel@gmail.com', 'Abel', 'Zhang', 456789324, 's1234567', 'd078aabd7822210b547f05d45411e1cfe8871b94b5b35841d35581e6471e4d1d', 'LoiMqxk');
 
 -- --------------------------------------------------------
 
@@ -260,8 +270,16 @@ CREATE TABLE `tutor` (
   `last_name` varchar(50) DEFAULT NULL,
   `phone_number` int(10) DEFAULT NULL,
   `username` varchar(10) NOT NULL,
-  `password` varchar(32) NOT NULL
+  `password` varchar(64) NOT NULL,
+  `salt` varchar(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tutor`
+--
+
+INSERT INTO `tutor` (`tutor_id`, `email_address`, `first_name`, `last_name`, `phone_number`, `username`, `password`, `salt`) VALUES
+('1', 'tutor@gmail.com', 'Chen', 'Kuanheng', 856789345, 't1234567', 'd078aabd7822210b547f05d45411e1cfe8871b94b5b35841d35581e6471e4d1d', 'LoiMqxk');
 
 --
 -- Indexes for dumped tables
