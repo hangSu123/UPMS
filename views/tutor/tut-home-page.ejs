@@ -15,24 +15,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
     <!-- Custom styles for this template -->
     <link href="../stylesheets/dashboard.css" rel="stylesheet">
     <link href="../stylesheets/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/hangsuper.css">
   </head>
 
   <body>
-    
+
     <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #114a81;">
       <a class="navbar-brand" href="#">UPMS</a>
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
 
           <div class="project-name">
-            <a href="#">University Project Management System</a>
+              <a href="../">University Project Management System</a>
           </div>
           <div class="welcome">
             Welcome:
-            <span> Hang</span>
-            <span class="btn">sign out</span>
+            <span id="userId"> Hang</span>
+            <span id="logout" class="btn">sign out</span>
           </div>
       </div>
     </nav>
@@ -72,168 +74,192 @@
       </div>
 
       <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-        <div class="panel fix-s-height">
-                      <div class="panel-title">
-                        <span>Announcement</span>
-                      </div>
-                      <div class="panel-body-all overflow-s">
-                        <div class="panel-body">
-                          <div class="panel-body-t">
-                            Presation time registration
-                          </div>
-                          <div class="panel-body-b">
-                            Presentation time register is available in week 8
-                          </div>
-                          <div class="panel-body-f">
-                            <span>Time:10/05/2018<span>
-                          </div>
-                        </div>
-
-
-
-                        <div class="panel-body">
-                          <div class="panel-body-t">
-                            Presation time registration
-                          </div>
-                          <div class="panel-body-b">
-                            Presentation time register is available in week 8
-                          </div>
-                          <div class="panel-body-f">
-                            <span>Time:10/05/2018<span>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-          <div class="panel" style="height:auto;">
+        <content>
+        <div class="panel" style="height:500px;">
             <div class="panel-title">
-              <span>Time table</span>
+              <span>Announcements</span>
             </div>
-            <div class="panel-body-all">
-              <table width="80%" align="center" >
+            <div id = "announcement" class="panel-body-all" style="height:456px; overflow-y:scroll">
+              <!-- <div class="panel-body">
+                <div class="panel-body-t">
+                  Presation time registration
+                </div>
+                <div class="panel-body-b">
+                  Presentation time register is available in week 8
+                </div>
+                <div class="panel-body-f">
+                  <span>Time:10/05/2018<span>
+                </div>
+              </div>
 
-              <tr>
-                  <th></th>
-                  <th>Monday</th>
-                  <th>Tuesday</th>
-                  <th>Wednesday</th>
-                  <th>Thrusday</th>
-                  <th>Friday</th>
 
-              </tr>
 
-              <tr>
-                  <th>8:00 - 9:00</th>
-
-                      <td></td>
-                      <td><a href="group1">Group1</a></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>9:00 - 10:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>10:00 - 11:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>Group 3</td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>11:00 - 12:00</td>
-
-                      <td>Group11</td>
-                      <td>Group1</td>
-                      <td></td>
-                      <td>Group4</td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>12:00 - 13:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td>Group6</td>
-                      <td></td>
-                      <td></td>
-              </tr>
-              <tr>
-                  <th>13:00 - 14:00</td>
-
-                      <td>Status Free</td>
-                      <td>Status Free</td>
-                      <td></td>
-                      <td>Group 5</td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>14:00 - 15:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td>Group 7</td>
-                      <td></td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>15:00 - 16:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>16:00 - 17:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-              </tr>
-              <tr>
-                  <th>17:00 - 18:00</td>
-
-                      <td>Status Free</td>
-                      <td>Status Free</td>
-                      <td></td>
-                      <td>Status Free</td>
-                      <td></td>
-              </tr>
-          </table>
+              <div class="panel-body">
+                <div class="panel-body-t">
+                  Presation time registration
+                </div>
+                <div class="panel-body-b">
+                  Presentation time register is available in week 8
+                </div>
+                <div class="panel-body-f">
+                  <span>Time:10/05/2018<span>
+                </div>
+              </div> -->
             </div>
+        </div>
 
-          </div>
+        <div class="panel">
+           <div class="panel-title">
+             <span>Time Table</span>
+             <!-- <select>
+               <option>Week 1</option>
+               <option>Week 2</option>
+               <option>Week 3</option>
+               <option>Week 4</option>
+             </select> -->
+           </div>
+           <div class="panel-body-all" style="overflow: hidden;">
+             <div class="panel-body" style="width: 48%; float: left;">
+               <div id="calandar">
+
+               </div>
+             </div>
+             <div id = "calandarDeatil" class="panel-body" style="width: 47%; float: left; min-height: 320px;">
+               <!-- <div class="panel-body-t">
+                December 7, 2017
+               </div>
+               <div class="panel-body-b" style="font-size: 15px; font-weight: lighter;">
+                 Presentation time register is available in week 8
+               </div>
+               <div class="panel-body-f" style="font-size: 15px; font-weight: lighter;">
+                 <span class="link">@ Hang Su</span>
+               </div> -->
+             </div>
+           </div>
+       </div>
+            </content>
     </main>
 
-    </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../stylesheets/popper.min.js"></script>
-    <script src="../stylesheets/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>
+    </div>
+    <script src="../javascripts/hangsuper.js"></script>
+    <script src="../javascripts/signin.js"></script>
+    <script>
+
+      var announcement = hs.getId('announcement');
+      hs.pageLoader('content');
+
+
+      getAnnouncement();
+
+      function sendAnnouncement(){
+        hs.loading();
+
+        hs.getAjax({
+          url:'/coord/createAnnouncement',
+          data:{
+            userId:001,
+            title:input[0].value,
+            content:textarea[0].value,
+            time:input[1].value
+          },
+          succFn:function(data){
+            if (data == 2) {
+              hs.toast("green",2,"Success");
+              getAnnouncement();
+              getCalandar();
+              input[0].value = "";
+              input[1].value = "";
+              textarea[0].value = "";
+            }else{
+              hs.toast("red",2,"Please Check your internet");
+            }
+
+          }
+        })
+      }
+
+
+
+
+      function getAnnouncement(){
+        announcement.innerHTML="";
+        hs.getAjax({
+          url:'/coord/getAnnouncement',
+          data:{
+            userId:'1'
+          },
+          succFn:function(data){
+            var temp = "";
+
+              if (data === 0 || data == 1){
+               temp = "Please Check your database";
+              }else if(data.length=="0" ){
+                temp = "Welcome to IFB398/IFB399 Capstone";
+              }else{
+                temp = data;
+              }
+             hs.text(announcement,temp);
+
+          }
+        })
+      };
+
+      getCalandar();
+
+      function getCalandar(){
+        hs.getAjax({
+          url:'/coord/getCalandar',
+          data:{
+            userId:'1'
+          },
+          succFn:function(data){
+            var temp = "";
+
+              if (data === 0 || data == 1){
+               temp = "Please Check your database";
+              }else if(data.length=="0" ){
+                temp = "Welcome to IFB398/IFB399 Capstone";
+              }else{
+                temp = JSON.parse(data);
+              }
+              dispalyCalandar(temp.events);
+          }
+        })
+      };
+
+      function showDetail(self){
+         hs.getAjax({
+          url:'/coord/getCalandar',
+          data:{
+            userId:001,
+            Id:self.getAttribute("id")
+          },
+          succFn:function(data){
+            if (data == 0 || data == 1) {
+              hs.toast("red",2,"Please check your internet");
+            }else{
+              hs.text(hs.getId("calandarDeatil"),data);
+            }
+
+          }
+        })
+      }
+
+      function dispalyCalandar(events){
+        var settings = {};
+        var element = hs.getId('calandar');
+        element.innerHTML = "";
+        hs.calandar(element, events, settings);
+      }
+
+
+    </script>
+
+
+
+
+
+
   </body>
 </html>

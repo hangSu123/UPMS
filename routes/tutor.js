@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var connect = require('./conn');
+
+const path = require('path');
+const fs = require('fs');
 
 
 router.get('/', function(req, res, next) {
@@ -28,6 +32,27 @@ router.get('/tutgroups', function(req, res, next) {
   res.render('tutor/tutgroups', { title: 'Express' });
 });
 
+router.get('/getAnnouncement/:userId', function(req, res, next) {
+  if (req.xhr){
+    connect().connect(function(err) {
+      if (err) res.send('0');
+      var sql = "SELECT * FROM announcements ORDER BY Id ASC";
+      connect().query(sql,function(err,result){
+        if (err) res.send('1');
+        var temp="";
+        for (var i = result.length - 1; i >= 0; i--) {
+          temp += announcementTemp(result[i].title,result[i].content,JSON.stringify(result[i].date));
+
+        }
+         res.send(temp);
+       })
+    });
+  } else {
+   res.send("Page not avalible");
+  }
+
+
+});
 
 
 

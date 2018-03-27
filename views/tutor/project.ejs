@@ -16,25 +16,26 @@
 
     <!-- Custom styles for this template -->
     <link href="../stylesheets/dashboard.css" rel="stylesheet">
-    <link rel="stylesheet" href="../stylesheets/style.css">
+    <link href="../stylesheets/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/hangsuper.css">
+  </head>
 
+  <body>
 
-
-    <body>
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #114a81;">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #114a81;">
       <a class="navbar-brand" href="#">UPMS</a>
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
 
           <div class="project-name">
-            <a href="#">University Project Management System</a>
+              <a href="../">University Project Management System</a>
           </div>
           <div class="welcome">
             Welcome:
-            <span> Hang</span>
-            <span class="btn">sign out</span>
+            <span id="userId"> Hang</span>
+            <span id="logout" class="btn">sign out</span>
           </div>
       </div>
-      </nav>
+    </nav>
 
         <div class="container-fluid">
         <div class="row">
@@ -74,10 +75,12 @@
 
           <div class="panel fix-l-height">
               <div class="panel-title">
-                <span>Announcement</span>
+                <span>Project</span>
               </div>
-              <div class="panel-body-all overflow-l" >
-                <div class="panel-body">
+              <div class="panel-body-all overflow-l">
+
+
+                <!-- <div class="panel-body">
                   <div class="panel-body-t link">
                     Public trasport system intergreation
                   </div>
@@ -91,97 +94,46 @@
                   <div class="panel-body-f">
                     <span>Time:10/05/2018<span>
                   </div>
-                </div>
+                </div> -->
 
 
 
-               <div class="panel-body">
-                  <div class="panel-body-t link">
-                    Public trasport system intergreation
-                  </div>
-                  <div class="panel-body-t-score"><br>
-                    <p>Difficulty level: C</p>
-                    Supervisor: Jame Wang
-                  </div>
-                  <div class="panel-body-b">
-                    Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget.
-                  </div>
-                  <div class="panel-body-f">
-                    <span>Time:10/05/2018<span>
-                  </div>
-                </div>
-
-
-                <div class="panel-body">
-                  <div class="panel-body-t link">
-                    Public trasport system intergreation
-                  </div>
-                  <div class="panel-body-t-score"><br>
-                    <p>Difficulty level: C</p>
-                    Supervisor: Jame Wang
-                  </div>
-                  <div class="panel-body-b">
-                    Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget.
-                  </div>
-                  <div class="panel-body-f">
-                    <span>Time:10/05/2018<span>
-                  </div>
-                </div>
-
-
-
-                <div class="panel-body">
-                  <div class="panel-body-t link">
-                    Public trasport system intergreation
-                  </div>
-                  <div class="panel-body-t-score"><br>
-                    <p>Difficulty level: C</p>
-                    Supervisor: Jame Wang
-                  </div>
-                  <div class="panel-body-b">
-                    Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget.
-                  </div>
-                  <div class="panel-body-f">
-                    <span>Time:10/05/2018<span>
-                  </div>
-                </div>
-
-
-
-                <div class="panel-body">
-                  <div class="panel-body-t link">
-                    Public trasport system intergreation
-                  </div>
-                  <div class="panel-body-t-score"><br>
-                    <p>Difficulty level: C</p>
-                    Supervisor: Jame Wang
-                  </div>
-                  <div class="panel-body-b">
-                    Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget.
-                  </div>
-                  <div class="panel-body-f">
-                    <span>Time:10/05/2018<span>
-                  </div>
-                </div>
               </div>
           </div>
-
-
-
 
 
         </main>
       </div>
     </div>
+    <script src="../javascripts/hangsuper.js"></script>
+    <script src="../javascripts/signin.js"></script>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../stylesheets/popper.min.js"></script>
-    <script src="../stylesheets/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>
+    <script>
+
+      getProjects();
+
+
+
+
+      function getProjects(){
+        hs.getAjax({
+          url:'/coord/project/getProjects',
+          data:{
+            userId:'001'
+          },
+          succFn:function(res){
+            if (res === ""){
+              content = "Projects are currently not available"
+            }else{
+              content = res;
+            }
+            hs.text(hs.getClassName("panel-body-all")[0],content);
+          }
+        })
+      }
+
+
+    </script>
+
   </body>
 </html>
