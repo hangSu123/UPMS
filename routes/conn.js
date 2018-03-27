@@ -7,8 +7,8 @@ function con(){
 	connection = mysql.createConnection({
 	  host: "localhost",
 	  user: "root",
-	  password: "root",//Ifb399!@
-	  port:"3307",
+	  password: "",//Ifb399!@
+	  port:"3306",
 	  database: "UPMS"
 	});
 

@@ -85,7 +85,7 @@
     <div class="login-panel-t">
       <input class= "textIput" type="text" name="username" placeholder="Username" style="margin-top:-30px;">
       <span class="error">Please enter a valid username</span>
-      <input class= "textIput" type="password" name="username" placeholder="Password">
+      <input class= "textIput" type="password" name="username" placeholder="Password"  onkeypress="hs.keyPress(event,enterCallback);">
       <span class="error">Please enter a valid password</span>
   </div>
     <div class="login-panel-m">
@@ -109,9 +109,10 @@
     
     var btn = hs.getTagName("button");
     var page = ["student","tutor","coord","superviser"];
+    
 
 
-    btn[0].addEventListener('click',function(){
+    function login(){
       var inputs = hs.getTagName('input');
       var err = hs.getClassName('error');
       err[0].style.display="none";
@@ -150,7 +151,16 @@
           }
         })
       }
+    }
+
+    btn[0].addEventListener('click',function(){
+        login();
     });
+
+
+    function enterCallback(){
+      login();
+    }
     // btn[1].addEventListener('click',function(){
     //   hs.redirect(page[1]);
     // });
