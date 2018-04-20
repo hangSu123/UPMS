@@ -13,6 +13,7 @@
     <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../../javascripts/hangsuper.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="../stylesheets/dashboard.css" rel="stylesheet">
@@ -23,17 +24,18 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #114a81;">
       <a class="navbar-brand" href="#">UPMS</a>
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-       
+
           <div class="project-name">
             <a href="../">University Project Management System</a>
           </div>
-          <div class="welcome"> 
+          <div class="welcome">
             Welcome:
             <span> Hang</span>
             <span class="btn">sign out</span>
           </div>
       </div>
     </nav>
+
 
     <div class="container-fluid">
       <div class="row">
@@ -60,7 +62,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/student/manage_meeting_time">Register meeting Time</a>
             </li>
-              
+
             <li class="nav-item">
               <a class="nav-link" href="/student/manage_presentation_time"> Register presentation Time</a>
             </li>
@@ -80,7 +82,13 @@
         </nav>
 
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-
+          <div class="input_row" style="margin-top: 60px;">
+            <label>Application:</label>
+            <input type="file">
+          </div>
+          <div class="input_row">
+            <button class="btn">APPLY</button>
+          </div>
 
               <div class="panel">
                  <div class="panel-title">
@@ -89,62 +97,27 @@
               <div class="panel-body-all">
                 <div class="panel-body">
                   <div class="panel-body-t link">
-                    Public trasport system intergreation
+                  <%= projectName %>
                   </div>
                   <div class="panel-body-t-score"><br>
-                    <p>Difficulty level: C</p>
-                    Supervisor: Jame Wang
                   </div>
                   <div class="panel-body-b">
-<pre> Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris
-justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum 
-malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla
- wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi 
- mattis pariatur aliquam pharetra eget.Lorem ipsum dolor sit amet, sapien etiam,
-  nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque
-   ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, 
-   cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus 
-   elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget.
-
-
-IFB398:
-
-    * ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. 
-    Arcu es massa vestibulum malesuada
-
-    *ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. 
-    Arcu es massa vestibulum malesuada,
-
-    *ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. 
-    Arcu es massa vestibulum malesuada,
-
-
- IFB399:
-
-    * ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac.
-     Arcu es massa vestibulum malesuada
-
-    *ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac.
-     Arcu es massa vestibulum malesuada,
-    
-    *ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. 
-  Arcu es massa vestibulum malesuada,</pre>
+   <iframe id='iframe' src= '/coord/project_detail/projectUploads/<%= filePath %>' onload='readfile()'> </iframe>
 
                   </div>
-                  <div class="input_row" style="margin-top: 60px;">
-                    <label>Application:</label>
-                    <input type="file">
-                  </div>
-                  <div class="input_row">
-                    <button class="btn">APPLY</button>
-                  </div>
+
                 </div>
+
               </div>
             </div>
 
+
         </main>
+
       </div>
     </div>
+
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -158,4 +131,9 @@ IFB398:
   </body>
 </html>
 
+<script>
+function readfile() {
+     document.getElementById('iframe').contentDocument.body.firstChild.innerHTML;
+}
 
+</script>

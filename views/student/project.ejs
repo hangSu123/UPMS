@@ -60,7 +60,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/student/manage_meeting_time">Register meeting Time</a>
             </li>
-              
+
             <li class="nav-item">
               <a class="nav-link" href="/student/manage_presentation_time"> Register presentation Time</a>
             </li>
@@ -86,7 +86,7 @@
                 <span>Projects</span>
               </div>
               <div class="panel-body-all overflow-l">
-                <div class="panel-body">
+              <!--  <div class="panel-body">
                   <div class="panel-body-t link">
                     <a href="project_detail">Public trasport system intergreation</a>
                   </div>
@@ -171,7 +171,7 @@
                   <div class="panel-body-f">
                     <span>Time:10/05/2018<span>
                   </div>
-                </div>
+                </div>-->
               </div>
           </div>
 
@@ -192,5 +192,29 @@
     <script src="../stylesheets/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>
+    <script src="../javascripts/hangsuper.js"></script>
   </body>
 </html>
+
+<script>
+
+getProjects();
+
+function getProjects(){
+  hs.getAjax({
+    url:'/coord/project/getProjects',
+    data:{
+      userId:'001'
+    },
+    succFn:function(res){
+      if (res === ""){
+        content = "Projects are currently not available"
+      }else{
+        content = res;
+      }
+      hs.text(hs.getClassName("panel-body-all")[0],content);
+    }
+  })
+}
+
+</script>

@@ -12,7 +12,6 @@
 
     <!-- Bootstrap core CSS -->
     <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../stylesheets/hangsuper.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -31,8 +30,8 @@
           </div>
           <div class="welcome">
             Welcome:
-            <span id ="userId"> Hang</span>
-            <span id ="logout" class="btn">sign out</span>
+            <span id = "userId"> suhang</span>
+            <span class="btn">sign </span>
           </div>
       </div>
     </nav>
@@ -85,8 +84,8 @@
               <div class="panel-title">
                 <span>Announcements</span>
               </div>
-              <div class="panel-body-all" style="height:456px; overflow-y:scroll">
-                <div class="panel-body">
+              <div  id = "announcement" class="panel-body-all" style="height:456px; overflow-y:scroll">
+                <!--<div class="panel-body">
                   <div class="panel-body-t">
                     Presation time registration
                   </div>
@@ -97,7 +96,7 @@
                     <span>Time:10/05/2018<span>
                   </div>
                 </div>
-              
+
 
 
                 <div class="panel-body">
@@ -110,10 +109,10 @@
                   <div class="panel-body-f">
                     <span>Time:10/05/2018<span>
                   </div>
-                </div>
+                </div>-->
               </div>
           </div>
-          
+
 
 
 
@@ -267,8 +266,51 @@
         </main>
       </div>
     </div>
-    <script src="../javascripts/bootstrap.min.js"></script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <!--<script src="../stylesheets/popper.min.js"></script>-->
     <script src="../javascripts/hangsuper.js"></script>
-    <script src="../javascripts/signin.js"></script>
+    <!--<script src="../stylesheets/bootstrap.min.js"></script>-->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <!--  <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>-->
   </body>
 </html>
+
+<script>
+var input = hs.getTagName('input');
+var btn = hs.getTagName('button');
+var error = hs.getClassName('error');
+var textarea = hs.getTagName('textarea');
+var announcement = hs.getId('announcement');
+
+
+getAnnouncement();
+
+function getAnnouncement(){
+  announcement.innerHTML="";
+  hs.getAjax({
+    url:'/coord/getAnnouncement',
+    data:{
+      userId:'1'
+    },
+    succFn:function(data){
+      var temp = "";
+
+        if (data === 0 || data == 1){
+         temp = "Please Check your database";
+        }else if(data.length=="0" ){
+          temp = "Welcome to IFB398/IFB399 Capstone";
+        }else{
+          temp = data;
+        }
+       hs.text(announcement,temp);
+
+    }
+  })
+};
+
+</script>

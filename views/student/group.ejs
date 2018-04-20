@@ -21,7 +21,7 @@
   </head>
 
   <body>
-  
+
     <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #114a81;">
       <a class="navbar-brand" href="#">UPMS</a>
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
@@ -82,38 +82,25 @@
       </div>
 
       <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-        <div class="panel" style="height: 500px;">
+        <div class="panel" style="height: 500px; overflow: scroll; ">
                       <div class="panel-title">
-                        <span>Select a group</span>
+                        <span><a href = "/student/group/group_detail">Select a group</a></span>
                       </div>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="" class="btn btn-info btn-red" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
-                        <a href="group_detail" class="btn btn-info" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>
+
+
+  <table class = "groupTable">
+                <tr>
+                <th>Group_id</th>
+                <th>available_place</th>
+                <th>tutor</th>
+                </tr>
+                <tbody id = "showDetail" style="height:420px;width:100%;">
+
+                </tbody>
+  </table>
+                      <!--  <a href="" class="btn btn-info btn-red" role="button" style="margin-top:8px;margin-left:8px;">Group 1</a>-->
+
+
             </div>
       </main>
 
@@ -125,9 +112,26 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../stylesheets/popper.min.js"></script>
-    <script src="../stylesheets/bootstrap.min.js"></script>
+    <!--<script src="../stylesheets/popper.min.js"></script>-->
+    <!--<script src="../stylesheets/bootstrap.min.js"></script>-->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>
+    <!--<script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>-->
+      <script src="../javascripts/hangsuper.js"></script>
+      <script>
+getGroups();
+function getGroups(){
+  hs.getAjax({
+    url:'/student/group/getGroup',
+    data:{
+      user:'1'
+    },
+    succFn:function(res){
+      hs.getId('showDetail').innerHTML += res;
+    }
+  })
+}
+
+
+      </script>
   </body>
 </html>
