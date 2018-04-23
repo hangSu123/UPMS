@@ -354,9 +354,79 @@ router.get('/project_detail/projectUploads/:name', function(req, res){
 
 
 ///Ends project Detail
+
+/// Starts team meeting functions
 router.get('/meeting', function(req, res, next) {
   res.render('coord/meeting');
 });
+
+
+router.get('/meeting/getTimeSlots/:userId',function(req, res, next){
+  if (req.xhr){
+    var userId = req.params.userId;
+    connect().connect(function(err){
+      if (err) console.log(err);
+        var sql = "SELECT * FROM `meeting` WHERE type = 'tutor' order by time DESC";
+        connect().query(sql,function(err,result){
+          if (err) console.log(err);
+            var temp = "";
+            var temps = "<tr>"
+            var tempM="<th>";
+            var tempT="</th><th>";
+            var tempW="</th><th>";
+            var tempTh="</th><th>";
+            var tempF="</th><th>";
+            var tempe= "</th></tr>";
+            for (var i = result.length - 1; i >= 0; i--) {
+              if (result[i].day == "Monday"){
+                 tempM += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+              }if (result[i].day == "Tuesday"){
+                tempT += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+              }if (result[i].day == "Wednesday"){
+                tempW += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+              }if (result[i].day == "Thursday"){
+                tempTh += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+              }if (result[i].day == "Friday"){
+                tempF += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+              }
+            }
+            temp = temps+tempM+tempT+tempW+tempTh+tempF+tempe;
+            res.send(temp);
+          })
+          
+      })
+  }else{
+    res.send('page not avalible')
+  }
+})
+
+router.get('/meeting/createMeeting/:day/:time/:duration/:tutor', function(req, res, next) {
+  if (req.xhr){
+    var day = req.params.day;
+    var time = req.params.time;
+    var duration = req.params.duration;
+    var tutor = req.params.tutor;
+    
+    connect().connect(function(err) {
+    if (err) res.send("0");
+      var sql = "INSERT INTO `meeting` (type,tutor_id,day,time,duration)\
+                VALUES ('tutor','"+tutor+"','"+day+"','"+time+"','"+duration+"')";
+      connect().query(sql,function(err,result){
+        if (err) console.log(err);
+        res.send("succ");
+      })
+    });
+
+  }else{
+    res.send("Page not avalible");
+  }
+});
+
+
+///Ends team meeting functions
+
+
+
 router.get('/profile', function(req, res, next) {
   res.render('coord/profile');
 });
@@ -618,6 +688,26 @@ function projectTemp(projectId,projectName,level,superName,description){
                           </div>\
                         </div>';
       return assignmentTemp;  
+    }
+
+
+
+    function timeSlotTemp(tutor,time,duration,status){
+      var classes = "registed";
+      if (status > 0){
+        status = status + ' groups left';
+        classes = "free";
+      }else if(status == 0){
+        status = "Registed"
+      }
+      var timeSlotTemp= "";
+      timeSlotTemp = '<div class ="link ' + classes +'">\
+                        <span>Tutor: '+tutor+'</span>\
+                        <span>Time:'+time+'</span>\
+                        <span>'+status+'</span>\
+                      </div>'
+      return timeSlotTemp;
+    
     }
 
     function sqlToJsDate(sqlDate){

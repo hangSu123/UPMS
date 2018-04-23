@@ -18,6 +18,32 @@
     <!-- Custom styles for this template -->
     <link href="../stylesheets/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="../stylesheets/style.css">
+    <style>
+      .free{
+        background:cadetblue; 
+      }
+      .registed{
+        background: red;
+      }
+      th{
+        height:auto;
+      }
+      th div{
+        display:block;
+        margin-bottom: 5px;
+        min-height:50px; 
+        width:100%;
+        text-align:left;
+      }
+    
+     th div span{
+      color:#ffffff;
+      font-size:12px;
+      display: block;
+      padding:2px;
+    }
+    
+    </style>
   </head>
 
   <body>
@@ -82,30 +108,73 @@
             <div class="panel">
                 <div class="panel-title">
                   <span>Time Table</span>
-                  <!-- <select>
-                    <option>Week 1</option>
-                    <option>Week 2</option>
-                    <option>Week 3</option>
-                    <option>Week 4</option>
-                  </select> -->
                 </div>
                 <div class="panel-body-all" style="overflow: hidden;">
-                  <div class="panel-body" style="width: 48%; float: left;">
-                    <div id="calandar">
-                      
-                    </div>
-                  </div>
-                  <div id = "calandarDeatil" class="panel-body" style="width: 47%; float: left; min-height: 320px;">
-                    <!-- <div class="panel-body-t">
-                     December 7, 2017
-                    </div>
-                    <div class="panel-body-b" style="font-size: 15px; font-weight: lighter;">
-                      Presentation time register is available in week 8
-                    </div>
-                    <div class="panel-body-f" style="font-size: 15px; font-weight: lighter;">
-                      <span class="link">@ Hang Su</span>
-                    </div> -->
-                  </div>
+                    <table width="80%" align="center" >
+                        <tr>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                        </tr>
+                        <tbody id="timeSlots">
+
+                        </tbody>
+
+                        <!-- <tr> -->
+                            <!-- <th>
+                                <div class ="link free">
+                                    <span>Tutor: Hang</span>
+                                    <span>Time: 1:30 AM</span>
+                                    <span>Status: Available</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div class ="link registed">
+                                    <span>Tutor: Hang</span>
+                                    <span>Time: 1:30 AM</span>
+                                    <span>Status: Group 2, Group 1, Group 3</span>
+                                </div>
+                                <div class ="link free">
+                                    <span>Tutor: Hang</span>
+                                    <span>Time: 1:30 AM</span>
+                                    <span>Status: Available</span>
+                                </div>
+                                <div class ="link free">
+                                    <span>Tutor: Hang</span>
+                                    <span>Time: 1:30 AM</span>
+                                    <span>Status: Available</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div class ="link free">
+                                    <span>Tutor: Hang</span>
+                                    <span>Time: 1:30 AM</span>
+                                    <span>Status: Available</span>
+                                </div>
+                                <div class ="link free">
+                                    <span>Tutor: Hang</span>
+                                    <span>Time: 1:30 AM</span>
+                                    <span>Status: Available</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div class ="link registed">
+                                    <span>Tutor: Hang</span>
+                                    <span>Time: 1:30 AM</span>
+                                    <span>Status: Available</span>
+                                </div>
+                            </th>
+                            <th>
+
+                            </th> -->
+          
+                        <!-- </tr> -->
+
+                       
+          
+                      </table>
                 </div>
             </div>
 
@@ -117,26 +186,36 @@
               </div>
               <div class="panel-body-all">
                   <div class="input_row">
-                    <label>Date:</label>
-                    <input type="date">
+                    <label>Day:</label>
+                    <select type="select">
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                    </select>
+                    <span class="error">Please select a Day</span>
                   </div>
                   <div class="input_row">
                     <label>Time:</label>
                     <input type="time">
+                    <span class="error">Please select a time</span>
                   </div>
                   <div class="input_row">
                     <label>Duration(min):</label>
                     <input type="number">
+                    <span class="error">Please set up the duration</span>
                   </div>
                   <div class="input_row">
                     <label>Assign To:</label>
                     <select>
-                      <option value="">Hang</option>
-                      <option value="">Jerry</option>
+                      <option value="Hang">Hang</option>
+                      <option value="Jerry">Jerry</option>
                     </select>
+                    <span class="error">Please select a tutor</span>
                   </div>
                   <div class="input_row">
-                    <button class="btn">ADD</button>
+                    <button id = "btn" class="btn">ADD</button>
                   </div>
                  
               </div>
@@ -157,11 +236,74 @@
     <script src="../javascripts/signin.js"></script>
     <script>
 
-        var settings = {};
-        var events = "";
-        var element = hs.getId('calandar');
-        element.innerHTML = "";
-        hs.calandar(element, events, settings);
+
+        var add_btn = hs.getId('btn');
+        var error = hs.getClassName('error');
+        var inputs = hs.getTagName('input');
+        var tutor = hs.getTagName('select');
+
+
+
+        getTimeSlots();
+
+
+
+        function getTimeSlots(){
+          hs.getAjax({
+            url:'/coord/meeting/getTimeSlots',
+            data:{
+              userId:localStorage.getItem('userId')
+            },
+            succFn:function(res){
+              hs.text(hs.getId('timeSlots'),res);
+            }
+          })
+        }
+
+        hs.click(add_btn,function(){
+
+          var time  = inputs[0].value;
+          var duration = inputs[1].value;
+          error[0].style.display="none";
+          error[1].style.display="none";
+          error[2].style.display="none";
+          error[3].style.display="none";
+          if(hs.isEmpty(tutor[0].value)){
+            error[0].style.display="block";
+            return;
+          }
+          if(hs.isEmpty(time)){
+            error[1].style.display="block";
+            return;
+          }
+          if(hs.isEmpty(duration)){
+            error[2].style.display="block";
+            return;
+          }
+          if(hs.isEmpty(tutor[1].value)){
+            error[3].style.display="block";
+            return;
+          }
+
+
+          hs.getAjax({
+            url:'/coord/meeting/createMeeting',
+            data:{
+              day:tutor[0].value,
+              time:time,
+              duration:duration,
+              tutor:tutor[1].value
+            },
+            succFn:function(res){
+              if (res === 'succ'){
+                hs.toast('green',2,'Time created');
+                getTimeSlots();
+              }else{
+                hs.toast('red',2,'Fail');
+              }             
+            }
+          })
+        })
     </script>
   </body>
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2018 at 09:12 AM
+-- Generation Time: Apr 23, 2018 at 06:34 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -132,25 +132,26 @@ CREATE TABLE `group` (
   `group_id` int(11) NOT NULL,
   `available_place` int(11) DEFAULT NULL,
   `tutor_email` text,
-  `project_id` varchar(50) DEFAULT NULL
+  `project_id` varchar(50) DEFAULT NULL,
+  `meeting_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `group`
 --
 
-INSERT INTO `group` (`group_id`, `available_place`, `tutor_email`, `project_id`) VALUES
-(1, 1, 'suhangj@hotmail.com', NULL),
-(2, 3, 'suhangj@hotmail.com', NULL),
-(3, 2, 'suhangj@hotmail.com', NULL),
-(4, 2, 'suhangj@hotmail.com', NULL),
-(5, 4, 'laim@gmail.com', NULL),
-(6, 4, 'laim@gmail.com', NULL),
-(7, 4, 'laim@gmail.com', NULL),
-(8, 4, 'laim@gmail.com', NULL),
-(9, 4, 'laim@gmail.com', NULL),
-(10, 4, 'laim@gmail.com', NULL),
-(11, 3, 'laim@gmail.com', NULL);
+INSERT INTO `group` (`group_id`, `available_place`, `tutor_email`, `project_id`, `meeting_id`) VALUES
+(1, 2, 'suhangj@hotmail.com', NULL, NULL),
+(2, 3, 'suhangj@hotmail.com', NULL, NULL),
+(3, 2, 'suhangj@hotmail.com', NULL, NULL),
+(4, 2, 'suhangj@hotmail.com', NULL, NULL),
+(5, 4, 'laim@gmail.com', NULL, NULL),
+(6, 4, 'laim@gmail.com', NULL, NULL),
+(7, 4, 'laim@gmail.com', NULL, NULL),
+(8, 4, 'laim@gmail.com', NULL, NULL),
+(9, 4, 'laim@gmail.com', NULL, NULL),
+(10, 4, 'laim@gmail.com', NULL, NULL),
+(11, 3, 'laim@gmail.com', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -159,12 +160,29 @@ INSERT INTO `group` (`group_id`, `available_place`, `tutor_email`, `project_id`)
 --
 
 CREATE TABLE `meeting` (
-  `meeting_id` varchar(50) NOT NULL,
-  `type` enum('A','B','C') DEFAULT NULL,
-  `group_id` varchar(50) DEFAULT NULL,
+  `meeting_id` int(50) NOT NULL,
+  `type` enum('tutor','demo') DEFAULT NULL,
   `tutor_id` varchar(50) DEFAULT NULL,
-  `data_time` datetime DEFAULT NULL
+  `day` varchar(20) DEFAULT NULL,
+  `time` time NOT NULL,
+  `duration` int(11) NOT NULL,
+  `space_ava` int(11) NOT NULL DEFAULT '4'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `meeting`
+--
+
+INSERT INTO `meeting` (`meeting_id`, `type`, `tutor_id`, `day`, `time`, `duration`, `space_ava`) VALUES
+(3, 'tutor', 'Hang', 'Monday', '00:21:00', 12, 0),
+(4, 'tutor', 'Jerry', 'Monday', '14:23:00', 23, 4),
+(5, 'tutor', 'Jerry', 'Tuesday', '14:23:00', 23, 4),
+(6, 'tutor', 'Hang', 'Tuesday', '12:03:00', 12, 4),
+(13, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 0),
+(14, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 1),
+(15, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 4),
+(16, 'tutor', 'Hang', 'Thursday', '12:30:00', 30, 4),
+(17, 'tutor', 'Jerry', 'Friday', '12:30:00', 30, 4);
 
 -- --------------------------------------------------------
 
@@ -231,7 +249,7 @@ CREATE TABLE `student` (
 
 INSERT INTO `student` (`student_id`, `email_address`, `first_name`, `last_name`, `GPA`, `major`, `group_id`, `username`, `password`, `salt`) VALUES
 ('1', 'suhangj@hotmail.com', 'James', 'Zheng', '5.20', 'CS', NULL, 'n9324665', 'd078aabd7822210b547f05d45411e1cfe8871b94b5b35841d35581e6471e4d1d', 'LoiMqxk'),
-('2', 'suhangj@gmail.com', 'Hang', 'Su', '5.00', 'CS', '1', 'n9326448', 'd078aabd7822210b547f05d45411e1cfe8871b94b5b35841d35581e6471e4d1d', 'LoiMqxk');
+('2', 'suhangj@gmail.com', 'Hang', 'Su', '5.00', 'CS', NULL, 'n9326448', 'd078aabd7822210b547f05d45411e1cfe8871b94b5b35841d35581e6471e4d1d', 'LoiMqxk');
 
 -- --------------------------------------------------------
 
@@ -321,7 +339,7 @@ ALTER TABLE `group`
 --
 ALTER TABLE `meeting`
   ADD PRIMARY KEY (`meeting_id`),
-  ADD KEY `FK` (`group_id`,`tutor_id`);
+  ADD KEY `FK` (`tutor_id`);
 
 --
 -- Indexes for table `project`
@@ -382,6 +400,12 @@ ALTER TABLE `assignment`
 --
 ALTER TABLE `group`
   MODIFY `group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `meeting`
+--
+ALTER TABLE `meeting`
+  MODIFY `meeting_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `project`
