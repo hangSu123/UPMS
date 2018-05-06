@@ -424,7 +424,88 @@ router.get('/meeting/createMeeting/:day/:time/:duration/:tutor', function(req, r
 
 
 ///Ends team meeting functions
+///starts presentation time function
+router.get('/presentation', function(req, res, next) {
+  res.render('coord/presentation');
+});
 
+
+
+router.get('/presentation/createMeeting/:day/:time', function(req, res, next) {
+  if (req.xhr){
+    var day = req.params.day;
+    var time = req.params.time;
+    
+    connect().connect(function(err) {
+    if (err) res.send("0");
+      var sql = "INSERT INTO `meeting` (type,date,time)\
+                VALUES ('demo','"+day+"','"+time+"')";
+      connect().query(sql,function(err,result){
+        if (err) console.log(err);
+        res.send("succ");
+      })
+    });
+
+  }else{
+    res.send("Page not avalible");
+  }
+});
+
+
+
+router.get('/presentation/getTimeSlots/:userId',function(req, res, next){
+  if (req.xhr){
+    var userId = req.params.userId;
+    connect().connect(function(err){
+      if (err) console.log(err);
+        var sql = "SELECT * FROM `meeting` WHERE type = 'demo' order by Date ASC";
+        connect().query(sql,function(err,result){
+          if (err) res.send('1');
+            var temp={};
+            var key = "events";
+            temp[key]=[];
+            for (var i = result.length - 1; i >= 0; i--) {
+              var newDate = sqlToJsDate(JSON.stringify(result[i].date));
+              var data = {
+              Date:result[i].date,
+              Title:newDate,
+              Link:newDate
+            };
+            temp[key].push(data);
+          }
+    
+          res.json(temp);
+          })
+      })
+  }else{
+    res.send('page not avalible')
+  }
+})
+
+
+
+router.get('/presentation/getCalandar/:userId/:Id', function(req, res, next) {
+  if (req.xhr){
+    connect().connect(function(err) {
+    if (err) console.log(err);
+      var sql = "SELECT * FROM `meeting` WHERE date = '"+req.params.Id+"'";
+      connect().query(sql,function(err,results){
+        if (err) console.log(err);
+        var temp ="";
+        for (var i = results.length - 1; i >= 0; i--) {
+          temp += presentationTimeTemp(JSON.stringify(results[i].date),results[i].time, parseInt(i+1));
+        }
+        res.send(temp);
+      })
+    });
+  } else {
+   res.send("Page not avalible");
+  }
+});
+
+
+
+//Ends presentation time function
 
 
 router.get('/profile', function(req, res, next) {
@@ -585,9 +666,27 @@ function calandarTemp(date,content,userId){
                             </div>\
                             <div class="panel-body-f" style="font-size: 15px; font-weight: lighter;">\
                              <span class="link">@ '+userId+'</span>\
-                            </div>';
+                          </div>';
         return calandarTemp;
     }
+
+
+function presentationTimeTemp(date,time,section){
+      var presentationTimeTemp = '<div style="display:block; clear:both"><div class="panel-body-t">\
+                                    section: '+section+'\
+                                  </div>\
+                                  <div class="panel-body-b" style="font-size: 15px; font-weight: lighter;">\
+                                    The time will be: '+time+'\
+                                  </div>\
+                                  <div class="panel-body-f" style="font-size: 15px; font-weight: lighter;">\
+                                  <span class="link">@ '+sqlToJsDate(date)+'</span>\
+                                  </div>\
+                                  </div>';
+      
+
+      return presentationTimeTemp;
+    }
+
 
 function projectTemp(projectId,projectName,level,superName,description){
         

@@ -3,6 +3,21 @@ var router = express.Router();
 var connect = require('./conn');
 var md5 = require('md5');
 var crypto = require('crypto');
+var db = require('../db'),
+    sequelize = db.sequelize,
+    Sequelize = db.Sequelize;
+
+var Student = require('../dbModules/db_student');
+sequelize.sync()
+    .then(function(){
+      Student.findOne({username:'n9324665'})
+        .then(function(student){
+           
+            console.log(student.dataValues)
+        
+    })
+})
+
 
 router.post('/', function(req, res, next) {
     var username= req.body.username;
