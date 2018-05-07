@@ -21,7 +21,7 @@ router.get('/manage_meeting_time', function(req, res, next) {
   res.render('student/manage_meeting_time');
 });
 router.get('/manage_presentation_time', function(req, res, next) {
-  res.render('student/manage_presentation_time');
+  res.render('student/presentation');
 });
 router.get('/profile', function(req, res, next) {
   res.render('student/profile');
@@ -447,6 +447,111 @@ router.get('/meeting/getTimeSlots/:userId',function(req, res, next){
   }
 })
 
+
+
+router.get('/presentation/getTimeSlots/:userId',function(req, res, next){
+  if (req.xhr){
+    var userId = req.params.userId;
+    connect().connect(function(err){
+      if (err) console.log(err);
+        var sql = "SELECT * FROM `meeting` WHERE type = 'demo' order by Date ASC";
+        connect().query(sql,function(err,result){
+          if (err) res.send('1');
+            var temp={};
+            var key = "events";
+            temp[key]=[];
+            for (var i = result.length - 1; i >= 0; i--) {
+              var newDate = sqlToJsDate(JSON.stringify(result[i].date));
+              var data = {
+              Date:result[i].date,
+              Title:newDate,
+              Link:newDate
+            };
+            temp[key].push(data);
+          }
+    
+          res.json(temp);
+          })
+      })
+  }else{
+    res.send('page not avalible')
+  }
+})
+
+
+router.get('/presentation/getCalandar/:userId/:Id', function(req, res, next) {
+  if (req.xhr){
+    connect().connect(function(err) {
+    if (err) console.log(err);
+      var sql = "SELECT * FROM `meeting` WHERE date = '"+req.params.Id+"'";
+      connect().query(sql,function(err,results){
+        if (err) console.log(err);
+        var temp ="";
+        for (var i = results.length - 1; i >= 0; i--) {
+          temp += presentationTimeTemp(JSON.stringify(results[i].meeting_id),results[i].time, parseInt(i+1));
+        }
+        res.send(temp);
+      })
+    });
+  } else {
+   res.send("Page not avalible");
+  }
+});
+
+
+
+
+
+router.get('/presentation/getTimeSlots/addMeeting/:userId/:demo_meeting_id', function(req, res, next) {
+  if (req.xhr){
+    connect().connect(function(err) {
+    if (err) console.log(err);
+      var sql = "UPDATE `group` SET demo_meeting_id = '"+req.params.demo_meeting_id+"' WHERE group_id = (SELECT group_id FROM `student` WHERE username = '"+req.params.userId+"')";
+      connect().query(sql,function(err,result){
+        if (err) console.log(err);
+        res.send("succ");
+      })
+    });
+  } else {
+   res.send("Page not avalible");
+  }
+});
+
+
+
+router.get('/presentation/getTimeSlots/getMyTime/:userId', function(req, res, next) {
+  if (req.xhr){
+    connect().connect(function(err) {
+    if (err) console.log(err);
+      var sql = "SELECT * FROM `group`,`meeting` WHERE group.demo_meeting_id = meeting.meeting_id and group_id = (SELECT group_id FROM `student` WHERE username = '"+req.params.userId+"')";
+      connect().query(sql,function(err,result){
+        if (err) console.log(err);
+        res.send(sqlToJsDate(JSON.stringify(result[0].date))+" "+result[0].time);
+      })
+    });
+  } else {
+   res.send("Page not avalible");
+  }
+});
+
+
+
+function presentationTimeTemp(meetingId,time,section){
+  var presentationTimeTemp = '<div style="display:block; clear:both"><div class="panel-body-t">\
+                                section: '+section+'\
+                              </div>\
+                              <div class="panel-body-b" style="font-size: 15px; font-weight: lighter;">\
+                                <button class = "btn" onClick="addMeeting(this)" id ="'+meetingId+'" >Register</button>\
+                                <div id = "allGroups'+meetingId+'"></div>\
+                              </div>\
+                              <div class="panel-body-f" style="font-size: 15px; font-weight: lighter;">\
+                              <span class="link">@ '+time+'</span>\
+                              </div>\
+                              </div>';
+  
+
+  return presentationTimeTemp;
+}
 
 
 function groupTemp(id,available_place,tutor){
