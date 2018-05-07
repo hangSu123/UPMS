@@ -96,7 +96,7 @@
     color: #000000;
     font-size: 22px;
     font-weight: bold;
-    border-bottom: 0.5px solid #444444; 
+    border-bottom: 0.5px solid #444444;
     padding-bottom:10px;
   }
   .panel-body-t-score{
@@ -165,18 +165,18 @@
     background-color: #444444;
   }
   .project-name{
-    font-size: 18px; 
+    font-size: 18px;
     margin-top: 30px;
-   
+
   }
   .project-name a{
      color:#ffffff;
-     text-decoration-style:none; 
+     text-decoration-style:none;
   }
   .welcome{
     position: fixed;
     color: #ffffff;
-    line-height: 40px;    
+    line-height: 40px;
     right: 40px;
   }
   .welcome span{
@@ -263,6 +263,30 @@
     padding: 5px;
     color: red;
     display: none;
+  }
+
+  .groupTable{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	    border-collapse: collapse;
+	    width: 100%;
+	  }
+
+ .groupTable td, .groupTable th {
+	    border: 1px solid #ddd;
+	    padding: 8px;
+	  }
+
+	  .groupTable tr:nth-child(even){background-color: #f2f2f2;}
+
+	  .groupTable tr:hover {background-color: #ddd;}
+
+	  .groupTable th {
+	    padding-top: 12px;
+	    padding-left: 30px;
+	    padding-bottom: 12px;
+	    text-align: left;
+	    background-color: #8F9497;
+	    color: white;
   }
 
 /*
@@ -376,7 +400,7 @@
 ::-webkit-scrollbar-thumb
 {
 	background-color: #0ae;
-	
+
 	background-image: -webkit-gradient(linear, 0 0, 0 100%,
 	                   color-stop(.5, rgba(255, 255, 255, .2)),
 					   color-stop(.5, transparent), to(transparent));
@@ -401,7 +425,7 @@
 
 ::-webkit-scrollbar-thumb
 {
-	background-color: #F90;	
+	background-color: #F90;
 	background-image: -webkit-linear-gradient(45deg,
 	                                          rgba(255, 255, 255, .2) 25%,
 											  transparent 25%,
@@ -459,7 +483,7 @@
 
 ::-webkit-scrollbar-thumb
 {
-	background-color: #000000;	
+	background-color: #000000;
 } */
 
 
@@ -481,7 +505,7 @@
 
 ::-webkit-scrollbar-thumb
 {
-	background-color: #F90;	
+	background-color: #F90;
 	background-image: -webkit-linear-gradient(90deg,
 	                                          rgba(255, 255, 255, .2) 25%,
 											  transparent 25%,
@@ -692,4 +716,3 @@
 											  #9fd8ef 51%,
 											  #2ab0ed 100%);
 } */
-

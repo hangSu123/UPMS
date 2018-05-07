@@ -18,6 +18,32 @@
     <!-- Custom styles for this template -->
     <link href="../stylesheets/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="../stylesheets/style.css">
+    <link rel="stylesheet" href="../stylesheets/hangsuper.css" />
+    <style>
+    .free{
+      background:cadetblue;
+    }
+    .registed{
+      background: red;
+    }
+    th{
+      height:auto;
+    }
+    th div{
+      display:block;
+      margin-bottom: 5px;
+      min-height:50px;
+      width:100%;
+      text-align:left;
+    }
+
+   th div span{
+    color:#ffffff;
+    font-size:12px;
+    display: block;
+    padding:2px;
+  }
+    </style>
 
   </head>
 
@@ -31,8 +57,8 @@
           </div>
           <div class="welcome">
             Welcome:
-            <span> Hang</span>
-            <span class="btn">sign out</span>
+            <span id = "userId"></span>
+            <span id = "logout" class="btn">sign out </span>
           </div>
       </div>
     </nav>
@@ -78,120 +104,32 @@
           </ul>
 
         </nav>
+
+
+
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
 
-          <div class="panel">
 
-            <div class="panel-title"><span>Meeting time selet table</span></div>
-
-            <div class="panel-body-all">
-
-             <table width="100%" align="center" >
-                <tr>
-                  <th></th>
-                  <th>Monday</th>
-                  <th>Tuesday</th>
-                  <th>Wednesday</th>
-                  <th>Thrusday</th>
-                  <th>Friday</th>
-                </tr>
-
-                <tr>
-                  <th>8:00 - 9:00</th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-
-                <tr>
-                  <th>9:00 - 10:00</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-
-                <tr>
-                  <th>10:00 - 11:00</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>Group 3</td>
-                  <td></td>
-                </tr>
-
-                <tr>
-                  <th>11:00 - 12:00</td>
-                  <td>Group11</td>
-                  <td>Group1</td>
-                  <td></td>
-                  <td>Group4</td>
-                  <td></td>
-                </tr>
-
-                <tr>
-                  <th>12:00 - 13:00</td>
-                  <td></td>
-                  <td></td>
-                  <td>Group6</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-
-                <tr>
-                  <th>13:00 - 14:00</td>
-                  <td>Status Free</td>
-                  <td>Status Free</td>
-                  <td></td>
-                  <td>Group 5</td>
-                  <td></td>
-                </tr>
-
-                <tr>
-                  <th>14:00 - 15:00</td>
-                  <td></td>
-                  <td></td>
-                  <td>Group 7</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-
-                <tr>
-                  <th>15:00 - 16:00</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-
-                <tr>
-                  <th>16:00 - 17:00</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-
-                <tr>
-                  <th>17:00 - 18:00</td>
-                  <td>Status Free</td>
-                  <td>Status Free</td>
-                  <td></td>
-                  <td>Status Free</td>
-                  <td></td>
-                </tr>
-
-              </table>
-
+        <div class="panel">
+            <div class="panel-title">
+              <span>Time Table</span>
             </div>
+            <div class="panel-body-all" style="overflow: hidden;">
+                <table width="80%" align="center" >
+                    <tr>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                    </tr>
+                    <tbody id="timeSlots">
 
-          </div>
+                    </tbody>
 
+                  </table>
+            </div>
+        </div>
         </main>
 
       </div>
@@ -203,9 +141,28 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../stylesheets/popper.min.js"></script>
-    <script src="../stylesheets/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>
+    <script src="../../../javascripts/hangsuper.js"></script>
+    <script src="../../../javascripts/signin.js"></script>
   </body>
 </html>
+
+<script>
+  console.log(localStorage.getItem("userId"));
+  getTimeSlots();
+
+
+  function getTimeSlots(){
+    hs.getAjax({
+      url:'/student/meeting/getTimeSlots',
+      data:{
+        userId:localStorage.getItem('userId')
+      },
+      succFn:function(res){
+        hs.text(hs.getId('timeSlots'),res);
+      }
+    })
+  }
+
+
+</script>

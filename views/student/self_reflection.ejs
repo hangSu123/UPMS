@@ -1,128 +1,147 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
   <!--  <link rel="icon" href="../../../../favicon.ico">-->
 
-    <title>Dashboard for students</title>
+  <title>Dashboard for students</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <!-- Custom styles for this template -->
-    <link href="../stylesheets/dashboard.css" rel="stylesheet">
-    <link rel="stylesheet" href="../stylesheets/style.css">
-  </head>
+  <!-- Custom styles for this template -->
+  <link href="../stylesheets/dashboard.css" rel="stylesheet">
+  <link rel="stylesheet" href="../stylesheets/style.css">
+  <link rel="stylesheet" href="../stylesheets/hangsuper.css" />
 
-  <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #114a81;">
-      <a class="navbar-brand" href="#">UPMS</a>
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+  <style>
+  .hoverwarning .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
 
-          <div class="project-name">
-            <a href="../">University Project Management System</a>
-          </div>
-          <div class="welcome">
-            Welcome:
-            <span> Hang</span>
-            <span class="btn">sign out</span>
-          </div>
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+  }
+  </style>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #114a81;">
+    <a class="navbar-brand" href="#">UPMS</a>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+
+      <div class="project-name">
+        <a href="../">University Project Management System</a>
       </div>
-    </nav>
+      <div class="welcome">
+        Welcome:
+        <span id = "userId"> </span>
+        <span id = "logout"class="btn">sign out</span>
+      </div>
+    </div>
+  </nav>
 
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-sm-3 col-md-2 d-none d-sm-block sidebar" style="background-color: #666666;">
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="/student">Dashboard</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/student/project">Projects</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/student/group">Groups</a>
-            </li>
-             <li class="nav-item">
-              <a class="nav-link" href="/student/assessment">Assessment</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/student/self_reflection">Self-reflection<span class="sr-only">(current)</span></a>
-            </li>
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-sm-3 col-md-2 d-none d-sm-block sidebar" style="background-color: #666666;">
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="/student">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/student/project">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/student/group">Groups</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/student/assessment">Assessment</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/student/self_reflection">Self-reflection<span class="sr-only">(current)</span></a>
+          </li>
 
-            <li class="nav-item">
-              <a class="nav-link" href="/student/manage_meeting_time">Register meeting Time</a>
-            </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/student/manage_meeting_time">Register meeting Time</a>
+          </li>
 
-            
 
-            <li class="nav-item">
-              <a class="nav-link" href="/student/manage_presentation_time">Register presentation Time</a>
-            </li>
-          </ul>
-          <hr>
 
-          <ul class="nav nav-pills flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="/student/manage_presentation_time">Register presentation Time</a>
+          </li>
+        </ul>
+        <hr>
 
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/student/profile">Profile</a>
-            </li>
-          </ul>
+        <ul class="nav nav-pills flex-column">
 
-        </nav>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/student/profile">Profile</a>
+          </li>
+        </ul>
 
-        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+      </nav>
+
+      <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+
+
+
+        <div id="generate">
+
+
           <div class="panel">
             <div class="panel-title">
               <span>Self-reflection</span>
             </div>
             <div class="panel-body-all">
               <span style="font-size: 16px;">
-              <p>The purpose of this form is to enable you to reflect on your performance and that of your team. The grades that you give do not count as marks, but alongside with the comments you provide, they will help the tutor guide the discussion during your fortnightly meeting and better assist your team in your progression towards the project goals.</p>
-              <p>It is your responsibility to ensure you have filled this form at least one whole business day before each meeting with your tutor (for instance, by Thursday 4pm if your meeting is on Friday 4pm, or by Friday 9am if your meeting is on Monday 9am). Failure to do so would negatively impact the mark awarded for that meeting.</p>
+                <p>The purpose of this form is to enable you to reflect on your performance and that of your team. The grades that you give do not count as marks, but alongside with the comments you provide, they will help the tutor guide the discussion during your fortnightly meeting and better assist your team in your progression towards the project goals.</p>
+                <p>It is your responsibility to ensure you have filled this form at least one whole business day before each meeting with your tutor (for instance, by Thursday 4pm if your meeting is on Friday 4pm, or by Friday 9am if your meeting is on Monday 9am). Failure to do so would negatively impact the mark awarded for that meeting.</p>
 
-             <p> If you have any question or notice any error, please email <span class="link">IT.capstone@qut.edu.au.</span>
-              Please do not edit the fields that have been pre-filled for you.</p>
+                <p> If you have any question or notice any error, please email <span class="link">IT.capstone@qut.edu.au.</span>
+                  Please do not edit the fields that have been pre-filled for you.</p>
 
-            </span>
-              <div class="panel-body-t">
-                Grade:
-              </div>
-              <div class="panel-body-b margin-bottom" style=" text-align: center;">
-                <input type="radio" value="1">1
-                <input type="radio" value="2">2
-                <input type="radio" value="3">3
-                <input type="radio" value="4">4
-                <input type="radio" value="5">5
-                <input type="radio" value="6">6
-                <input type="radio" value="7">7
-              </div>
+                </span>
+                <div class="panel-body-t">
+                  Grade:
+                </div>
+                <div class="panel-body-b margin-bottom" style=" text-align: center;">
 
-              <div class="panel-body-t">
-                Reflect on how you delivered on your three main tasks for the last fortnight:
-              </div>
-              <div class="panel-body-b margin-bottom" style="text-align: center;">
-               <textarea name="" id="" cols="70" rows="5"></textarea>
-              </div>
+                  <textarea name="" id="" cols="65" rows="2" required></textarea>
+                </div>
+
+                <div class="panel-body-t">
+                  Reflect on how you delivered on your three main tasks for the last fortnight:
+                </div>
+                <div class="panel-body-b margin-bottom" style="text-align: center;">
+                  <textarea name="" id="" cols="70" rows="5"></textarea>
+                </div>
 
 
-              <div class="panel-body-t">
-               Detail your three main tasks for the next fortnight:
-              </div>
-              <div class="panel-body-b margin-bottom" style="text-align: center;">
-               <textarea name="" id="" cols="70" rows="5"></textarea>
+                <div class="panel-body-t">
+                  Detail your three main tasks for the next fortnight:
+                </div>
+                <div class="panel-body-b margin-bottom" style="text-align: center;">
+                  <textarea name="" id="commentYourself" cols="70" rows="5"></textarea>
+                </div>
               </div>
             </div>
-          </div>
 
 
           <div class="panel" style="margin-bottom: 10px;">
@@ -130,75 +149,179 @@
               <span>Team-reflection</span>
             </div>
             <div class="panel-body-all">
-               <span style="font-size: 16px;"><p>Please also evaluate the performance of your team-mates. Remember to be fair and transparent.</p></span>
-              <div class="panel-body">
+              <span style="font-size: 16px;"><p>Please also evaluate the performance of your team-mates. Remember to be fair and transparent.</p></span>
+              <div id='commentGroupMember'>
+
+
+                <!--  <div class="panel-body">
                 <div class="panel-body-t">
-                  Hang Su:
-                </div>
-                <div class="panel-body-b" style="text-align: center;">
-                  <input type="radio" value="1">1
-                <input type="radio" value="2">2
-                <input type="radio" value="3">3
-                <input type="radio" value="4">4
-                <input type="radio" value="5">5
-                <input type="radio" value="6">6
-                <input type="radio" value="7">7
-                  <textarea name="" id="" cols="70" rows="5"></textarea>
-                </div>
+                ChenXi Guo
               </div>
-
-
-              <div class="panel-body">
-                <div class="panel-body-t">
-                 Jerry Wang:
-                </div>
-                <div class="panel-body-b" style="text-align: center;">
-                  <input type="radio" value="1">1
-                <input type="radio" value="2">2
-                <input type="radio" value="3">3
-                <input type="radio" value="4">4
-                <input type="radio" value="5">5
-                <input type="radio" value="6">6
-                <input type="radio" value="7">7
-                  <textarea name="" id="" cols="70" rows="5"></textarea>
-                </div>
-              </div>
-
-
-              <div class="panel-body">
-                <div class="panel-body-t">
-                  kuan Heng Chen:
-                </div>
-
-                <div class="panel-body-b" style="text-align: center;">
-                  <input type="radio" value="1">1
-                <input type="radio" value="2">2
-                <input type="radio" value="3">3
-                <input type="radio" value="4">4
-                <input type="radio" value="5">5
-                <input type="radio" value="6">6
-                <input type="radio" value="7">7
-                  <textarea name="" id="" cols="70" rows="5"></textarea>
-                </div>
-              </div>
+              <div class="panel-body-b" style="text-align: center;">
+              <input type="radio" value="1">1
+              <input type="radio" value="2">2
+              <input type="radio" value="3">3
+              <input type="radio" value="4">4
+              <input type="radio" value="5">5
+              <input type="radio" value="6">6
+              <input type="radio" value="7">7
+              <textarea name="" id="" cols="70" rows="5"></textarea>
             </div>
           </div>
-          
-          <div style="margin-left: 30%;">
-          <button class="btn-block">Submit</button>
-          </div>
-        </main>
+
+
+          <div class="panel-body">
+          <div class="panel-body-t">
+          Wangzi Yang
+        </div>
+        <div class="panel-body-b" style="text-align: center;">
+        <input type="radio" value="1">1
+        <input type="radio" value="2">2
+        <input type="radio" value="3">3
+        <input type="radio" value="4">4
+        <input type="radio" value="5">5
+        <input type="radio" value="6">6
+        <input type="radio" value="7">7
+        <textarea name="" id="" cols="70" rows="5"></textarea>
       </div>
     </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../stylesheets/popper.min.js"></script>
-    <script src="../stylesheets/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>
-  </body>
+
+    <div class="panel-body">
+    <div class="panel-body-t">
+    Herrny Chen
+  </div>
+
+  <div class="panel-body-b" style="text-align: center;">
+  <input type="radio" value="1">1
+  <input type="radio" value="2">2
+  <input type="radio" value="3">3
+  <input type="radio" value="4">4
+  <input type="radio" value="5">5
+  <input type="radio" value="6">6
+  <input type="radio" value="7">7
+  <textarea name="" id="" cols="70" rows="5"></textarea>
+</div>
+</div>-->
+</div>
+</div>
+</div>
+</div>
+<div id="editor"></div>
+<div style="margin-left: 30%; ">
+
+<button class="btn-block" id="GenerateToPdf">GenerateToPdf</button>
+</div>
+
+<input type = "file" style="width: 58%;margin-left: 30%;border-radius: 4px;padding: 5px;border: 1px solid #114a81">
+<button style="background-color: #4a86e8;border: 1px solid #4a86e8;border-radius: 8px; margin-top: 10px; color: #fff; cursor: pointer; width:100px; height:50px;">upload</button>
+</main>
+</div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+<script src="http://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+<script src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<script src="../javascripts/hangsuper.js"></script>
+<script src="../../../javascripts/signin.js"></script>
+
+<script>
+console.log(localStorage.getItem('userId'));
+
+/*var pdf = new jsPDF('p', 'pt', 'letter');*/
+var doc = new jsPDF();
+var specialElementHandlers = {
+    '#editor': function (element, renderer) {
+        return true;
+    }
+};
+
+$('#GenerateToPdf').click(function () {
+    doc.fromHTML($('#generate').html(), 15, 15, {
+        'width': 170,
+        'elementHandlers': specialElementHandlers
+    });
+    doc.save('sample-file.pdf');
+});
+/*function PrintElem()
+{
+    var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+    mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+    mywindow.document.write('</head><body >');
+    mywindow.document.write('<h1>' + document.title  + '</h1>');
+    mywindow.document.write(document.getElementById("generate").innerHTML);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close(); // necessary for IE >= 10
+    mywindow.focus(); // necessary for IE >= 10
+    mywindow.print();
+    mywindow.close();
+
+
+    return true;
+}*/
+
+getGroupMember();
+console.log(hs.getTagName("input")[0]);
+console.log(hs.getTagName("button")[1]);
+function getGroupMember(){
+  hs.getAjax({
+    url:'/student/self_reflection/getGroupMember',
+    data:{
+      userId:localStorage.getItem('userId')
+    },
+    succFn:function(res){
+      console.log(res)
+      hs.text(hs.getId('commentGroupMember'), res);
+    }
+  })
+}
+
+hs.click(hs.getTagName('button')[1],function(){
+  var username = localStorage.getItem('userId');
+
+  var url = '/student/upload_selfreflection/uploadFile';
+  hs.uploadFile(hs.getTagName('input')[0].files[0],url,function(res){
+    if (res === "not pdf"){
+      hs.toast("red",2,"Please select a PDF file");
+    }else if (res === "name error"){
+      hs.toast("red",2,"Upload file fail");
+    }else{
+      hs.postAjax({
+        url:'/student/upload_selfreflection/uploadSelfreflection',
+        data:{
+          fileName:res,
+          student:username
+        },
+        succFn:function(res){
+          if (res == 2 ){
+            hs.toast('green',2,'Upload Complete');
+            setTimeout(function(){
+              hs.redirect('/student/self_reflection');
+            }, 1500);
+          }else{
+            hs.toast("red",2,"upload application error");
+          }
+        }
+      })
+    }
+
+
+  })
+})
+
+
+
+
+
+</script>
+</body>
 </html>

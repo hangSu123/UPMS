@@ -21,6 +21,26 @@
     <link rel="stylesheet" href="../../../stylesheets/style.css">
       <link rel="stylesheet" href="../../../stylesheets/hangsuper.css">
 
+      <style>
+      .alert {
+          padding: 20px;
+          background-color: #f44336;
+          color: white;
+      }
+
+      .closebtn {
+          margin-left: 15px;
+          color: white;
+          font-weight: bold;
+          float: right;
+          font-size: 22px;
+          line-height: 20px;
+          cursor: pointer;
+          transition: 0.3s;
+      }
+
+      </style>
+
   </head>
 
   <body>
@@ -56,7 +76,7 @@
               <a class="nav-link" href="/student/assessment">Assessmant</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/student/self_reflection">Self-reflection<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/student/self_reflection">Self-reflection <%= id %><span class="sr-only">(current)</span></a>
             </li>
 
             <li class="nav-item">
@@ -120,7 +140,10 @@
                 <div class="panel-body-t" style="text-align: left;">
                   Please Set the Prefernce for the projects your group applied.
                 </div>
-                 <table width="80%" align="center" style=" margin-top: 20px;">
+                <div id="getAppliedProjects">
+
+
+            <!--     <table width="80%" align="center" style=" margin-top: 20px;">
               <tr>
                   <th>Projet Name:</th>
                   <th>Set Preference:</th>
@@ -140,7 +163,8 @@
                   <th><input type="number"  class="marks"></th>
               </tr>
 
-            </table>
+            </table>-->
+            </div>
               </div>
               <button class="btn" style="float: right; margin-right: 15%; margin-bottom:20px;">Submit</button>
           </div>
@@ -172,8 +196,8 @@
 
   var id = <%= id %>;
   getgroupdetail();
-
-
+  getAppliedProjects();
+  console.log(id);
 
   function getgroupdetail(){
 
@@ -209,7 +233,40 @@ getgroupdetail();
  }
 
 
+function getAppliedProjects(){
+  hs.getAjax({
+    url:'/student/group/getAppliedProjects',
+    data:{
+      id:id,
+      userId:localStorage.getItem('userId')
+    },
+    succFn:function(res){
+      hs.text(hs.getId('getAppliedProjects'), res);
+    }
+  })
+}
 
+hs.click(hs.getTagName('button')[1],function(){
+  var username = localStorage.getItem('userId');
+  hs.postAjax({
+    url:'/student/getAppliedProjects/submitPreference',
+    data:{
+      group:id,
+      student:username
+    },
+    succFn:function(res){
+      if (res == 2 ){
+        hs.toast('green',2,'Upload preference successfully');
+        setTimeout(function(){
+          hs.redirect('/student/group_detail');
+        }, 1500);
+      }else{
+        hs.toast("red",2,"upload preference successfully");
+      }
+    }
+  })
+
+})
 
 
 

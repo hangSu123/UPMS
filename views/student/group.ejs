@@ -18,6 +18,7 @@
     <!-- Custom styles for this template -->
     <link href="../stylesheets/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="../stylesheets/style.css">
+    <link rel="stylesheet" href="../../stylesheets/hangsuper.css" />
   </head>
 
   <body>
@@ -31,8 +32,8 @@
           </div>
           <div class="welcome">
             Welcome:
-            <span> Hang</span>
-            <span class="btn">sign out</span>
+            <span id = "userId"> </span>
+            <span id = "logout"class="btn">sign out</span>
           </div>
       </div>
     </nav>
@@ -117,7 +118,9 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!--<script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>-->
       <script src="../javascripts/hangsuper.js"></script>
+      <script src="../javascripts/signin.js"></script>
       <script>
+
 getGroups();
 function getGroups(){
   hs.getAjax({

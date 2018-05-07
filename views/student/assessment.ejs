@@ -17,6 +17,7 @@
     <!-- Custom styles for this template -->
     <link href="../stylesheets/dashboard.css" rel="stylesheet">
     <link rel="stylesheet" href="../stylesheets/style.css">
+    <link rel="stylesheet" href="../stylesheets/hangsuper.css" />
   </head>
 
   <body>
@@ -29,8 +30,8 @@
           </div>
           <div class="welcome">
             Welcome:
-            <span> Hang</span>
-            <span class="btn">sign out</span>
+            <span id = "userId"> </span>
+            <span id = "logout"class="btn">sign out</span>
           </div>
       </div>
     </nav>
@@ -79,60 +80,24 @@
 
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
 
-          <div class="panel fix-l-height">
+          <content>
+
+
+
+
+            <div class="panel">
               <div class="panel-title">
-                <span>Assessments</span>
+                <span>Assignments</span>
               </div>
-              <div class="panel-body-all overflow-l">
-                <div class="panel-body">
-                  <div class="panel-body-t">
-                    Assignment 1: Skill Development Plan
-                  </div>
-                  <div class="panel-body-b">
-                    <div class="input_row">
-                      <label for="">Please upload a pdf file</label>
-                      <input type="file">
-                       <button class="btn">Submit</button>
-                    </div>
-                  </div>
-                </div>
+
+              <div class="panel-body-all">
 
 
-
-                <div class="panel-body">
-                  <div class="panel-body-t">
-                    Assignment 2: Report
-                  </div>
-                  <div class="panel-body-b">
-                    <div class="input_row">
-                      <label for="">Please upload a pdf file</label>
-                      <input type="file">
-                      <button class="btn">Submit</button>
-                    </div>
-                  </div>
-                </div>
-
-
-
-                <div class="panel-body">
-                  <div class="panel-body-t">
-                    Assignment 3: Evidence
-                  </div>
-                  <div class="panel-body-b">
-                    <div class="input_row">
-                      <label for="">Please upload a Zip file</label>
-                      <input type="file">
-                      <button class="btn">Submit</button>
-                    </div>
-                  </div>
-                </div>
               </div>
           </div>
 
 
-
-
-
+        </content>
         </main>
       </div>
     </div>
@@ -142,9 +107,139 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../stylesheets/popper.min.js"></script>
-    <script src="../stylesheets/bootstrap.min.js"></script>
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>
+
+    <script src="../../../javascripts/hangsuper.js"></script>
+    <script src="../../../javascripts/signin.js"></script>
   </body>
 </html>
+
+<script>
+
+hs.pageLoader('content');
+console.log(localStorage.getItem('userId'));
+
+getAssignment();
+
+
+
+function getAssignment(){
+  hs.getAjax({
+    url:'/student/getAssignment',
+    data:{
+      user:1
+    },
+    succFn:function(res){
+      hs.text(hs.getClassName("panel-body-all")[0],res);
+    }
+  })
+}
+
+
+console.log(hs.getTagName("button"));
+console.log(hs.getTagName("button")[0]);
+
+
+hs.click(hs.getTagName('button')[0],function(){
+  var username = localStorage.getItem('userId');
+
+  var url = '/student/upload_Assignment/uploadFile';
+  hs.uploadFile(hs.getTagName('input')[0].files[0],url,function(res){
+    if (res === "not pdf"){
+      hs.toast("red",2,"Please select a PDF file");
+    }else if (res === "name error"){
+      hs.toast("red",2,"Upload file fail");
+    }else{
+      hs.postAjax({
+        url:'/student/upload_Assignment/uploadAssignmentFile',
+        data:{
+          fileName:res,
+          student: username,
+        },
+        succFn:function(res){
+          if (res == 2 ){
+            hs.toast('green',2,'Upload Complete');
+            setTimeout(function(){
+              hs.redirect('/student/assessment');
+            }, 1500);
+          }else{
+            hs.toast("red",2,"upload assignment error");
+          }
+        }
+      })
+    }
+
+
+  })
+})
+
+hs.click(hs.getTagName('button')[1],function(){
+  var username = localStorage.getItem('userId');
+
+  var url = '/student/upload_Assignment/uploadFile';
+  hs.uploadFile(hs.getTagName('input')[1].files[1],url,function(res){
+    if (res === "not pdf"){
+      hs.toast("red",2,"Please select a PDF file");
+    }else if (res === "name error"){
+      hs.toast("red",2,"Upload file fail");
+    }else{
+      hs.postAjax({
+        url:'/student/upload_Assignment/uploadAssignmentFile',
+        data:{
+          fileName:res,
+          student: username,
+        },
+        succFn:function(res){
+          if (res == 2 ){
+            hs.toast('green',2,'Upload Complete');
+            setTimeout(function(){
+              hs.redirect('/student/assessment');
+            }, 1500);
+          }else{
+            hs.toast("red",2,"upload assignment error");
+          }
+        }
+      })
+    }
+
+
+  })
+})
+
+hs.click(hs.getTagName('button')[2],function(){
+  var username = localStorage.getItem('userId');
+
+  var url = '/student/upload_Assignment/uploadFile';
+  hs.uploadFile(hs.getTagName('input')[2].files[2],url,function(res){
+    if (res === "not pdf"){
+      hs.toast("red",2,"Please select a PDF file");
+    }else if (res === "name error"){
+      hs.toast("red",2,"Upload file fail");
+    }else{
+      hs.postAjax({
+        url:'/student/upload_Assignment/uploadAssignmentFile',
+        data:{
+          fileName:res,
+          student: username,
+        },
+        succFn:function(res){
+          if (res == 2 ){
+            hs.toast('green',2,'Upload Complete');
+            setTimeout(function(){
+              hs.redirect('/student/assessment');
+            }, 1500);
+          }else{
+            hs.toast("red",2,"upload assignment error");
+          }
+        }
+      })
+    }
+
+
+  })
+})
+
+
+
+</script>
