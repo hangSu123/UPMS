@@ -115,7 +115,7 @@
                   
                 </div>
               </div>
-              <div id = "calandarDeatil" class="panel-body" style="width: 47%; float: left; min-height: 320px;">
+              <div id = "calandarDeatil" class="panel-body" style="width: 47%; float: left; height: 320px; overflow-y: scroll;">
                
               </div>
             </div>
@@ -240,6 +240,24 @@
               hs.toast("red",2,"Please check your network");
             }else{
               hs.text(hs.getId("calandarDeatil"),data);
+            }
+           
+          }
+        })
+      }
+
+      function showGroups(self){
+         hs.getAjax({
+          url:'/coord/presentation/getCalandar/showGroups/eachGroup',
+          data:{
+            Id:self.getAttribute("id")
+          },
+          succFn:function(data){
+            console.log(data)
+            if (data == 0 || data == 1) {
+              hs.toast("red",2,"Please check your network");
+            }else{
+              hs.text(hs.getId("allGroups"+self.getAttribute("id")),data);
             }
            
           }

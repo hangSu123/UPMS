@@ -493,7 +493,32 @@ router.get('/presentation/getCalandar/:userId/:Id', function(req, res, next) {
         if (err) console.log(err);
         var temp ="";
         for (var i = results.length - 1; i >= 0; i--) {
-          temp += presentationTimeTemp(JSON.stringify(results[i].date),results[i].time, parseInt(i+1));
+          temp += presentationTimeTemp(JSON.stringify(results[i].meeting_id),results[i].time, parseInt(i+1));
+        }
+        res.send(temp);
+      })
+    });
+  } else {
+   res.send("Page not avalible");
+  }
+});
+
+
+
+router.get('/presentation/getCalandar/showGroups/eachGroup/:Id', function(req, res, next) {
+  if (req.xhr){
+    connect().connect(function(err) {
+    if (err) console.log(err);
+      var sql = "SELECT * FROM `group` WHERE demo_meeting_id = '"+req.params.Id+"'";
+      connect().query(sql,function(err,results){
+        if (err) console.log(err);
+        var temp ="";
+        if (results == "" || results == undefined || results == null){
+          temp += presentationGroupTemp("No group yet");
+        }else{
+          for (var i = results.length - 1; i >= 0; i--) {
+            temp += presentationGroupTemp(results[i].group_id);
+          }
         }
         res.send(temp);
       })
@@ -634,6 +659,58 @@ router.get('/CRA/:name', function(req, res){
 });
 
 
+router.get('/assessments/assessment_detail/:id', function(req, res, next) {
+  connect().connect(function(err) {
+    if (err) onsole.log(err);
+      var sql = "SELECT * FROM `assignment` WHERE assignment_id= '"+req.params.id+"'";
+      connect().query(sql,function(err,results){
+        if (err) console.log(err);
+        res.render('coord/assessment_detail',{id:req.params.id,name:results[0].assignment_name});
+        })
+    });
+  
+});
+
+
+router.get('/assessments/assessment_detail/studentMark/:id',function(req,res,next){
+  connect().connect(function(err) {
+    if (err) res.send('0');
+      var sql = "SELECT * FROM `result`,`student` WHERE assignment_id = "+req.params.id+" and student.username = result.username ";
+      console.log(sql)
+      connect().query(sql,function(err,results){
+        if (err) res.send('1');
+        var temp ="";
+        for (var i = results.length - 1; i >= 0; i--) {
+          temp += resultsTemp(results[i].username,results[i].group_id,results[i].feedback_link,results[i].mark,req.params.id);
+        }
+        res.send(temp);           
+      })
+    });
+})
+
+
+
+router.get('/assessments/assessment_detail/saveMark/:username/:assignmentId/:mark',function(req,res,next){
+  connect().connect(function(err) {
+    if (err) res.send('0');
+      var sql = "update `result` SET mark = '"+req.params.mark+"'  WHERE username = '"+req.params.username+"' and assignment_id = '"+req.params.assignmentId+"'";
+      console.log(sql)
+      connect().query(sql,function(err,result){
+        if (err) res.send('1');
+        res.send("succ");           
+      })
+    });
+})
+
+
+router.get('/student/:name', function(req, res){
+  fs.readFile(__dirname + "/../workUploads/"+req.params.name+"", function (err,data){
+      res.contentType("application/pdf");
+      res.send(data);
+  });
+});
+
+
 
 
 
@@ -671,21 +748,28 @@ function calandarTemp(date,content,userId){
     }
 
 
-function presentationTimeTemp(date,time,section){
+function presentationTimeTemp(meetingId,time,section){
       var presentationTimeTemp = '<div style="display:block; clear:both"><div class="panel-body-t">\
                                     section: '+section+'\
                                   </div>\
                                   <div class="panel-body-b" style="font-size: 15px; font-weight: lighter;">\
-                                    The time will be: '+time+'\
+                                    <span class = "link" onClick="showGroups(this)" id ="'+meetingId+'" >Show groups</span>\
+                                    <div id = "allGroups'+meetingId+'"></div>\
                                   </div>\
                                   <div class="panel-body-f" style="font-size: 15px; font-weight: lighter;">\
-                                  <span class="link">@ '+sqlToJsDate(date)+'</span>\
+                                  <span class="link">@ '+time+'</span>\
                                   </div>\
                                   </div>';
       
 
       return presentationTimeTemp;
     }
+
+
+function presentationGroupTemp(groupId){
+  var presentationGroupTemp = '<li style="margin-top:10px">Group: '+groupId+'</li>';
+  return presentationGroupTemp;
+}
 
 
 function projectTemp(projectId,projectName,level,superName,description){
@@ -774,8 +858,8 @@ function projectTemp(projectId,projectName,level,superName,description){
     function assignmentTemp(id,name,weight,date,cra){
       var assignmentTemp = "";
       assignmentTemp = '<div class="panel-body">\
-                          <div class="panel-body-t link">\
-                          '+name+'\
+                          <div class="panel-body-t link" ">\
+                          <a href="/coord/assessments/assessment_detail/'+id+'">'+name+'</a>\
                           </div>\
                           <div class="panel-body-t-score"><br>\
                           <p>Due Date: <span style ="color:#114a81;" >'+sqlToJsDate(date)+'</span></p>\
@@ -808,6 +892,22 @@ function projectTemp(projectId,projectName,level,superName,description){
       return timeSlotTemp;
     
     }
+
+
+
+    function resultsTemp(username,groupId,link,mark,assignmentId){
+      var resultsTemp = ""
+      resultsTemp = '<tr>\
+                        <th>'+username+'</th>\
+                        <th>'+groupId+'</th>\
+                        <th class = "link"><a href="/coord/student/'+link+'">'+link+'</th>\
+                        <th><input id = "'+username+'",type="number" value = "'+mark+'" /></th>\
+                        <th><button class = "btn btn-blue" assignmentId = "'+assignmentId+'" username ="'+username+'" onclick = "save(this)">Save</button></th>\
+                    </tr>'
+      return resultsTemp;
+    }
+
+
 
     function sqlToJsDate(sqlDate){
     //sqlDate in SQL DATETIME format ("yyyy-mm-dd hh:mm:ss.ms")

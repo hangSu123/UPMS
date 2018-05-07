@@ -2,14 +2,13 @@ var db = require('../db'),
     sequelize = db.sequelize,
     Sequelize = db.Sequelize;
 
-var Student = sequelize.define('student',  {
-                    student_id: {
+var Coordinator = sequelize.define('coordinator',  {
+                    coordinator_id: {
                         type: Sequelize.INTEGER,
                         allowNull: false,
                         primaryKey: true,
-                        autoIncrement: true
-                 },
-                    email_Address: {
+                        autoIncrement: true},
+                    coordinator_email_Address: {
                         type: Sequelize.INTEGER,
                         allowNull: false },
                     first_name: {
@@ -18,15 +17,9 @@ var Student = sequelize.define('student',  {
                     last_name: {
                         type: Sequelize.STRING,
                         allowNull: false },
-                    GPA: {
+                    phone_number:{
                         type: Sequelize.INTEGER,
                         allowNull: false },
-                    major: {
-                        type: Sequelize.STRING,
-                        allowNull: false },
-                    group_id: {
-                        type: Sequelize.INTEGER,
-                        allowNull: true },
                     username: {
                         type: Sequelize.STRING,
                         allowNull: false },
@@ -43,4 +36,4 @@ var Student = sequelize.define('student',  {
                       }
                     );
 
-module.exports = Student;
+module.exports = Coordinator;
