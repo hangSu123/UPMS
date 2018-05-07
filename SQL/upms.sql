@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2018 at 06:34 AM
+-- Generation Time: May 08, 2018 at 01:10 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -49,7 +49,8 @@ INSERT INTO `announcements` (`Id`, `userId`, `title`, `content`, `date`) VALUES
 (6, '1', 'asdas', 'asdasdasda', '2017-11-23'),
 (7, '1', 'asdasda', 'ASDasd', '2017-11-07'),
 (8, '1', 'zxfcvbnm', 'asdftgtfrdes', '2018-01-17'),
-(9, '1', 'presentation Starts date', 'hello everyone we are going to hold an event on 28-02-2018, welcome to join us', '2018-02-28');
+(9, '1', 'presentation Starts date', 'hello everyone we are going to hold an event on 28-02-2018, welcome to join us', '2018-02-28'),
+(10, '1', '122', 'qwasdf', '2018-05-14');
 
 -- --------------------------------------------------------
 
@@ -72,8 +73,9 @@ CREATE TABLE `application` (
 --
 
 INSERT INTO `application` (`application_id`, `group_id`, `project_id`, `application_link`, `group_preference`, `supervisor_preference`, `assigned`) VALUES
-(1, '1', '1', 'aasd', 1, 2, 'no'),
-(2, '1', '2', 'sds', 1, 2, 'no');
+(1, '2', '2', 'aasd', 1, 3, 'no'),
+(2, '1', '2', 'sds', 1, 5, 'yes'),
+(3, '1', '4', '260wk01_18.pdf', NULL, NULL, 'no');
 
 -- --------------------------------------------------------
 
@@ -105,8 +107,8 @@ INSERT INTO `assignment` (`assignment_id`, `assignment_name`, `assignment_weight
 --
 
 CREATE TABLE `coordinator` (
-  `cordinator_id` varchar(50) NOT NULL,
-  `cordinator_email_address` varchar(50) DEFAULT NULL,
+  `coordinator_id` varchar(50) NOT NULL,
+  `coordinator_email_address` varchar(50) DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
   `phone_number` int(10) DEFAULT NULL,
@@ -119,7 +121,7 @@ CREATE TABLE `coordinator` (
 -- Dumping data for table `coordinator`
 --
 
-INSERT INTO `coordinator` (`cordinator_id`, `cordinator_email_address`, `first_name`, `last_name`, `phone_number`, `username`, `password`, `salt`) VALUES
+INSERT INTO `coordinator` (`coordinator_id`, `coordinator_email_address`, `first_name`, `last_name`, `phone_number`, `username`, `password`, `salt`) VALUES
 ('1', 'suhangj123@gmail.com', 'Hang', 'Su', 481393516, 'c1234567', 'd078aabd7822210b547f05d45411e1cfe8871b94b5b35841d35581e6471e4d1d', 'LoiMqxk');
 
 -- --------------------------------------------------------
@@ -133,25 +135,26 @@ CREATE TABLE `group` (
   `available_place` int(11) DEFAULT NULL,
   `tutor_email` text,
   `project_id` varchar(50) DEFAULT NULL,
-  `meeting_id` int(11) DEFAULT NULL
+  `meeting_id` int(11) DEFAULT NULL,
+  `demo_meeting_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `group`
 --
 
-INSERT INTO `group` (`group_id`, `available_place`, `tutor_email`, `project_id`, `meeting_id`) VALUES
-(1, 2, 'suhangj@hotmail.com', NULL, NULL),
-(2, 3, 'suhangj@hotmail.com', NULL, NULL),
-(3, 2, 'suhangj@hotmail.com', NULL, NULL),
-(4, 2, 'suhangj@hotmail.com', NULL, NULL),
-(5, 4, 'laim@gmail.com', NULL, NULL),
-(6, 4, 'laim@gmail.com', NULL, NULL),
-(7, 4, 'laim@gmail.com', NULL, NULL),
-(8, 4, 'laim@gmail.com', NULL, NULL),
-(9, 4, 'laim@gmail.com', NULL, NULL),
-(10, 4, 'laim@gmail.com', NULL, NULL),
-(11, 3, 'laim@gmail.com', NULL, NULL);
+INSERT INTO `group` (`group_id`, `available_place`, `tutor_email`, `project_id`, `meeting_id`, `demo_meeting_id`) VALUES
+(1, 2, 'suhangj@hotmail.com', '2', NULL, 19),
+(2, 3, 'suhangj@hotmail.com', NULL, NULL, NULL),
+(3, 2, 'suhangj@hotmail.com', NULL, NULL, 19),
+(4, 2, 'suhangj@hotmail.com', NULL, NULL, 19),
+(5, 4, 'laim@gmail.com', NULL, NULL, NULL),
+(6, 4, 'laim@gmail.com', NULL, NULL, NULL),
+(7, 4, 'laim@gmail.com', NULL, NULL, NULL),
+(8, 4, 'laim@gmail.com', NULL, NULL, 21),
+(9, 4, 'laim@gmail.com', NULL, NULL, NULL),
+(10, 4, 'laim@gmail.com', NULL, NULL, NULL),
+(11, 3, 'laim@gmail.com', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -166,23 +169,30 @@ CREATE TABLE `meeting` (
   `day` varchar(20) DEFAULT NULL,
   `time` time NOT NULL,
   `duration` int(11) NOT NULL,
-  `space_ava` int(11) NOT NULL DEFAULT '4'
+  `space_ava` int(11) NOT NULL DEFAULT '4',
+  `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `meeting`
 --
 
-INSERT INTO `meeting` (`meeting_id`, `type`, `tutor_id`, `day`, `time`, `duration`, `space_ava`) VALUES
-(3, 'tutor', 'Hang', 'Monday', '00:21:00', 12, 0),
-(4, 'tutor', 'Jerry', 'Monday', '14:23:00', 23, 4),
-(5, 'tutor', 'Jerry', 'Tuesday', '14:23:00', 23, 4),
-(6, 'tutor', 'Hang', 'Tuesday', '12:03:00', 12, 4),
-(13, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 0),
-(14, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 1),
-(15, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 4),
-(16, 'tutor', 'Hang', 'Thursday', '12:30:00', 30, 4),
-(17, 'tutor', 'Jerry', 'Friday', '12:30:00', 30, 4);
+INSERT INTO `meeting` (`meeting_id`, `type`, `tutor_id`, `day`, `time`, `duration`, `space_ava`, `date`) VALUES
+(3, 'tutor', 'Hang', 'Monday', '00:21:00', 12, 0, '0000-00-00'),
+(4, 'tutor', 'Jerry', 'Monday', '14:23:00', 23, 4, '0000-00-00'),
+(5, 'tutor', 'Jerry', 'Tuesday', '14:23:00', 23, 4, '0000-00-00'),
+(6, 'tutor', 'Hang', 'Tuesday', '12:03:00', 12, 4, '0000-00-00'),
+(13, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 0, '0000-00-00'),
+(14, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 1, '0000-00-00'),
+(15, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 4, '0000-00-00'),
+(16, 'tutor', 'Hang', 'Thursday', '12:30:00', 30, 4, '0000-00-00'),
+(17, 'tutor', 'Jerry', 'Friday', '12:30:00', 30, 4, '0000-00-00'),
+(18, 'tutor', 'Jerry', 'Monday', '13:30:00', 30, 4, '0000-00-00'),
+(19, 'demo', NULL, NULL, '12:34:00', 0, 4, '2018-05-11'),
+(20, 'demo', NULL, NULL, '15:59:00', 0, 4, '2018-05-14'),
+(21, 'demo', NULL, NULL, '13:30:00', 0, 4, '2018-05-11'),
+(22, 'demo', NULL, NULL, '16:23:00', 0, 4, '2018-05-11'),
+(23, 'tutor', 't1234567', 'Tuesday', '10:30:00', 30, 4, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -208,7 +218,8 @@ CREATE TABLE `project` (
 INSERT INTO `project` (`project_id`, `project_name`, `simple_description`, `space_available`, `out_line_link`, `difficulty_level`, `super_name`, `supervisor_email`) VALUES
 (1, 'final test', 'thisis a test, test only ', 4, 'hello.pdf', 'C', 'Hang Su', 'suhangj123@gmail.com'),
 (2, 'test 2', 'i am your supervisor, i am Henry, handsome boy', 3, 'hello.pdf', 'B', 'Henry Chen', 'henry123@gmail.com'),
-(3, 'new', 'kjdldijfvldif ne ]dsfpsdlk beb ksjd wleif wlekflj elirfjewj oekfeo', 4, 'nihao.pdf', 'B', 'hangsu', 'hangSu@gmail.com');
+(3, 'new', 'kjdldijfvldif ne ]dsfpsdlk beb ksjd wleif wlekflj elirfjewj oekfeo', 4, 'nihao.pdf', 'B', 'hangsu', 'abel@gmail.com'),
+(4, 'Inplace renew project', 'rewriting for current inplace system ', 4, '260wk01_18.pdf', 'A', 'Jerry Wang', 'jerry@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -217,12 +228,20 @@ INSERT INTO `project` (`project_id`, `project_name`, `simple_description`, `spac
 --
 
 CREATE TABLE `result` (
-  `student_id` varchar(10) DEFAULT NULL,
+  `username` varchar(10) NOT NULL,
   `assignment_id` varchar(255) DEFAULT NULL,
   `mark` decimal(5,2) DEFAULT NULL,
   `submission_date` datetime DEFAULT NULL,
-  `feedback_link` varchar(255) DEFAULT NULL
+  `submission_link` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `result`
+--
+
+INSERT INTO `result` (`username`, `assignment_id`, `mark`, `submission_date`, `submission_link`) VALUES
+('n9324665', '2', NULL, '2018-05-07 16:04:07', '260wk01_18.pdf'),
+('n9326448', '1', '5.00', '2018-05-24 00:00:00', '12345hello.phd');
 
 -- --------------------------------------------------------
 
@@ -248,8 +267,8 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`student_id`, `email_address`, `first_name`, `last_name`, `GPA`, `major`, `group_id`, `username`, `password`, `salt`) VALUES
-('1', 'suhangj@hotmail.com', 'James', 'Zheng', '5.20', 'CS', NULL, 'n9324665', 'd078aabd7822210b547f05d45411e1cfe8871b94b5b35841d35581e6471e4d1d', 'LoiMqxk'),
-('2', 'suhangj@gmail.com', 'Hang', 'Su', '5.00', 'CS', NULL, 'n9326448', 'd078aabd7822210b547f05d45411e1cfe8871b94b5b35841d35581e6471e4d1d', 'LoiMqxk');
+('1', 'suhangj@hotmail.com', 'James', 'Zheng', '5.20', 'CS', '1', 'n9324665', 'd078aabd7822210b547f05d45411e1cfe8871b94b5b35841d35581e6471e4d1d', 'LoiMqxk'),
+('2', 'suhangj@gmail.com', 'Hang', 'Su', '5.00', 'CS', '1', 'n9326448', 'd078aabd7822210b547f05d45411e1cfe8871b94b5b35841d35581e6471e4d1d', 'LoiMqxk');
 
 -- --------------------------------------------------------
 
@@ -325,7 +344,7 @@ ALTER TABLE `assignment`
 -- Indexes for table `coordinator`
 --
 ALTER TABLE `coordinator`
-  ADD PRIMARY KEY (`cordinator_id`);
+  ADD PRIMARY KEY (`coordinator_id`);
 
 --
 -- Indexes for table `group`
@@ -352,7 +371,8 @@ ALTER TABLE `project`
 -- Indexes for table `result`
 --
 ALTER TABLE `result`
-  ADD KEY `FK,PK` (`student_id`,`assignment_id`);
+  ADD PRIMARY KEY (`username`),
+  ADD KEY `FK,PK` (`username`,`assignment_id`);
 
 --
 -- Indexes for table `student`
@@ -381,13 +401,13 @@ ALTER TABLE `tutor`
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `application`
 --
 ALTER TABLE `application`
-  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `application_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `assignment`
@@ -405,13 +425,13 @@ ALTER TABLE `group`
 -- AUTO_INCREMENT for table `meeting`
 --
 ALTER TABLE `meeting`
-  MODIFY `meeting_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `meeting_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
