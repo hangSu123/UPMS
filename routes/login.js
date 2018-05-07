@@ -27,7 +27,7 @@ router.post('/', function(req, res, next) {
         page.push("tutor");
     }else if(username.substr(0,1) === 's'){
         portal = Supervisor;
-        page.push("supervisor");
+        page.push("superviser");
     }else if(username.substr(0,1) === 'c'){
         portal = Coordinator;
         page.push("coord");

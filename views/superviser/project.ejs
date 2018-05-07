@@ -7,16 +7,17 @@
     <meta name="author" content="">
   <!--  <link rel="icon" href="../../../../favicon.ico">-->
 
-    <title>Dashboard for students</title>
+    <title>Dashboard for supervisor</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../stylesheets/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!-- Custom styles for this template -->
-    <link href="../stylesheets/dashboard.css" rel="stylesheet">
-    <link rel="stylesheet" href="../stylesheets/style.css">
+    <link href="../../../stylesheets/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../stylesheets/style.css">
+    <link rel="stylesheet" href="../../../stylesheets/hangsuper.css">
   </head>
 
   <body>
@@ -48,62 +49,33 @@
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
 
 
-              <div class="panel">
-                 <div class="panel-title">
-                <span>Project Detail</span>
-              </div>
-              <div class="panel-body-all">
-                <div class="panel-body">
-                  <div class="panel-body-t link">
-                    Public trasport system intergreation
-                  </div>
-                  <div class="panel-body-t-score"><br>
-                    <p>Difficulty level: C</p>
-                    Supervisor: Jame Wang
-                  </div>
-                  <div class="panel-body-b">
-<pre> Lorem ipsum dolor sit amet, sapien etiam, nunc amet dolor ac odio mauris
-justo. Luctus arcu, urna praesent at id quisque ac. Arcu es massa vestibulum 
-malesuada, integer vivamus elit eu mauris eus, cum eros quis aliquam wisi. Nulla
- wisi laoreet suspendisse integer vivamus elit eu mauris hendrerit facilisi, mi 
- mattis pariatur aliquam pharetra eget.Lorem ipsum dolor sit amet, sapien etiam,
-  nunc amet dolor ac odio mauris justo. Luctus arcu, urna praesent at id quisque
-   ac. Arcu es massa vestibulum malesuada, integer vivamus elit eu mauris eus, 
-   cum eros quis aliquam wisi. Nulla wisi laoreet suspendisse integer vivamus 
-   elit eu mauris hendrerit facilisi, mi mattis pariatur aliquam pharetra eget.
+
+            <div class="panel">
+               <div class="panel-title">
+              <span>Project Details</span>
 
 
-IFB398:
-
-    * ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. 
-    Arcu es massa vestibulum malesuada
-
-    *ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. 
-    Arcu es massa vestibulum malesuada,
-
-    *ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. 
-    Arcu es massa vestibulum malesuada,
-
-
- IFB399:
-
-    * ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac.
-     Arcu es massa vestibulum malesuada
-
-    *ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac.
-     Arcu es massa vestibulum malesuada,
-    
-    *ac odio mauris justo. Luctus arcu, urna praesent at id quisque ac. 
-  Arcu es massa vestibulum malesuada,</pre>
-
-                  </div>
-                  <div class="panel-body-f">
-                    <span>Time:10/05/2018</span>
-                  </div>
-                </div>
-              </div>
             </div>
+            <div class="panel-body-all">
+              <div class="panel-body">
+                <div class="panel-body-t link">
+                <%= projectName %>
+               </div>
 
+
+
+
+                <div class="panel-body-t-score"><br>
+                </div>
+                <div class="panel-body-b">
+ <iframe id='iframe' src= '/superviser/project_detail/projectUploads/<%= filePath %>' onload='readfile()'> </iframe>
+
+                </div>
+
+              </div>
+
+            </div>
+          </div>
 
 
             <div class="panel">
@@ -112,40 +84,19 @@ IFB398:
                 <span>Applied Group:</span>
               </div>
               <div class="panel-body-all"  style="overflow: hidden;">
-                 <table width="80%" align="center">
-              <tr>
-                  <th>Group Number</th>
-                  <th>Application</th>
-                  <th>Preference</th>
-                  <th></th>
-
-              </tr>
-               <tr>
-                 <th>1</th>
-                  <th class="link">file</th>
-                  <th><input type="text" class="marks"></th>
-                  <th></th>
-
-              </tr>
-              <tr>
-                  <th>2</th>
-                  <th class="link">file</th>
-                  <th><input type="text" class="marks"></th>
-                  <th></th>
-
-              </tr>
-              <tr>
-                  <th>3</th>
-                  <th class="link">file</th>
-                  <th><input type="text" class="marks"></th>
-                  <th></th>
-
-              </tr>
-
+                  <table width="90%" align="center">
+                      <tr>
+                        <th>Group Number</th>
+                        <th>Application</th>
+                        <th>Preference</th>
+                        <th>Status</th>
+                        <th></th>
+        
+                      </tr>
+                      <tbody id="appliedGroups">
+                         
+                      </tbody>
             </table>
-
-
-            <button class="btn" style="float: right; margin-right: 10%;">SAVE</button>
               </div>
             </div>
 
@@ -156,13 +107,46 @@ IFB398:
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../stylesheets/popper.min.js"></script>
-    <script src="../stylesheets/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>
+      <script src="../../../javascripts/hangsuper.js"></script>
   </body>
+
+  <script>
+
+     function readfile() {
+        document.getElementById('iframe').contentDocument.body.firstChild.innerHTML;
+  }
+ 
+getApplication()
+
+  function getApplication(){
+  hs.getAjax({
+    url:'/superviser/project/getProjects/getApplication',
+    data:{
+      project_id:<%= projectId %>
+    },
+    succFn:function(res){
+      hs.text(hs.getId('appliedGroups'),res)
+    }
+  })
+}
+
+
+
+function save(self){
+  hs.getAjax({
+    url:'/superviser/projects/setPreference',
+    data:{
+      applicationId:self.getAttribute('id'),
+      mark:hs.getId(self.getAttribute('id')).value
+    },
+    succFn:function(res){
+      if (res == "succ"){
+        hs.toast('green',2,"Data Saved")
+      }
+    }
+  })
+}
+  </script>
 </html>
 
 
