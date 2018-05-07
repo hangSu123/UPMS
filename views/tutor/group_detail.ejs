@@ -1,121 +1,142 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
   <!--  <link rel="icon" href="../../../../favicon.ico">-->
 
-    <title>Dashboard for students</title>
+  <title>Dashboard for students</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Bootstrap core CSS -->
+
+  <div id="loader"></div>
+  <link href="../../../stylesheets/bootstrap.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <!-- Custom styles for this template -->
-    <link href="../stylesheets/dashboard.css" rel="stylesheet">
-    <link href="../stylesheets/style.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="../../../stylesheets/dashboard.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../../stylesheets/style.css">
+  <link rel="stylesheet" href="../../../stylesheets/hangsuper.css">
+</head>
 
-  </head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #114a81;">
+    <a class="navbar-brand" href="#">UPMS</a>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
 
-  <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #114a81;">
-      <a class="navbar-brand" href="#">UPMS</a>
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-
-          <div class="project-name">
-            <a href="#">University Project Management System</a>
-          </div>
-          <div class="welcome">
-            Welcome:
-            <span> Hang</span>
-            <span class="btn">sign out</span>
-          </div>
+      <div class="project-name">
+        <a href="../">University Project Management System</a>
       </div>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-         <nav class="col-sm-3 col-md-2 d-none d-sm-block sidebar" style="background-color: #666666;">
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="/tutor">Dashboard</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/tutor/project">Project</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/tutor/tutgroups">Groups</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/tutor/tutmeeting">Meeting Time</a>
-            </li>
-
-          </ul>
-          <hr>
-
-          <ul class="nav nav-pills flex-column">
-
-            <li class="nav-item">
-              <a class="nav-link" href="/tutor/tutcontact">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/tutor/tutprofile">Profile</a>
-            </li>
-          </ul>
-
-        </nav>
+      <div class="welcome">
+        Welcome:
+        <span id ="userId"> Hang</span>
+        <span id ="logout" class="btn">sign out</span>
       </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+  <div class="row">
+     <nav class="col-sm-3 col-md-2 d-none d-sm-block sidebar" style="background-color: #666666;">
+    <ul class="nav nav-pills flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="/tutor">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/tutor/project">Project</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/tutor/tutgroups">Groups</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/tutor/tutmeeting">Meeting Time</a>
+      </li>
+
+    </ul>
+    <hr>
+
+    <ul class="nav nav-pills flex-column">
+
+      <li class="nav-item">
+        <a class="nav-link" href="/tutor/tutcontact">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/tutor/tutprofile">Profile</a>
+      </li>
+    </ul>
+
+  </nav>
+
+  </div>
 
       <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-        <div class="panel" style="height: 500px;">
-                      <div class="panel-title">
-                        <span>Group 1</span>
-                      </div>
-                      <table style="width:100%">
-  <tr>
-    <th>Student Number</th>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>Self reflection</th>
-  </tr>
-  <tr>
-    <td>N*******</td>
-    <td>Jill</td>
-    <td>Smith</td>
-    <td><a href="selfreflection">Link</a></td>
-  </tr>
-  <tr>
-    <td>N*******</td>
-    <td>Eve</td>
-    <td>Jackson</td>
-    <td><a href="selfreflection">Link</a></td>
-  </tr>
-  <tr>
-    <td>N*******</td>
-    <td>John</td>
-    <td>Doe</td>
-    <td><a href="selfreflection">Link</a></td>
-  </tr>
-</table>
 
-            </div>
+
+        <div class="panel">
+          <div class="panel-title">
+            <span>Group
+              <%= id %>
+            </span>
+          </div>
+          <div class="panel-body-all" style="text-align: center; padding: 20px; ">
+            <table width="80%" align="center">
+              <tr>
+                <th>Student Number</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Major</th>
+                <th>GPA</th>
+                <th></th>
+              </tr>
+              <tbody id="memberDatail">
+
+              </tbody>
+
+
+            </table>
+          </div>
+        </div>
+
+
       </main>
-
-
     </div>
+  </div>
 
-    <!-- Bootstrap core JavaScript
+  <!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../stylesheets/popper.min.js"></script>
-    <script src="../stylesheets/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../stylesheets/ie10-viewport-bug-workaround.js"></script>
-  </body>
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+  <script src="../../../javascripts/hangsuper.js"></script>
+  <script src="../../../javascripts/signin.js"></script>
+  <script>
+
+
+
+    var groupId = <%= id %>;
+    localStorage.setItem('places',<%= places %>);
+    getGroupMember(groupId);
+
+    function getGroupMember(id) {
+      hs.getAjax({
+        url: '/tutor/tutgroups/groups_detail/groupMember',
+        data: {
+          id: id
+        },
+        succFn: function (res) {
+          hs.text(hs.getId('memberDatail'), res);
+        }
+
+      })
+    }
+
+
+  </script>
+</body>
+
 </html>

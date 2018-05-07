@@ -3,7 +3,7 @@ var db = require('../db'),
     Sequelize = db.Sequelize;
 
 var Tutor = sequelize.define('tutor',  {
-                    supervisor_id: {
+                    tutor_id: {
                         type: Sequelize.INTEGER,
                         allowNull: false,
                         primaryKey: true,

@@ -8,7 +8,7 @@ function con(){
 	  host: "localhost",
 	  user: "root",
 	  password: "root",//Ifb399!@
-	  port:"8889",
+	  port:"3307",
 	  database: "UPMS"
 	});
 

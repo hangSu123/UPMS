@@ -3,7 +3,7 @@ var Sequelize = require('sequelize');
 var sequelize = new Sequelize('upms', 'root', 'root', {
     host: 'localhost',
     dialect: 'mysql',
-    port:'8889',
+    port:'3307',
     logging: false,
     define: {
         timestamps: false

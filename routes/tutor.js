@@ -90,6 +90,10 @@ router.get('/project_detail/:projectId', function(req, res, next) {
 
 
 });
+
+
+
+
 function projectTemp(projectId,projectName,level,superName,description){
 
         var projectTemp = "";
@@ -108,10 +112,55 @@ function projectTemp(projectId,projectName,level,superName,description){
         return projectTemp;
     }
 
+function groupTemp(id,available_place,tutor){
+  var groupTemp = "";
+    groupTemp = '<tr>\
+               <th><a href="/tutor/tutgroups/groups_detail/'+id+'">'+id+'</a></th>\
+                <th>'+available_place+'</th>\
+                <th>'+tutor+'</th>\
+              </tr>';
+  return groupTemp;
+
+}
 
 
+router.get('/tutgroups/getGroups/:userId', function(req, res, next) {
+  if (req.xhr){
+         var user = req.params.userId;
+    connect().connect(function(err) {
+      if (err) res.send('0');
+        var sql = "SELECT * FROM `group` WHERE tutor_email = (SELECT email_address From `tutor` where username = '"+user+"') ORDER BY group_id DESC"
+        connect().query(sql,function(err,results){
+          if (err) res.send('1');
+          var temp ="";
+          for (var i = results.length - 1; i >= 0; i--) {
+            temp += groupTemp(results[i].group_id,results[i].available_place,results[i].tutor_email);
+          }
+          res.send(temp);
+        })
+      });
 
+  }
+  else {
+  res.send("Page not avalible");
+ }
+});
 
+router.get('/tutgroups/groups_detail/:id', function(req, res, next) {
+  connect().connect(function(err) {
+    if (err) console.log(err);
+      var sql = "SELECT * FROM `group` WHERE group_id= '"+req.params.id+"'";
+      connect().query(sql,function(err,results){
+        if (err) console.log(err);
+        var places = "";
+        for (var i = results.length - 1; i >= 0; i--) {
+          places = results[i].available_place;
+        }
+        res.render('tutor/group_detail',{id:req.params.id,places:places});
+        })
+    });
+
+});
 
 
 
