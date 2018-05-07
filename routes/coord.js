@@ -704,7 +704,7 @@ router.get('/assessments/assessment_detail/studentMark/:id',function(req,res,nex
         if (err) res.send('1');
         var temp ="";
         for (var i = results.length - 1; i >= 0; i--) {
-          temp += resultsTemp(results[i].username,results[i].group_id,results[i].feedback_link,results[i].mark,req.params.id);
+          temp += resultsTemp(results[i].username,results[i].group_id,results[i].submission_link,results[i].mark,req.params.id);
         }
         res.send(temp);           
       })
@@ -727,7 +727,7 @@ router.get('/assessments/assessment_detail/saveMark/:username/:assignmentId/:mar
 
 
 router.get('/student/:name', function(req, res){
-  fs.readFile(__dirname + "/../workUploads/"+req.params.name+"", function (err,data){
+  fs.readFile(__dirname + "/../selfreflectionUploads/"+req.params.name+"", function (err,data){
       res.contentType("application/pdf");
       res.send(data);
   });

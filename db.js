@@ -1,9 +1,9 @@
 var Sequelize = require('sequelize');
 
-var sequelize = new Sequelize('upms', 'root', 'root', {
+var sequelize = new Sequelize('upms', 'root', '', {
     host: 'localhost',
     dialect: 'mysql',
-    port:'3307',
+    port:'3306',
     logging: false,
     define: {
         timestamps: false

@@ -319,7 +319,7 @@ router.get('/group/getDetail/:id/:userId',function(req,res,next){
 
       connect().connect(function(err) {
         if (err) console.log(err);
-        var sql = "INSERT INTO `result` (student_id,submission_date, submission_link)\
+        var sql = "INSERT INTO `result` (username,submission_date, submission_link)\
         VALUES ('"+student+"',CURRENT_TIMESTAMP,'"+fileName+"')";
         connect().query(sql,function(err,result){
           console.log(result);
