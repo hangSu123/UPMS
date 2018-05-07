@@ -8,7 +8,7 @@
     <meta name="author" content="">
   <!--  <link rel="icon" href="../../../../favicon.ico">-->
 
-    <title>Dashboard for students</title>
+    <title>Dashboard for tutor</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
@@ -18,7 +18,35 @@
     <!-- Custom styles for this template -->
     <link href="../stylesheets/dashboard.css" rel="stylesheet">
     <link href="../stylesheets/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../stylesheets/hangsuper.css">
   </head>
+
+  <style>
+    .free{
+      background:cadetblue;
+    }
+    .registed{
+      background: red;
+    }
+    th{
+      height:auto;
+    }
+    th div{
+      display:block;
+      margin-bottom: 5px;
+      min-height:50px;
+      width:100%;
+      text-align:left;
+    }
+
+   th div span{
+    color:#ffffff;
+    font-size:12px;
+    display: block;
+    padding:2px;
+  }
+
+  </style>
 
   <body>
 
@@ -27,31 +55,31 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
 
           <div class="project-name">
-            <a href="#">University Project Management System</a>
+              <a href="../">University Project Management System</a>
           </div>
           <div class="welcome">
             Welcome:
-            <span> Hang</span>
-            <span class="btn">sign out</span>
+            <span id="userId"> Hang</span>
+            <span id="logout" class="btn">sign out</span>
           </div>
       </div>
     </nav>
 
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-sm-3 col-md-2 d-none d-sm-block sidebar" style="background-color: #666666;">
+        <div class="container-fluid">
+        <div class="row">
+           <nav class="col-sm-3 col-md-2 d-none d-sm-block sidebar" style="background-color: #666666;">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
               <a class="nav-link" href="/tutor">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/tutor/project">Project</a>
+              <a class="nav-link active" href="/tutor/project">Project</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/tutor/tutgroups">Groups</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/tutor/tutmeeting">Meeting Time</a>
+              <a class="nav-link" href="/tutor/tutmeeting">Meeting Time</a>
             </li>
 
           </ul>
@@ -69,132 +97,125 @@
 
         </nav>
 
-      </div>
+        </div>
 
       <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
 
-          <div class="panel" style="height:auto;">
+        <div class="panel">
             <div class="panel-title">
-              <span>Time table</span>
+              <span>Time Table</span>
             </div>
-            <div class="panel-body-all">
-              <table width="80%" align="center" >
+            <div class="panel-body-all" style="overflow: hidden;">
+                <table width="80%" align="center" >
+                    <tr>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                    </tr>
+                    <tbody id="timeSlots">
 
-              <tr>
-                  <th></th>
-                  <th>Monday</th>
-                  <th>Tuesday</th>
-                  <th>Wednesday</th>
-                  <th>Thrusday</th>
-                  <th>Friday</th>
+                    </tbody>
 
-              </tr>
 
-              <tr>
-                  <th>8:00 - 9:00</th>
 
-                      <td></td>
-                      <td><a href="group1">Group1</a></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>9:00 - 10:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>10:00 - 11:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>Group 3</td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>11:00 - 12:00</td>
-
-                      <td>Group11</td>
-                      <td>Group1</td>
-                      <td></td>
-                      <td>Group4</td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>12:00 - 13:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td>Group6</td>
-                      <td></td>
-                      <td></td>
-              </tr>
-              <tr>
-                  <th>13:00 - 14:00</td>
-
-                      <td>Status Free</td>
-                      <td>Status Free</td>
-                      <td></td>
-                      <td>Group 5</td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>14:00 - 15:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td>Group 7</td>
-                      <td></td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>15:00 - 16:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-              </tr>
-
-              <tr>
-                  <th>16:00 - 17:00</td>
-
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-              </tr>
-              <tr>
-                  <th>17:00 - 18:00</td>
-
-                      <td>Status Free</td>
-                      <td>Status Free</td>
-                      <td></td>
-                      <td>Status Free</td>
-                      <td></td>
-              </tr>
-          </table>
+                  </table>
             </div>
-
-          </div>
+        </div>
     </main>
 
     </div>
 
 
   </body>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+  <script src="../javascripts/hangsuper.js"></script>
+  <script src="../javascripts/signin.js"></script>
+  <script>
+
+
+      var add_btn = hs.getId('btn');
+      var error = hs.getClassName('error');
+      var inputs = hs.getTagName('input');
+      var tutor = hs.getTagName('select');
+
+
+
+      getTimeSlots();
+      getTutor();
+
+
+
+      function getTimeSlots(){
+        hs.getAjax({
+          url:'/coord/meeting/getTimeSlots',
+          data:{
+            userId:localStorage.getItem('userId')
+          },
+          succFn:function(res){
+            hs.text(hs.getId('timeSlots'),res);
+          }
+        })
+      }
+
+      hs.click(add_btn,function(){
+
+        var time  = inputs[0].value;
+        var duration = inputs[1].value;
+        error[0].style.display="none";
+        error[1].style.display="none";
+        error[2].style.display="none";
+        error[3].style.display="none";
+        if(hs.isEmpty(tutor[0].value)){
+          error[0].style.display="block";
+          return;
+        }
+        if(hs.isEmpty(time)){
+          error[1].style.display="block";
+          return;
+        }
+        if(hs.isEmpty(duration)){
+          error[2].style.display="block";
+          return;
+        }
+        if(hs.isEmpty(tutor[1].value)){
+          error[3].style.display="block";
+          return;
+        }
+
+
+        hs.getAjax({
+          url:'/coord/meeting/createMeeting',
+          data:{
+            day:tutor[0].value,
+            time:time,
+            duration:duration,
+            tutor:tutor[1].value
+          },
+          succFn:function(res){
+            if (res === 'succ'){
+              hs.toast('green',2,'Time created');
+              getTimeSlots();
+            }else{
+              hs.toast('red',2,'Fail');
+            }
+          }
+        })
+      })
+
+
+      function getTutor(){
+        hs.getAjax({
+          url:'/coord/meeting/getTutor',
+          data:{
+            userId:localStorage.getItem('userId')
+          },
+          succFn:function(res){
+            hs.text(hs.getId('tutor_name'),res)
+          }
+        })
+      }
+  </script>
 </html>
