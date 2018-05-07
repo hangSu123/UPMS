@@ -9,7 +9,7 @@ var Supervisor = sequelize.define('supervisor',  {
                         primaryKey: true,
                         autoIncrement: true},
                     email_Address: {
-                        type: Sequelize.INTEGER,
+                        type: Sequelize.STRING,
                         allowNull: false },
                     first_name: {
                         type: Sequelize.STRING,

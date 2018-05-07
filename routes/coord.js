@@ -366,7 +366,7 @@ router.get('/meeting/getTimeSlots/:userId',function(req, res, next){
     var userId = req.params.userId;
     connect().connect(function(err){
       if (err) console.log(err);
-        var sql = "SELECT * FROM `meeting` WHERE type = 'tutor' order by time DESC";
+        var sql = "SELECT * FROM `meeting`, `tutor` WHERE type = 'tutor' and meeting.tutor_id = tutor.username order by meeting.time DESC";
         connect().query(sql,function(err,result){
           if (err) console.log(err);
             var temp = "";
@@ -379,15 +379,15 @@ router.get('/meeting/getTimeSlots/:userId',function(req, res, next){
             var tempe= "</th></tr>";
             for (var i = result.length - 1; i >= 0; i--) {
               if (result[i].day == "Monday"){
-                 tempM += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+                 tempM += timeSlotTemp(result[i].last_name,result[i].time,result[i].duration,result[i].space_ava)
               }if (result[i].day == "Tuesday"){
-                tempT += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+                tempT += timeSlotTemp(result[i].last_name,result[i].time,result[i].duration,result[i].space_ava)
               }if (result[i].day == "Wednesday"){
-                tempW += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+                tempW += timeSlotTemp(result[i].last_name,result[i].time,result[i].duration,result[i].space_ava)
               }if (result[i].day == "Thursday"){
-                tempTh += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+                tempTh += timeSlotTemp(result[i].last_name,result[i].time,result[i].duration,result[i].space_ava)
               }if (result[i].day == "Friday"){
-                tempF += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+                tempF += timeSlotTemp(result[i].last_name,result[i].time,result[i].duration,result[i].space_ava)
               }
             }
             temp = temps+tempM+tempT+tempW+tempTh+tempF+tempe;
@@ -421,6 +421,29 @@ router.get('/meeting/createMeeting/:day/:time/:duration/:tutor', function(req, r
     res.send("Page not avalible");
   }
 });
+
+
+
+router.get('/meeting/getTutor/:userId', function(req, res, next){
+  if (req.xhr){  
+    connect().connect(function(err) {
+    if (err) res.send("0");
+      var sql = "SELECT * FROM `tutor`";
+      connect().query(sql,function(err,results){
+        if (err) console.log(err);
+        var temp = ""
+        for (var i = results.length - 1; i >=0; i--){
+          temp += '<option value="'+results[i].username+'">'+results[i].last_name+'</option>'
+        }
+        console.log(temp);
+        res.send(temp);
+      })
+    });
+
+  }else{
+    res.send("Page not avalible");
+  }
+})
 
 
 ///Ends team meeting functions

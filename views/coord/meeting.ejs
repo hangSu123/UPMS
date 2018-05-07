@@ -208,7 +208,7 @@
                   </div>
                   <div class="input_row">
                     <label>Assign To:</label>
-                    <select>
+                    <select id="tutor_name">
                       <option value="Hang">Hang</option>
                       <option value="Jerry">Jerry</option>
                     </select>
@@ -245,6 +245,7 @@
 
 
         getTimeSlots();
+        getTutor();
 
 
 
@@ -304,6 +305,19 @@
             }
           })
         })
+
+
+        function getTutor(){
+          hs.getAjax({
+            url:'/coord/meeting/getTutor',
+            data:{
+              userId:localStorage.getItem('userId')
+            },
+            succFn:function(res){
+              hs.text(hs.getId('tutor_name'),res)
+            }
+          })
+        }
     </script>
   </body>
 </html>

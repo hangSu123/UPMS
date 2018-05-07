@@ -9,7 +9,7 @@ var Coordinator = sequelize.define('coordinator',  {
                         primaryKey: true,
                         autoIncrement: true},
                     coordinator_email_Address: {
-                        type: Sequelize.INTEGER,
+                        type: Sequelize.STRING,
                         allowNull: false },
                     first_name: {
                         type: Sequelize.STRING,
