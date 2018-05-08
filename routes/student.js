@@ -426,15 +426,15 @@ router.get('/meeting/getTimeSlots/:userId',function(req, res, next){
             var tempe= "</th></tr>";
             for (var i = result.length - 1; i >= 0; i--) {
               if (result[i].day == "Monday"){
-                 tempM += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+                 tempM += timeSlotTemp(result[i].meeting_id,result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
               }if (result[i].day == "Tuesday"){
-                tempT += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+                tempT += timeSlotTemp(result[i].meeting_id,result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
               }if (result[i].day == "Wednesday"){
-                tempW += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+                tempW += timeSlotTemp(result[i].meeting_id,result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
               }if (result[i].day == "Thursday"){
-                tempTh += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+                tempTh += timeSlotTemp(result[i].meeting_id,result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
               }if (result[i].day == "Friday"){
-                tempF += timeSlotTemp(result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
+                tempF += timeSlotTemp(result[i].meeting_id,result[i].tutor_id,result[i].time,result[i].duration,result[i].space_ava)
               }
             }
             temp = temps+tempM+tempT+tempW+tempTh+tempF+tempe;
@@ -536,6 +536,41 @@ router.get('/presentation/getTimeSlots/addMeeting/:userId/:demo_meeting_id', fun
 
 
 
+
+router.get('/tutorMeeting/getTimeSlots/addMeeting/:userId/:meeting_id', function(req, res, next) {
+  if (req.xhr){
+    connect().connect(function(err) {
+    if (err) console.log(err);
+    var sql = "SELECT group_id FROM `student` WHERE username = '"+req.params.userId+"'";
+    connect().query(sql,function(err,result){
+      if (err) console.log(err);
+      if (result == "" || result == null || result == undefined){
+        res.send("noGroup")
+      }else{
+        var sql = "SELECT * FROM `group` WHERE group_id = (SELECT group_id FROM `student` WHERE username = '"+req.params.userId+"')";
+        console.log(sql)
+        connect().query(sql,function(err,result){
+          if (err) console.log(err);
+          if (result[0].meeting_id == "" || result[0].meeting_id == null || result[0].meeting_id == undefined){
+            var sql = "UPDATE `group` SET meeting_id = '"+req.params.meeting_id+"' WHERE group_id = (SELECT group_id FROM `student` WHERE username = '"+req.params.userId+"')";
+            connect().query(sql,function(err,result){
+              if (err) console.log(err);
+              res.send("succ");
+            })
+          }else{
+            res.send("already");
+          }
+        })
+      }
+    })
+    });
+  } else {
+   res.send("Page not avalible");
+  }
+});
+
+
+
 router.get('/presentation/getTimeSlots/getMyTime/:userId', function(req, res, next) {
   if (req.xhr){
     connect().connect(function(err) {
@@ -568,6 +603,40 @@ router.get('/presentation/getTimeSlots/getMyTime/:userId', function(req, res, ne
   }
 });
 
+
+
+
+router.get('/tutorMeeting/getTimeSlots/getMyTime/:userId', function(req, res, next) {
+  if (req.xhr){
+    connect().connect(function(err) {
+    if (err) console.log(err);
+      var sql = "SELECT * FROM `group`,`meeting` WHERE group.meeting_id = meeting.meeting_id and group_id = (SELECT group_id FROM `student` WHERE username = '"+req.params.userId+"')";
+      connect().query(sql,function(err,result){
+        if (err) console.log(err);
+        var temp = "";
+        if (result == "" || result == null || result == undefined){
+          temp = "Please register a time"
+        }else{
+           temp ='<div class="input_row">\
+                      <label>Day:</label>\
+                      <input type="text" value = "'+result[0].day+'" disabled>\
+                  </div>\
+                  <div class="input_row">\
+                      <label>Time:</label>\
+                      <input type="text" value = "'+result[0].time+'" disabled>\
+                  </div>\
+                  <div class="input_row">\
+                      <label>Duration:</label>\
+                      <input type="text"  value = "'+result[0].duration+'" disabled>\
+                  </div>';
+        }
+        res.send(temp);
+      })
+    });
+  } else {
+   res.send("Page not avalible");
+  }
+});
 
 
 function presentationTimeTemp(meetingId,time,section){
@@ -651,7 +720,7 @@ function getAppliedProjects(projectname){
   return getAppliedProjects;
 }
 
-function timeSlotTemp(tutor,time,duration,status){
+function timeSlotTemp(id,tutor,time,duration,status){
   var classes = "registed";
   if (status > 0){
     status = status + ' groups left';
@@ -660,7 +729,7 @@ function timeSlotTemp(tutor,time,duration,status){
     status = "Registed"
   }
   var timeSlotTemp= "";
-  timeSlotTemp = '<div class ="link ' + classes +'">\
+  timeSlotTemp = '<div onclick = "registerTime(this)" id = "'+id+'" class ="link ' + classes +'">\
                     <span>Tutor: '+tutor+'</span>\
                     <span>Time:'+time+'</span>\
                     <span>'+status+'</span>\

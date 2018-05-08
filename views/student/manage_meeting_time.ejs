@@ -130,6 +130,18 @@
                   </table>
             </div>
         </div>
+
+
+
+        <div class="panel">
+            <div class="panel-title">
+              <span>My tutor meeting Time</span>
+            </div>
+            <div class="panel-body-all" id = "myTime" tyle="overflow: hidden;">
+                
+            </div>
+        </div>
+
         </main>
 
       </div>
@@ -150,6 +162,7 @@
 <script>
   console.log(localStorage.getItem("userId"));
   getTimeSlots();
+  getMyTime();
 
 
   function getTimeSlots(){
@@ -162,6 +175,40 @@
         hs.text(hs.getId('timeSlots'),res);
       }
     })
+  }
+
+
+  function getMyTime(){
+        hs.getAjax({
+          url:'/student/tutorMeeting/getTimeSlots/getMyTime',
+          data:{
+            userId:localStorage.getItem('userId')
+          },
+          succFn:function(res){
+            hs.text(hs.getId('myTime'),res);
+          }
+        })
+      }
+
+  function registerTime(self){
+    var meeting_id = self.getAttribute('id');
+    hs.getAjax({
+      url:'/student/tutorMeeting/getTimeSlots/addMeeting',
+          data:{
+            userId:localStorage.getItem('userId'),
+            meeting_id:meeting_id
+          },
+          succFn:function(res){
+            if(res == "already"){
+              hs.toast("red",2,"Your group have already registed a meeting time");
+            }else if(res == "noGroup"){
+              hs.toast("red",2,"Your have not registed in any group yet");
+            }else if(res == "succ"){
+              hs.toast("green",2,"Registed");
+              getMyTime();
+            }
+          }
+        })
   }
 
 
