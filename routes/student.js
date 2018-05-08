@@ -506,11 +506,28 @@ router.get('/presentation/getTimeSlots/addMeeting/:userId/:demo_meeting_id', fun
   if (req.xhr){
     connect().connect(function(err) {
     if (err) console.log(err);
-      var sql = "UPDATE `group` SET demo_meeting_id = '"+req.params.demo_meeting_id+"' WHERE group_id = (SELECT group_id FROM `student` WHERE username = '"+req.params.userId+"')";
-      connect().query(sql,function(err,result){
-        if (err) console.log(err);
-        res.send("succ");
-      })
+    var sql = "SELECT group_id FROM `student` WHERE username = '"+req.params.userId+"'";
+    connect().query(sql,function(err,result){
+      if (err) console.log(err);
+      if (result == "" || result == null || result == undefined){
+        res.send("noGroup")
+      }else{
+        var sql = "SELECT * FROM `group` WHERE group_id = (SELECT group_id FROM `student` WHERE username = '"+req.params.userId+"')";
+        console.log(sql)
+        connect().query(sql,function(err,result){
+          if (err) console.log(err);
+          if (result[0].demo_meeting_id == "" || result[0].demo_meeting_id == null || result[0].demo_meeting_id == undefined){
+            var sql = "UPDATE `group` SET demo_meeting_id = '"+req.params.demo_meeting_id+"' WHERE group_id = (SELECT group_id FROM `student` WHERE username = '"+req.params.userId+"')";
+            connect().query(sql,function(err,result){
+              if (err) console.log(err);
+              res.send("succ");
+            })
+          }else{
+            res.send("already");
+          }
+        })
+      }
+    })
     });
   } else {
    res.send("Page not avalible");
@@ -526,7 +543,24 @@ router.get('/presentation/getTimeSlots/getMyTime/:userId', function(req, res, ne
       var sql = "SELECT * FROM `group`,`meeting` WHERE group.demo_meeting_id = meeting.meeting_id and group_id = (SELECT group_id FROM `student` WHERE username = '"+req.params.userId+"')";
       connect().query(sql,function(err,result){
         if (err) console.log(err);
-        res.send(sqlToJsDate(JSON.stringify(result[0].date))+" "+result[0].time);
+        var temp = "";
+        if (result == "" || result == null || result == undefined){
+          temp = "Please register a time"
+        }else{
+           temp ='<div class="input_row">\
+                      <label>Date:</label>\
+                      <input type="text" value = "'+sqlToJsDate(JSON.stringify(result[0].date))+'" disabled>\
+                  </div>\
+                  <div class="input_row">\
+                      <label>Time:</label>\
+                      <input type="text" value = "'+result[0].time+'" disabled>\
+                  </div>\
+                  <div class="input_row">\
+                      <label>Room:</label>\
+                      <input type="text"  value = "'+result[0].room_num+'" disabled>\
+                  </div>';
+        }
+        res.send(temp);
       })
     });
   } else {

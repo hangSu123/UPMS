@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2018 at 01:10 AM
+-- Generation Time: May 08, 2018 at 03:17 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -144,7 +144,7 @@ CREATE TABLE `group` (
 --
 
 INSERT INTO `group` (`group_id`, `available_place`, `tutor_email`, `project_id`, `meeting_id`, `demo_meeting_id`) VALUES
-(1, 2, 'suhangj@hotmail.com', '2', NULL, 19),
+(1, 2, 'suhangj@hotmail.com', '2', NULL, 22),
 (2, 3, 'suhangj@hotmail.com', NULL, NULL, NULL),
 (3, 2, 'suhangj@hotmail.com', NULL, NULL, 19),
 (4, 2, 'suhangj@hotmail.com', NULL, NULL, 19),
@@ -170,29 +170,30 @@ CREATE TABLE `meeting` (
   `time` time NOT NULL,
   `duration` int(11) NOT NULL,
   `space_ava` int(11) NOT NULL DEFAULT '4',
-  `date` date NOT NULL
+  `date` date NOT NULL,
+  `room_num` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `meeting`
 --
 
-INSERT INTO `meeting` (`meeting_id`, `type`, `tutor_id`, `day`, `time`, `duration`, `space_ava`, `date`) VALUES
-(3, 'tutor', 'Hang', 'Monday', '00:21:00', 12, 0, '0000-00-00'),
-(4, 'tutor', 'Jerry', 'Monday', '14:23:00', 23, 4, '0000-00-00'),
-(5, 'tutor', 'Jerry', 'Tuesday', '14:23:00', 23, 4, '0000-00-00'),
-(6, 'tutor', 'Hang', 'Tuesday', '12:03:00', 12, 4, '0000-00-00'),
-(13, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 0, '0000-00-00'),
-(14, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 1, '0000-00-00'),
-(15, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 4, '0000-00-00'),
-(16, 'tutor', 'Hang', 'Thursday', '12:30:00', 30, 4, '0000-00-00'),
-(17, 'tutor', 'Jerry', 'Friday', '12:30:00', 30, 4, '0000-00-00'),
-(18, 'tutor', 'Jerry', 'Monday', '13:30:00', 30, 4, '0000-00-00'),
-(19, 'demo', NULL, NULL, '12:34:00', 0, 4, '2018-05-11'),
-(20, 'demo', NULL, NULL, '15:59:00', 0, 4, '2018-05-14'),
-(21, 'demo', NULL, NULL, '13:30:00', 0, 4, '2018-05-11'),
-(22, 'demo', NULL, NULL, '16:23:00', 0, 4, '2018-05-11'),
-(23, 'tutor', 't1234567', 'Tuesday', '10:30:00', 30, 4, '0000-00-00');
+INSERT INTO `meeting` (`meeting_id`, `type`, `tutor_id`, `day`, `time`, `duration`, `space_ava`, `date`, `room_num`) VALUES
+(3, 'tutor', 'Hang', 'Monday', '00:21:00', 12, 0, '0000-00-00', NULL),
+(4, 'tutor', 'Jerry', 'Monday', '14:23:00', 23, 4, '0000-00-00', NULL),
+(5, 'tutor', 'Jerry', 'Tuesday', '14:23:00', 23, 4, '0000-00-00', NULL),
+(6, 'tutor', 'Hang', 'Tuesday', '12:03:00', 12, 4, '0000-00-00', NULL),
+(13, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 0, '0000-00-00', NULL),
+(14, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 1, '0000-00-00', NULL),
+(15, 'tutor', 'Hang', 'Wednesday', '12:30:00', 30, 4, '0000-00-00', NULL),
+(16, 'tutor', 'Hang', 'Thursday', '12:30:00', 30, 4, '0000-00-00', NULL),
+(17, 'tutor', 'Jerry', 'Friday', '12:30:00', 30, 4, '0000-00-00', NULL),
+(18, 'tutor', 'Jerry', 'Monday', '13:30:00', 30, 4, '0000-00-00', NULL),
+(19, 'demo', NULL, NULL, '12:34:00', 0, 4, '2018-05-11', 'm123'),
+(20, 'demo', NULL, NULL, '15:59:00', 0, 4, '2018-05-14', '234'),
+(21, 'demo', NULL, NULL, '13:30:00', 0, 4, '2018-05-11', 't123'),
+(22, 'demo', NULL, NULL, '16:23:00', 0, 4, '2018-05-11', 's303'),
+(23, 'tutor', 't1234567', 'Tuesday', '10:30:00', 30, 4, '0000-00-00', NULL);
 
 -- --------------------------------------------------------
 
